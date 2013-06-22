@@ -9,6 +9,7 @@ gem 'pg'
 gem 'puma'
 gem 'turbolinks'
 gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development do
   gem 'pry-nav'
