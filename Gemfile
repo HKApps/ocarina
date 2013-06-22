@@ -6,10 +6,9 @@ gem 'rails', '4.0.0.rc2'
 gem 'figaro'
 gem 'jbuilder', '~> 1.2'
 gem 'pg'
-#gem 'puma'
+gem 'puma'
 gem 'turbolinks'
 gem 'omniauth'
-gem 'thin'
 gem 'omniauth-facebook'
 
 group :development do
