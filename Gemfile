@@ -7,6 +7,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'pg'
 gem 'puma'
 gem 'turbolinks'
+gem 'omniauth'
 
 group :development do
   gem 'pry-nav'
