@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0.rc2'
 
+gem 'figaro'
 gem 'jbuilder', '~> 1.2'
 gem 'pg'
 gem 'puma'
