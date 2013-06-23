@@ -44,6 +44,13 @@ GEM
     figaro (0.6.4)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    haml (4.0.3)
+      tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -146,6 +153,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   figaro
+  haml-rails
   jbuilder (~> 1.2)
   jquery-rails
   omniauth

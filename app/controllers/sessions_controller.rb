@@ -9,20 +9,19 @@ class SessionsController < ApplicationController
     if @authorization
       render :text => "Welcome back! You have already signed up."
     else
-      user = User.new first_name: auth_hash["user_info"]["first_name"], last_name: auth_hash["user_info"]["last_name"], email: auth_hash["user_info"]["email"], image: auth_hash["user_info"]["image"].gsub("=square", "=large")
+      user = User.new first_name: auth_hash["info"]["first_name"], last_name: auth_hash["info"]["last_name"], email: auth_hash["info"]["email"], image: auth_hash["info"]["image"].gsub("=square", "=large")
       user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
       user.save
       session[:user_id] = user.id
-
-      render text: auth_hash.inspect
+      render :text => "Your account has been created."
     end
-
-    def failure
-    end
-
-    def destroy
-      session[:user_id] = nil
-      render text: "You've logged out"
-    end"
-
   end
+
+  def failure
+  end
+
+  def destroy
+    session[:user_id] = nil
+    render text: "You've logged out"
+  end
+end
