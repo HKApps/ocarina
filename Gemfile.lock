@@ -36,6 +36,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    dropbox-api (0.3.2)
+      hashie
+      multi_json
+      oauth
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -72,6 +76,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.7)
     multipart-post (1.2.0)
+    oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -81,8 +86,13 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-dropbox (0.2.0)
+      omniauth-oauth (~> 1.0)
     omniauth-facebook (1.4.1)
       omniauth-oauth2 (~> 1.1.0)
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -152,11 +162,13 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  dropbox-api
   figaro
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
   omniauth
+  omniauth-dropbox
   omniauth-facebook
   pg
   pry-nav
