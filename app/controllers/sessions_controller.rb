@@ -3,18 +3,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    auth_hash = request.env['omniauth.auth']
-
-    @authorization = Authorization.find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"])
-    if @authorization
-      session[:user_id] = @authorization.user_id
-      render :text => "Welcome back! You have already signed up."
+    auth = Authentication.new(request.env['omniauth.auth'])
+    if auth.authenticated?
+      session[:user_id] = auth.user.id
+      render :text => "Logged in!"
     else
-      user = User.new first_name: auth_hash["info"]["first_name"], last_name: auth_hash["info"]["last_name"], email: auth_hash["info"]["email"], image: auth_hash["info"]["image"].gsub("=square", "=large")
-      user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
-      user.save
-      session[:user_id] = user.id
-      render :text => "Your account has been created."
+      render :text => "Something went wrong..."
     end
   end
 
