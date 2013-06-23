@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
 
     @authorization = Authorization.find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"])
     if @authorization
+      session[:user_id] = @authorization.user_id
       render :text => "Welcome back! You have already signed up."
     else
       user = User.new first_name: auth_hash["info"]["first_name"], last_name: auth_hash["info"]["last_name"], email: auth_hash["info"]["email"], image: auth_hash["info"]["image"].gsub("=square", "=large")
