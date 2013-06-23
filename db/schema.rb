@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130623113304) do
+ActiveRecord::Schema.define(version: 20130623204712) do
 
-  create_table "authorizations", force: true do |t|
+  create_table "authentications", force: true do |t|
     t.string   "provider",            null: false
     t.string   "uid",                 null: false
     t.integer  "user_id",             null: false

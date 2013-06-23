@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    auth = Authentication.new(request.env['omniauth.auth'], current_user)
+    auth = AuthenticationService.new(request.env['omniauth.auth'], current_user)
     if auth.authenticated?
       session[:user_id] = auth.user.id
       render :text => "Logged in!"
