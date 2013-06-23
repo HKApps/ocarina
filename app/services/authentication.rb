@@ -1,6 +1,7 @@
 class Authentication
-  def initialize(omniauth)
+  def initialize(omniauth, user = nil)
     @omniauth = omniauth
+    @user     = user
     @provider = @omniauth["provider"]
   end
 
@@ -22,27 +23,34 @@ class Authentication
   end
 
   def user_from_dropbox
-    User.first_or_create do |u|
-      u.first_name, u.last_name = @omniauth["info"]["name"].split(' ')
-      u.email = @omniauth["info"]["email"]
-    end.authorizations.first_or_create do |auth|
-      auth.provider            = @provider
-      auth.uid                 = @omniauth["uid"].to_s
-      auth.access_token        = @omniauth["info"]["credentials"]["token"]
-      auth.access_token_secret = @omniauth["info"]["credentials"]["secret"]
-    end
+    first_name, last_name = @omniauth["info"]["name"].split(' ')
+    user = User.where(
+      id:         user.try(:id),
+      first_name: first_name,
+      last_name:  last_name,
+      email:      @omniauth["info"]["email"]
+    ).first_or_create
+
+    user.authorizations.where(
+      provider:            @provider,
+      uid:                 @omniauth["uid"].to_s,
+      access_token:        @omniauth["credentials"]["token"],
+      access_token_secret: @omniauth["credentials"]["secret"]
+    ).first_or_create
   end
 
   def user_from_facebook
-    User.first_or_create do |u|
-      u.first_name = @omniauth["info"]["first_name"]
-      u.last_name  = @omniauth["info"]["last_name"]
-      u.email      = @omniauth["info"]["email"]
-      u.image      = @omniauth["info"]["image"].gsub("=square", "=large")
-    end.authorizations.first_or_create do |auth|
-      auth.provider = @provider
-      auth.uid      = @omniauth["uid"].to_s
-    end
+    user = User.where(
+      first_name: @omniauth["info"]["first_name"],
+      last_name:  @omniauth["info"]["last_name"],
+      email:      @omniauth["info"]["email"],
+      image:      @omniauth["info"]["image"].gsub("=square", "=large")
+    ).first_or_create
+
+    user = authorizations.where(
+      provider: @provider,
+      uid:      @omniauth["uid"].to_s
+    ).first_or_create
   end
 
 end
