@@ -8,12 +8,14 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by id: session[:user_id]
   end
+  helper_method :current_user
 
   def dropbox_client
     @dropbox_client ||= DropboxClient.new(dropbox_auth.access_token, dropbox_auth.access_token_secret) if current_user
   end
+  helper_method :dropbox_client
 
   def dropbox_auth
-    @dropbox_auth ||= Authorization.find_by id: current_user.id, provider: 'dropbox'
+    @dropbox_auth ||= Authentication.find_by user_id: current_user.id, provider: 'dropbox'
   end
 end
