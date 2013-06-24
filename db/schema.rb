@@ -13,17 +13,19 @@
 
 ActiveRecord::Schema.define(version: 20130623204712) do
 
-  create_table "authentications", force: true do |t|
+  create_table "authentications", id: false, force: true do |t|
+    t.uuid     "id",                  null: false
     t.string   "provider",            null: false
     t.string   "uid",                 null: false
-    t.integer  "user_id",             null: false
+    t.uuid     "user_id",             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "access_token"
     t.string   "access_token_secret"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", id: false, force: true do |t|
+    t.uuid     "id",         null: false
     t.string   "email",      null: false
     t.string   "first_name"
     t.string   "last_name"
