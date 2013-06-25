@@ -31,7 +31,7 @@ class DropboxClient < Dropbox::API::Client
   end
 
   def all_song_files
-    metadata["contents"].select{ |file| file['mime_type'] == "audio/mpeg"}
+    metadata['contents'].select{ |file| file['mime_type'] == "audio/mpeg" }
   end
 
   ##
