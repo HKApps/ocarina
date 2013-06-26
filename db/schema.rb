@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20130625060302) do
 
   create_table "songs", force: true do |t|
     t.string   "name",       null: false
+    t.string   "provider",   null: false
     t.string   "path",       null: false
     t.integer  "user_id",    null: false
     t.hstore   "properties"
