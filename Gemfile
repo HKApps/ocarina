@@ -19,7 +19,7 @@ gem 'sass-rails', '~> 4.0.0.rc2'
 gem 'uglifier', '>= 1.3.0'
 
 group :development do
-  gem 'pry-nav'
+  gem 'pry-rails'
 end
 
 group :doc do

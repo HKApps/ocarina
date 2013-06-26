@@ -1,4 +1,24 @@
 %h1 Login
+
+%h2 STEP 1
+%p Login with facebook
 = button_to 'facebook', '/auth/facebook'
-= button_to 'dropbox', '/auth/dropbox'
-= button_to 'logout', '/logout'
+
+- if current_user
+  %h2 STEP 2
+  %p Authorize access to dropbox files
+  = button_to 'dropbox', '/auth/dropbox'
+
+  %h2 STEP 3
+  %p Log the fuck out
+  = button_to 'logout', '/logout'
+
+- if current_user && dropbox_auth
+  %h3= "Current User: #{current_user.email}"
+  %h3= "Dropbox Client: DropboxClient.new('#{dropbox_auth.access_token}','#{dropbox_auth.access_token_secret}')"
+
+  %h4 Songs
+  %ul
+    - dropbox_client.all_song_paths.each do |song|
+      %li= song
+

@@ -18,4 +18,5 @@ class ApplicationController < ActionController::Base
   def dropbox_auth
     @dropbox_auth ||= Authentication.find_by user_id: current_user.id, provider: 'dropbox'
   end
+  helper_method :dropbox_auth
 end
