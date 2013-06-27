@@ -21,4 +21,7 @@
   %ul
     - dropbox_client.all_song_paths.each do |song|
       %li= song
+  = button_to "Save all songs", dropbox_files_path
+
+  %p= "Songs saved: #{current_user.songs.count || 0}"
 
