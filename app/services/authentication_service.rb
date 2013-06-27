@@ -40,9 +40,11 @@ class AuthenticationService
   # Users must authenticate with FB before authenticating with DB.
   def user_from_dropbox
     return unless @current_user
-    @current_user.authentications.where(provider: @provider, uid: @omniauth["uid"].to_s).first_or_create do |auth|
-      auth.access_token        = @omniauth["credentials"]["token"]
-      auth.access_token_secret = @omniauth["credentials"]["secret"]
+    @current_user.tap do |user|
+      user.authentications.where(provider: @provider, uid: @omniauth["uid"].to_s).first_or_create do |auth|
+        auth.access_token        = @omniauth["credentials"]["token"]
+        auth.access_token_secret = @omniauth["credentials"]["secret"]
+      end
     end
   end
 
