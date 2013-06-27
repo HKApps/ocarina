@@ -11,6 +11,8 @@
 # about supported directives.
 #
 # = require_self
-# = require_tree ./angular
+# = require directives
+# = require_tree ./controllers/
+
 
 window.App = angular.module('app', ['ngResource'])
