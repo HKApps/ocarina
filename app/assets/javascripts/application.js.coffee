@@ -15,4 +15,4 @@
 # = require_tree ./controllers/
 
 
-window.App = angular.module('app', ['ngResource'])
+window.App = angular.module('ocarina', ['ngResource'])
