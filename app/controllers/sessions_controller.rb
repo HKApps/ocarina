@@ -6,9 +6,9 @@ class SessionsController < ApplicationController
     auth = AuthenticationService.new(request.env['omniauth.auth'], current_user)
     if auth.authenticated?
       session[:user_id] = auth.user.id
-      render :text => "Logged in!"
+      redirect_to :root
     else
-      render :text => "Something went wrong..."
+      render :new
     end
   end
 
@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    render text: "You've logged out"
+    redirect_to :root
   end
 end
