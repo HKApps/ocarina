@@ -41,10 +41,10 @@ class AuthenticationService
   def user_from_dropbox
     return unless @current_user
     @current_user.tap do |user|
-      user.authentications.where(provider: @provider, uid: @omniauth["uid"].to_s).first_or_create do |auth|
-        auth.access_token        = @omniauth["credentials"]["token"]
-        auth.access_token_secret = @omniauth["credentials"]["secret"]
-      end
+      auth = user.authentications.where(provider: @provider, uid: @omniauth["uid"].to_s).first_or_initialize
+      auth.access_token        = @omniauth["credentials"]["token"]
+      auth.access_token_secret = @omniauth["credentials"]["secret"]
+      auth.save!
     end
   end
 
