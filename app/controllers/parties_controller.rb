@@ -11,7 +11,7 @@ class PartiesController < ApplicationController
   end
 
   def create
-    party = current_user.parties.create(party_params)
+    current_user.parties.create(party_params)
     redirect_to :root
   end
 
