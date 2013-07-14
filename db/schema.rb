@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130625060302) do
+ActiveRecord::Schema.define(version: 20130713232807) do
 
   create_table "authentications", force: true do |t|
     t.string   "provider",            null: false
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20130625060302) do
     t.string   "access_token"
     t.string   "access_token_secret"
   end
+
+  create_table "parties", force: true do |t|
+    t.string  "name",    null: false
+    t.integer "host_id", null: false
+  end
+
+  add_index "parties", ["host_id"], name: "index_parties_on_host_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "name",       null: false
