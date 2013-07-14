@@ -6,6 +6,10 @@ class PartiesController < ApplicationController
     @party = current_user.parties.build
   end
 
+  def show
+    @party = Party.find params[:id]
+  end
+
   def create
     party = current_user.parties.create(party_params)
     redirect_to :root
