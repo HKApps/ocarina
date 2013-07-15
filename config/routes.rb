@@ -1,5 +1,10 @@
+require 'sidekiq/web'
+
 MusicApp::Application.routes.draw do
   root to: "parties#index"
+
+  # TODO(mn) - Make this admin-only
+  mount Sidekiq::Web, at: '/sidekiq'
 
   get '/login', to: 'sessions#new', as: 'login'
   match '/auth/:provider/callback', to: 'sessions#create', :via => [:get, :post]

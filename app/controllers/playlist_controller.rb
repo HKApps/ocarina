@@ -7,7 +7,7 @@ class PlaylistController < ApplicationController
   end
 
   def add_songs
-    AddSongToPlaylistService.create_from_params(params)
+    AddSongToPlaylistWorker.perform_async(params)
     redirect_to party_path(params[:party_id])
   end
 end
