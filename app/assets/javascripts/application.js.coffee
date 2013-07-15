@@ -15,7 +15,14 @@
 # = require_tree ./controllers/
 
 
-window.App = angular.module('ocarina', ['ngResource'])
+window.App = angular.module
+  .module('ocarina', ['ngResource', 'ngSanitize'])
+  .config(['$locationProvider', '$routeProvider', '$httpProvider', \
+          ($locationProvider, $routeProvider, $httpProvider) ->
+    $locationProvider.html5Mode(true)
+
+    # Put CSRF token in all AJAX headers
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
 
 App.factory "pusher", ($rootScope) ->
   pusher = new Pusher("28d86c309600f754848f")
@@ -34,3 +41,6 @@ App.factory "pusher", ($rootScope) ->
       args = arguments
       $rootScope.$apply ->
         callback.apply channel, args
+
+
+
