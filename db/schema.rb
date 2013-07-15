@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130713232807) do
+ActiveRecord::Schema.define(version: 20130714011424) do
 
   create_table "authentications", force: true do |t|
     t.string   "provider",            null: false
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20130713232807) do
   end
 
   add_index "parties", ["host_id"], name: "index_parties_on_host_id", using: :btree
+
+  create_table "playlists", force: true do |t|
+    t.integer "party_id",               null: false
+    t.integer "song_id",                null: false
+    t.integer "up_votes",   default: 0
+    t.integer "down_votes", default: 0
+  end
+
+  add_index "playlists", ["party_id", "song_id"], name: "index_playlists_on_party_id_and_song_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "name",       null: false

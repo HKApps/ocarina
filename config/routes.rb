@@ -7,5 +7,7 @@ MusicApp::Application.routes.draw do
 
   match "/dropbox_files", to: "dropbox#create", :via => [:get, :post]
 
-  resources :parties, only: [:index, :show, :create]
+  resources :parties, only: [:index, :show, :create] do
+    resources :playlist, only: [:index]
+  end
 end
