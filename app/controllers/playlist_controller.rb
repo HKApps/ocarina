@@ -7,7 +7,19 @@ class PlaylistController < ApplicationController
   end
 
   def add_songs
-    AddSongToPlaylistWorker.perform_async(params)
-    redirect_to party_path(params[:party_id])
+    service = AddSongToPlaylistService.initialize_from_params(params)
+    @songs = service.songs_with_media_urls(dropbox_client)
+    if @songs
+      AddSongToPlaylistWorker.perform_async(service)
+      respond_with @songs
+    else
+      respond_with({}, status: :unauthorized)
+    end
+  end
+
+  private
+
+  def add_song_params
+    params.require(:party_id, :song_ids)
   end
 end

@@ -4,7 +4,9 @@ class AddSongToPlaylistWorker
                   retry:     true,
                   backtrace: true
 
-  def perform(params)
-    AddSongToPlaylistService.create_from_params(params)
+  def perform(service)
+    ActiveRecord::Base.transaction do
+      service.create
+    end
   end
 end
