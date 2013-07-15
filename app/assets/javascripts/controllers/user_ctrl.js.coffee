@@ -1,11 +1,10 @@
-@UserCtrl = ($scope, $http, CurrentUser) ->
-  $http.get("users/#{CurrentUser.id}.json").then (response) =>
-    #TODO fix format based on API response
-    $scope.parties = response.data.parties
-    $scope.dropbox_songs = response.data.dropbox_songs
+App.controller 'UserCtrl', [ '$scope', '$http', '$location',
+  ($scope, $http, $location) ->
+    $http.get("users/1.json").then (response) =>
+      $scope.user = response.data
 
-  $scope.partyURL = (id) ->
-    root = $scope.location.host()
-    "#{root}/party/#{id}"
-
-@UserCtrl.$inject = ['$scope', '$http', 'CurrentUser']
+    $scope.partyURL = (id) ->
+      # TODO use location.host()
+      root = document.location.origin
+      "#{root}/parties/#{id}"
+]
