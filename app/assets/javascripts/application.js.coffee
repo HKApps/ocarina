@@ -23,6 +23,7 @@ window.App = angular.module
 
     # Put CSRF token in all AJAX headers
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+  ])
 
 App.factory "pusher", ($rootScope) ->
   pusher = new Pusher("28d86c309600f754848f")
