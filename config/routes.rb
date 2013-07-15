@@ -10,6 +10,8 @@ MusicApp::Application.routes.draw do
   resources :users, only: [:show]
 
   resources :parties, only: [:index, :show, :create] do
-    resources :playlist, only: [:index]
+    resources :playlist, only: [:index] do
+      post 'add_songs', on: :collection
+    end
   end
 end
