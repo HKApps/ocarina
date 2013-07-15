@@ -15,4 +15,14 @@
 # = require_tree ./controllers/
 
 
-window.App = angular.module('ocarina', ['ngResource'])
+angular
+  .module('ocarina', ['ngResource', 'ngSanitize'])
+  .config(['$locationProvider', '$routeProvider', '$httpProvider', \
+          ($locationProvider, $routeProvider, $httpProvider) ->
+    $locationProvider.html5Mode(true)
+
+    # Put CSRF token in all AJAX headers
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+
+
+
