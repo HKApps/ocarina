@@ -1,0 +1,12 @@
+%h1 Parties
+
+%ul
+  - @parties.each do |party|
+    %li= link_to party.name, party_path(party.id)
+
+%h2 Create Party
+
+= form_for @party do |f|
+  = f.text_field :name, placeholder: "Party Name"
+  = f.submit
+
