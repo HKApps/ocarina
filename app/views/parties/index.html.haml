@@ -1,17 +1,2 @@
-.parties-container.ng-cloak{ ng_controller: 'UserCtrl' }
-  .user_parties
-    %h2 {{user.first_name}}'s Playlists
-    .parties_list{ ng_repeat: 'party in user.parties' }
-      %a.party{ :href => "{{partyURL(party.id)}}" }
-        {{party.name}}
-
-  .create_party
-    %h2 Create Party
-
-    %form.creat_party_form{ ng_submit: "createParty()" }
-      %input{ :type => "text", ng_model: "newParty.name" }
-      %input{ :type => "submit", :value => "Create Party" }
-
-    = form_for @party do |f|
-      = f.text_field :name, placeholder: "Party Name"
-      = f.submit
+= render 'parties/profile'
+%div{ ng_view: '' }

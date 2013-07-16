@@ -2,13 +2,6 @@
 # = require directives
 # = require_tree ./controllers/
 
-window.App = angular
-  .module('Ocarina', ['ngResource', 'ngSanitize'])
-  .config(['$httpProvider', '$locationProvider',
-    ($httpProvider, $locationProvider) ->
-      $locationProvider.html5Mode(true)
-
-  ])
 
 App.factory "pusher", ($rootScope) ->
   pusher = new Pusher("28d86c309600f754848f")
@@ -28,3 +21,16 @@ App.factory "pusher", ($rootScope) ->
       $rootScope.$apply ->
         callback.apply channel, args
 
+
+window.App = angular
+  .module('Ocarina', ['ngResource'])
+  .config(['$locationProvider', '$routeProvider',
+    ($locationProvider, $routeProvider) ->
+      $locationProvider.html5Mode(true)
+
+      $routeProvider.when '/parties/:id',
+        templateUrl: '/partials/parties/show.html'
+
+      $routeProvider.otherwise
+        redirectTo: '/'
+  ])
