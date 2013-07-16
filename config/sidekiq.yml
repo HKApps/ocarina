@@ -1,0 +1,5 @@
+---
+:verbose: true
+:queues:
+  - [add_song_to_playlist_worker, 1]
+  - [default, 1]
