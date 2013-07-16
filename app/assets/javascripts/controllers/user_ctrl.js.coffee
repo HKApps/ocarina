@@ -4,7 +4,10 @@ App.controller 'UserCtrl', [ '$scope', '$http', '$location',
       $scope.user = response.data
 
     $scope.partyURL = (id) ->
-      # TODO use location.host()
-      root = document.location.origin
-      "#{root}/parties/#{id}"
+      "/parties/#{id}"
+
+    $scope.createParty = ->
+      # send $scope.newParty
+      $scope.newParty = {}
+
 ]

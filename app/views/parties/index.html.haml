@@ -8,6 +8,10 @@
   .create_party
     %h2 Create Party
 
+    %form.creat_party_form{ ng_submit: "createParty()" }
+      %input{ :type => "text", ng_model: "newParty.name" }
+      %input{ :type => "submit", :value => "Create Party" }
+
     = form_for @party do |f|
       = f.text_field :name, placeholder: "Party Name"
       = f.submit

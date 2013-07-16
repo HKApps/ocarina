@@ -1,8 +1,6 @@
-# = require jquery
 # = require_self
 # = require directives
 # = require_tree ./controllers/
-
 
 window.App = angular
   .module('Ocarina', ['ngResource', 'ngSanitize'])
@@ -29,6 +27,4 @@ App.factory "pusher", ($rootScope) ->
       args = arguments
       $rootScope.$apply ->
         callback.apply channel, args
-
-
 
