@@ -1,6 +1,18 @@
 class PartiesController < ApplicationController
   before_filter :require_authentication
 
+  def index_template
+    respond_to do |format|
+      format.html do
+        if current_user
+          render :index
+        else
+          render 'sessions/logged_out_homepage'
+        end
+      end
+    end
+  end
+
   def index
     @parties = Party.where(host_id: current_user.id)
     @party = current_user.parties.build
