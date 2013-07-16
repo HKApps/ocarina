@@ -1,9 +1,9 @@
 require 'sidekiq/web'
 
 MusicApp::Application.routes.draw do
+
   root to: "parties#index_template"
 
-  # match '/*path', to: 'parties#index_template'
 
   # TODO(mn) - Make this admin-only
   mount Sidekiq::Web, at: '/sidekiq'
@@ -24,4 +24,8 @@ MusicApp::Application.routes.draw do
       post 'add_songs', on: :collection
     end
   end
+
+  get '/*path', to: 'parties#index_template'
+
+  root to: "parties#index_template"
 end
