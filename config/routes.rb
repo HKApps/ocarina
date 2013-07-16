@@ -1,8 +1,4 @@
 MusicApp::Application.routes.draw do
-  root to: "parties#index_template"
-
-  # match '/*path', to: 'parties#index_template'
-
   get '/login', to: 'sessions#new', as: 'login'
   match '/auth/:provider/callback', to: 'sessions#create', :via => [:get, :post]
   match "/logout", to: "sessions#destroy", :via => [:get, :post]
@@ -16,4 +12,7 @@ MusicApp::Application.routes.draw do
   # resources :parties, only: [:index, :show, :create] do
   #   resources :playlist, only: [:index]
   # end
+  get '/*path', to: 'parties#index_template'
+
+  root to: "parties#index_template"
 end
