@@ -9,6 +9,9 @@ MusicApp::Application.routes.draw do
 
   resources :users, only: [:show]
 
+  get 'partials/*partial' => 'partials#partial'
+
+
   resources :parties, only: [:index, :show, :create] do
     resources :playlist, only: [:index]
   end
