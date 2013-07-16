@@ -1,5 +1,10 @@
+require 'sidekiq/web'
+
 MusicApp::Application.routes.draw do
   root to: "parties#index"
+
+  # TODO(mn) - Make this admin-only
+  mount Sidekiq::Web, at: '/sidekiq'
 
   get '/login', to: 'sessions#new', as: 'login'
   match '/auth/:provider/callback', to: 'sessions#create', :via => [:get, :post]
@@ -10,6 +15,8 @@ MusicApp::Application.routes.draw do
   resources :users, only: [:show]
 
   resources :parties, only: [:index, :show, :create] do
-    resources :playlist, only: [:index]
+    resources :playlist, only: [:index] do
+      post 'add_songs', on: :collection
+    end
   end
 end
