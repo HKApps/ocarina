@@ -10,6 +10,7 @@ MusicApp::Application.routes.draw do
   match "/logout", to: "sessions#destroy", :via => [:get, :post]
 
   match "/dropbox_files", to: "dropbox#create", :via => [:get, :post]
+  get   "/dropbox", to: "dropbox#index"
 
   resources :users, only: [:show]
 
