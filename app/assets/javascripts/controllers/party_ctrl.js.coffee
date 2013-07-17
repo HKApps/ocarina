@@ -1,6 +1,6 @@
 App.controller 'PartyCtrl', ['$scope', '$http', '$route',
   ($scope, $http, $route) ->
-    $scope.partyId = $route.current.params.partyId
-
-    # TODO get party info from server using partyID
+    partyId = $route.current.params.partyId
+    $http.get("/parties/#{partyId}.json").then (response) =>
+      $scope.party = response.data
 ]

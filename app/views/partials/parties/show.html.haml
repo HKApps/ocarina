@@ -1,5 +1,5 @@
-.party-container{ ng_controller: 'PartyCtrl' }
-  %h2 Party name
+.party-container{ ng_if: 'party', ng_controller: 'PartyCtrl' }
+  %h2 {{party.name}}
 
   %h3 Audio Player
 
