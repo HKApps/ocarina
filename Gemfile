@@ -21,6 +21,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'uglifier', '>= 1.3.0'
+gem 'zurb-foundation'
 
 group :development do
   gem 'pry-rails'

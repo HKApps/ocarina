@@ -14,7 +14,6 @@
 # = require directives
 # = require_tree ./controllers/
 
-
 window.App = angular.module('ocarina', ['ngResource'])
 
 App.factory "pusher", ($rootScope) ->
@@ -34,3 +33,5 @@ App.factory "pusher", ($rootScope) ->
       args = arguments
       $rootScope.$apply ->
         callback.apply channel, args
+
+$(function(){ $(document).foundation(); });
