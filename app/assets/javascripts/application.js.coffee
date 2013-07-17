@@ -13,7 +13,7 @@ window.App = angular
 
       $locationProvider.html5Mode(true)
 
-      $routeProvider.when '/parties/:id',
+      $routeProvider.when '/parties/:partyId',
         templateUrl: '/partials/parties/show.html'
 
       $routeProvider.otherwise
