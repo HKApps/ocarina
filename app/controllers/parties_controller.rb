@@ -7,7 +7,18 @@ class PartiesController < ApplicationController
   end
 
   def show
-    @party = Party.find params[:id]
+    respond_to do |format|
+      format.html { @party = Party.find params[:id] }
+
+      format.json do
+        @party= Party.find_by id: params[:id]
+        if @party
+          render json: @party
+        else
+          render json: {error: "record not found"}, status: 404
+        end
+      end
+    end
   end
 
   def create
