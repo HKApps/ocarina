@@ -1,0 +1,1 @@
+@ocarinaDirectives = angular.module('ocarinaDirectives', [])
