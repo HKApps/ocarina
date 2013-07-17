@@ -6,11 +6,11 @@
 #= require feeds
 #= require filters
 
-
 window.App = angular
   .module('ocarina', ['ocarinaServices', 'ocarinaFeeds', 'ocarinaFilters', 'ocarinaDirectives'])
   .config(['$locationProvider', '$routeProvider',
     ($locationProvider, $routeProvider) ->
+
       $locationProvider.html5Mode(true)
 
       $routeProvider.when '/parties/:id',
