@@ -1,6 +1,11 @@
 .profile-container.ng-cloak
+  .user-dropbox-songs{ ng_if: 'user.dropboxSongs' }
+    %h2 {{user.first_name}}'s Dropbox Songs
+    .dropbox_songs-list{ ng_repeat: 'song in user.dropboxSongs' }
+      {{song.path}}
+
   .user-parties
-    %h2 {{user.first_name}}s Playlists
+    %h2 {{user.first_name}}'s Playlists
     .parties-list{ ng_repeat: 'party in user.parties' }
       %a.party{ ng_href: "/parties/{{party.id}}" }
         {{party.name}}
