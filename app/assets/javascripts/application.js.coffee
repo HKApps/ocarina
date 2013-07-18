@@ -5,6 +5,7 @@
 #= require directives
 #= require filters
 #= require jquery
+#= require bootstrap
 
 window.App = angular
   .module('ocarina', ['ocarinaServices', 'ocarinaFilters', 'ocarinaDirectives'])
