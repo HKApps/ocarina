@@ -13,6 +13,7 @@
 # = require_self
 # = require directives
 # = require_tree ./controllers/
+# = require bootstrap
 
 
 window.App = angular.module('ocarina', ['ngResource'])
