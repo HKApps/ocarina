@@ -26,6 +26,7 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'pry-rails'
   gem 'pry-nav'
+  gem 'guard-livereload'
 end
 
 group :doc do
