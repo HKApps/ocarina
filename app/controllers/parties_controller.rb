@@ -34,8 +34,21 @@ class PartiesController < ApplicationController
   end
 
   def create
-    current_user.parties.create(party_params)
-    redirect_to :root
+    respond_to do |format|
+      format.html do
+        current_user.parties.create(party_params)
+        redirect_to :root
+      end
+
+      format.json do
+        party = current_user.parties.build(party_params)
+        if party.save
+          render json: party, status: 201
+        else
+          render json: party.errors, status: :unauthorized
+        end
+      end
+    end
   end
 
   private
