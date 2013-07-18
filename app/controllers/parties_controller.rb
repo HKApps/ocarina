@@ -20,7 +20,9 @@ class PartiesController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { @party = Party.find params[:id] }
+      format.html do
+        render :index
+      end
 
       format.json do
         @party= Party.find_by id: params[:id]

@@ -16,7 +16,6 @@ MusicApp::Application.routes.draw do
 
   get 'partials/*partial' => 'partials#partial'
 
-  # TODO move party show to prevent routing
   resources :parties, only: [:show, :create] do
     resources :playlist, only: [:index] do
       post 'add_songs', on: :collection
