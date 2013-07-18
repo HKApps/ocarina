@@ -10,11 +10,19 @@
 # Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 # about supported directives.
 #
+# = require zepto/default
+# = require "foundation"
 # = require_self
 # = require directives
 # = require_tree ./controllers/
 
+##
+# Setups foundation
+$ ->
+  $(document).foundation()
 
+##
+# Define Angular
 window.App = angular.module('ocarina', ['ngResource'])
 
 App.factory "pusher", ($rootScope) ->

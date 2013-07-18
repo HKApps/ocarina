@@ -1,26 +1,15 @@
-%h1 Login
+.row
+  .small-12.large-12.columns
+    .logo-area
+      .small-8.small-centered.large-4.columns.signup-btn
+        .main-logo
+          %h1 Ocarina
 
-%h2 STEP 1
-%p Login with facebook
-= button_to 'facebook', '/auth/facebook'
+.row
+  .small-12.large-12.columns
+    .connect-area
+      .small-8.small-centered.large-4.columns.signup-btn
+        = link_to '/auth/facebook', class: "small button radius expand" do
+          %i.social.foundicon-facebook.fb-connect-icon
+          %span.fb-connect-text connect with facebook
 
-- if current_user
-  %h2 STEP 2
-  %p Authorize access to dropbox files
-  = button_to 'dropbox', '/auth/dropbox'
-
-  %h2 STEP 3
-  %p Log the fuck out
-  = button_to 'logout', '/logout'
-
-- if current_user && dropbox_auth
-  %h3= "Current User: #{current_user.email}"
-  %h3= "Dropbox Client: DropboxClient.new('#{dropbox_auth.access_token}','#{dropbox_auth.access_token_secret}')"
-
-  %h4 Songs
-  %ul
-    - dropbox_client.all_song_paths.each do |song|
-      %li= song
-  = button_to "Save all songs", dropbox_files_path
-
-  %p= "Songs saved: #{current_user.songs.count || 0}"
