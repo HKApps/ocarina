@@ -8,6 +8,13 @@ App.controller 'UserCtrl', [ '$scope', '$http', '$location',
           $scope.user.dropboxSongs = response.data.contents
 
     $scope.createParty = ->
-      # TODO send $scope.newParty
+      future = $http.post "/parties.json",
+        name: $scope.newParty.name
+
+      future.then (response) =>
+        if response.status == 201
+          $scope.user.parties.push(response.data)
+        # TODO else render error message
+
       $scope.newParty = {}
 ]

@@ -3,13 +3,15 @@
 #= require_tree ./controllers/
 #= require services
 #= require directives
-#= require feeds
 #= require filters
+#= require jquery
 
 window.App = angular
-  .module('ocarina', ['ocarinaServices', 'ocarinaFeeds', 'ocarinaFilters', 'ocarinaDirectives'])
-  .config(['$locationProvider', '$routeProvider',
-    ($locationProvider, $routeProvider) ->
+  .module('ocarina', ['ocarinaServices', 'ocarinaFilters', 'ocarinaDirectives'])
+  .config(['$locationProvider', '$routeProvider', '$httpProvider',
+    ($locationProvider, $routeProvider, $httpProvider) ->
+
+      $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
 
       $locationProvider.html5Mode(true)
 
