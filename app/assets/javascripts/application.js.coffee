@@ -1,6 +1,6 @@
 #= require angular.min
 #= require angular-resource.min
-#= require angular-sanitize
+#= require angular-sanitize.min
 #= require ocarina
 #= require_tree ./controllers/
 #= require services
