@@ -1,7 +1,7 @@
 #= require jquery
-#= require angular.min
-#= require angular-resource.min
-#= require angular-sanitize.min
+#= require angular
+#= require angular-resource
+#= require angular-sanitize
 #= require ocarina
 #= require_tree ./controllers/
 #= require services
