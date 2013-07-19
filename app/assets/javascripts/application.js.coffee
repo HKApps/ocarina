@@ -1,3 +1,4 @@
+#= require jquery
 #= require angular.min
 #= require angular-resource.min
 #= require angular-sanitize.min
@@ -9,7 +10,6 @@
 #= require_self
 #= require zepto/default
 #= require foundation
-#= require jquery
 
 # Setups foundation
 $ ->

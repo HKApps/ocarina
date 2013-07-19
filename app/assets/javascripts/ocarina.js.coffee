@@ -1,5 +1,5 @@
 # sets up angular app
-window.App = angular
+@ocarina = angular
   .module('ocarina', ['ocarinaServices', 'ocarinaFilters', 'ocarinaDirectives'])
   .config(['$locationProvider', '$routeProvider', '$httpProvider',
     ($locationProvider, $routeProvider, $httpProvider) ->

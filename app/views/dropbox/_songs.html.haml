@@ -1,4 +1,4 @@
-.user-dropbox-songs{ ng_if: 'user.dropboxSongs' }
+.user-dropbox-songs{ ng_if: 'user.songs', ng_controller: 'SongsCtrl' }
   %h3 {{user.first_name}}'s Dropbox Songs
-  .dropbox_songs-list{ ng_repeat: 'song in user.dropboxSongs' }
+  .dropbox_songs-list{ ng_repeat: 'song in songs' }
     {{song.path}}
