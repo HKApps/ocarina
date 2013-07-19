@@ -12,7 +12,7 @@ class AddSongToPlaylistService
   end
 
   def create
-    @songs.each { |song| song.playlists.create(song_id: id, party_id: @party_id) }
+    songs.each { |song| song.playlists.create(song_id: song.id, party_id: @party_id) }
   end
 
   def songs
