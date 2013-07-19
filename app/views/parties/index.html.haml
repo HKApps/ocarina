@@ -1,7 +1,7 @@
 .ocarina{ 'ng-app' => "ocarina" }
   .main-container.ng-cloak{ ng_controller: 'UserCtrl' }
     .index{ ng_show: 'user' }
-      .onboarding-dropbox{ ng_show: '!user.dropbox_authenticated' }
+      .onboarding-dropbox{ ng_hide: 'user.dropbox_authenticated' }
         =render 'dropbox/authenticate'
 
       .dropbox-songs{ ng_show: 'user.dropbox_authenticated' }

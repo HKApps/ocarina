@@ -22,6 +22,8 @@ MusicApp::Application.routes.draw do
     end
   end
 
+  get 'current_user', to: 'users#current_user_json'
+
   get '/*path', to: 'parties#index_template'
 
   root to: "parties#index_template"
