@@ -8,9 +8,11 @@ window.App = angular
 
       $locationProvider.html5Mode(true)
 
-      $routeProvider.when '/parties/:partyId',
-        templateUrl: '/partials/parties/show.html'
-
-      $routeProvider.otherwise
-        redirectTo: '/'
+      $routeProvider
+        .when '/parties/:partyId',
+          templateUrl: '/partials/parties/show.html'
+        .when '/',
+          templateUrl: '/partials/profile.html'
+        .otherwise
+          redirectTo: '/'
   ])
