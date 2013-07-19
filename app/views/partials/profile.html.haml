@@ -1,0 +1,13 @@
+.profile-container.ng-cloak
+  .user-parties
+    %h3 {{user.first_name}}'s Playlists
+    .parties-list{ ng_repeat: 'party in user.parties' }
+      %a.party{ ng_href: "/parties/{{party.id}}" }
+        {{party.name}}
+
+  .create-party
+    %h3 Create Party
+
+    %form.creat-party-form{ ng_submit: "createParty()" }
+      %input{ :type => "text", ng_model: "newParty.name" }
+      %input.small.button.radius{ :type => "submit", :value => "Create Party" }

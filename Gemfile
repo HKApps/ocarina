@@ -28,6 +28,7 @@ gem 'zurb-foundation'
 group :development do
   gem 'pry-rails'
   gem 'pry-nav'
+  gem 'guard-livereload'
 end
 
 group :doc do
