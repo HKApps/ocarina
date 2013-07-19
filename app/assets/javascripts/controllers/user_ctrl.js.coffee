@@ -1,6 +1,6 @@
 ocarina.controller 'UserCtrl', [ '$scope', '$http', '$location',
   ($scope, $http, $location) ->
-    $http.get("/users/1.json").then (response) =>
+    $http.get("/current_user.json").then (response) =>
       if response.data != "null"
         $scope.user = response.data
 

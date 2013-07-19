@@ -2,6 +2,7 @@
 #= require angular
 #= require angular-resource
 #= require angular-sanitize
+#= require underscore
 #= require ocarina
 #= require_tree ./controllers/
 #= require services
@@ -14,5 +15,3 @@
 # Setups foundation
 $ ->
   $(document).foundation()
-
-
