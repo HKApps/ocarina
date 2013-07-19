@@ -1,7 +1,8 @@
 ocarina.controller 'UserCtrl', [ '$scope', '$http', '$location',
   ($scope, $http, $location) ->
     $http.get("/users/1.json").then (response) =>
-      $scope.user = response.data
+      if response.data != "null"
+        $scope.user = response.data
 
     $scope.createParty = ->
       future = $http.post "/parties.json",
