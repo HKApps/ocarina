@@ -5,7 +5,8 @@
 #= require directives
 #= require filters
 #= require jquery
-#= require bootstrap
+# = require zepto/default
+# = require "foundation"
 
 window.App = angular
   .module('ocarina', ['ocarinaServices', 'ocarinaFilters', 'ocarinaDirectives'])
@@ -22,3 +23,9 @@ window.App = angular
       $routeProvider.otherwise
         redirectTo: '/'
   ])
+
+# Setups foundation
+$ ->
+  $(document).foundation()
+
+
