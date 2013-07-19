@@ -1,14 +1,15 @@
-#= require_self
+#= require angular.min
+#= require angular-resource.min
+#= require angular-sanitize
 #= require ocarina
-#= require directives
 #= require_tree ./controllers/
 #= require services
 #= require directives
 #= require filters
+#= require_self
+#= require zepto/default
+#= require foundation
 #= require jquery
-# = require zepto/default
-# = require "foundation"
-
 
 # Setups foundation
 $ ->
