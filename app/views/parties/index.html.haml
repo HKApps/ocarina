@@ -1,4 +1,12 @@
 .ocarina{ 'ng-app' => "ocarina" }
-  .index{ ng_controller: 'UserCtrl' }
-    = render 'parties/profile'
-    %div{ ng_view: '' }
+  .main-container.ng-cloak{ ng_controller: 'UserCtrl' }
+    .index{ ng_show: 'user' }
+      .onboarding-dropbox{ ng_show: '!user.dropbox_authenticated' }
+        =render 'dropbox/authenticate'
+
+      .dropbox-songs{ ng_show: 'user.dropbox_authenticated' }
+        =render 'dropbox/songs'
+
+      = render 'parties/profile'
+
+      %div{ ng_view: '' }
