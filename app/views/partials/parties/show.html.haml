@@ -8,7 +8,7 @@
   .songs
     %h3 Songs
     .playlist-song-list{ ng_repeat: 'song in party.playlists' }
-      %span.name {{song.path}}
-      %span.votes {{song.up_votes - song.down_votes}}
-      %i.upvote.general.foundicon-upvote{ ng_click: "upvoteSong(song)" }
-      %i.downvote.general.foundicon-downvote{ ng_click: "downvoteSong(song)" }
+      %span.name {{song.song_path}}
+      %span.votes {{song.up_votes - song.down_votes}} votes
+      %i.upvote.general-enclosed.foundicon-plus{ ng_click: "upvoteSong(song)" }
+      %i.downvote.general-enclosed.foundicon-minus{ ng_click: "downvoteSong(song)" }

@@ -8,7 +8,6 @@ ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
 
     $scope.isSongSelected = (song) ->
       _.any $scope.selectedSongs, (selectedSong) ->
-        # TODO change this to song.id when we have it
         selectedSong == song
 
     $scope.toggleSongSelected = (song) ->
@@ -18,25 +17,24 @@ ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
         $scope.selectedSongs.push(song)
 
     $scope.addSelectedSongs = ->
-      # Uncomment when add_songs works
-      # future = $http.post "/parties/16/playlist/add_songs.json",
-      #     song_ids: $scope.selectedSongs
+      future = $http.post "/parties/#{partyId}/playlist/add_songs.json",
+          song_ids: $scope.selectedSongs
 
-      # future.then (response) =>
-      #   if response.status == 201
-      #     $scope.party.playlists.push(response.data)
-      #   # TODO else render error message
+      future.then (response) =>
+        if response.status == 201
+          _.each response.data, (songToAdd) ->
+            $scope.party.playlists.push(songToAdd)
+        # TODO else render message
 
-      $location.path("/parties/#{partyId}")
-
-    # TODO test
-    $scope.upvoteSong = (song) ->
-      _.findWhere $scope.party.playlists, (upvotedSong) ->
-        upvotedSong++
-        # submit vote to server?
+        $location.path("/parties/#{partyId}")
 
     $scope.upvoteSong = (song) ->
-      _.findWhere $scope.party.playlists, (upvotedSong) ->
-        upvotedSong--
-        # submit vote to server?
+      upvotedSong = _.findWhere($scope.party.playlists, song)
+      upvotedSong.up_votes++
+      # submit vote to server?
+
+    $scope.downvoteSong = (song) ->
+      downvotedSong = _.findWhere($scope.party.playlists, song)
+      downvotedSong.down_votes++
+      # submit vote to server?
 ]
