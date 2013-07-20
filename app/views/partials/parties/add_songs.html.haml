@@ -1,6 +1,6 @@
 .add-songs{ ng_controller: "PartyCtrl", ng_show: "user.dropbox_songs" }
   %h3 Select Songs to Add
-  .songs-to-add{ ng_repeat: "song in user.dropbox_songs", ng_click: "toggleSongSelected(song)", ng_class: '{"selected": isSongSelected(song)}' }
+  .songs-to-add{ ng_repeat: "song in user.dropbox_songs", ng_click: "toggleSongSelected(song.id)", ng_class: '{"selected": isSongSelected(song.id)}' }
     // TODO change this when we update song model
     %span.name {{song.path}}
     %i.general.foundicon-checkmark

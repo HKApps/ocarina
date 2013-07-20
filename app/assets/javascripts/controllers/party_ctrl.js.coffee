@@ -9,7 +9,7 @@ ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
     $scope.isSongSelected = (song) ->
       _.any $scope.selectedSongs, (selectedSong) ->
         # TODO change this to song.id when we have it
-        selectedSong.path == song.path
+        selectedSong == song
 
     $scope.toggleSongSelected = (song) ->
       if $scope.isSongSelected(song)
