@@ -12,7 +12,13 @@ class AddSongToPlaylistService
   end
 
   def create
-    songs.map { |song| song.playlists.create(song_id: song.id, party_id: @party_id) }
+    songs.map do |song|
+      song.playlists.create do |s|
+        s.song_id   = song.id
+        s.song_path = song.path
+        s.party_id  = @party_id
+      end
+    end
   end
 
   def songs
