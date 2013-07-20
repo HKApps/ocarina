@@ -27,12 +27,7 @@ class PartiesController < ApplicationController
       format.json do
         @party= Party.find_by id: params[:id]
         if @party
-          render json: {
-            id: @party.id,
-            host_id: @party.host_id,
-            name: @party.name,
-            playlist: @party.playlists
-          }
+          render json: @party, include: { playlists: @party.playlists }
         else
           render json: {error: "record not found"}, status: 404
         end
