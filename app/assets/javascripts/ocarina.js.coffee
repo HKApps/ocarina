@@ -16,3 +16,6 @@
         .otherwise
           redirectTo: '/'
   ])
+  .run(['$rootScope', '$location', ($rootScope, $location) ->
+    $rootScope.location = $location
+  ])
