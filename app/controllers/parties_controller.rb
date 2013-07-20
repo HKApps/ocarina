@@ -31,7 +31,7 @@ class PartiesController < ApplicationController
             id: @party.id,
             host_id: @party.host_id,
             name: @party.name,
-            playlist: @party.playlist || []
+            playlist: @party.playlists
           }
         else
           render json: {error: "record not found"}, status: 404
