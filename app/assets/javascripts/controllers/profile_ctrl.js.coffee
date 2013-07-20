@@ -7,7 +7,7 @@ ocarina.controller 'ProfileCtrl', ['$scope', '$http', '$route', '$location',
       future.then (response) =>
         if response.status == 201
           $scope.user.parties.push(response.data)
-          $location.path("/parties/#{response.data.id}")
+          $location.path("/parties/#{response.data.id}/add_songs")
         # TODO else render error message
 
       $scope.newParty.name = ''
