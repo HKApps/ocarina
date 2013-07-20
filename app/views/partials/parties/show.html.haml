@@ -1,6 +1,14 @@
 .party-container{ ng_if: 'party', ng_controller: 'PartyCtrl' }
-  %h2 {{party.name}}
+  .name
+    %h3 {{party.name}}
 
-  %h3 Audio Player
+  .player
+    %h3 Audio Player
 
-  %h3 Songs
+  .songs
+    %h3 Songs
+    .playlist-song-list{ ng_repeat: 'song in party.playlists' }
+      %span.name {{song.path}}
+      %span.votes {{song.up_votes - song.down_votes}}
+      %i.upvote.general.foundicon-upvote{ ng_click: "upvoteSong(song)" }
+      %i.downvote.general.foundicon-downvote{ ng_click: "downvoteSong(song)" }

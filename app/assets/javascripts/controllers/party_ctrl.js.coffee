@@ -24,9 +24,19 @@ ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
 
       # future.then (response) =>
       #   if response.status == 201
-      #     $scope.user.parties.push(response.data)
-      #     $location.path("/parties/#{response.data.id}/add_songs")
+      #     $scope.party.playlists.push(response.data)
       #   # TODO else render error message
 
       $location.path("/parties/#{partyId}")
+
+    # TODO test
+    $scope.upvoteSong = (song) ->
+      _.findWhere $scope.party.playlists, (upvotedSong) ->
+        upvotedSong++
+        # submit vote to server?
+
+    $scope.upvoteSong = (song) ->
+      _.findWhere $scope.party.playlists, (upvotedSong) ->
+        upvotedSong--
+        # submit vote to server?
 ]
