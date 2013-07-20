@@ -7,13 +7,11 @@ class PlaylistController < ApplicationController
   end
 
   def add_songs
-    service = AddSongToPlaylistService.initialize_from_params(params)
-    @songs = service.songs_with_media_urls(dropbox_client)
-    if @songs
-      AddSongToPlaylistWorker.perform_async(service)
-      respond_with @songs
+    playlists = AddSongToPlaylistService.initialize_from_params(params).create
+    if playlists.present?
+      render json: playlists, status: 201
     else
-      respond_with({}, status: :unauthorized)
+      respond_with({error: "record not found"}, status: 404)
     end
   end
 
