@@ -7,11 +7,9 @@ class PlaylistController < ApplicationController
   end
 
   def add_songs
-    service = AddSongToPlaylistService.initialize_from_params(params)
-    songs = service.songs
-    if songs
-      AddSongToPlaylistWorker.perform_async(service)
-      render json: songs
+    playlists = AddSongToPlaylistService.initialize_from_params(params).create
+    if playlists.present?
+      render json: playlists
     else
       respond_with({error: "record not found"}, status: 404)
     end
