@@ -1,0 +1,8 @@
+.add-songs{ ng_controller: "SongsCtrl", ng_show: "songs" }
+  %h3 Select Songs to Add
+  .songs-to-add{ ng_repeat: "song in songs", ng_click: "toggleSongSelected(song)", ng_class: '{"selected": isSongSelected(song)}' }
+    // TODO change this when we update song model
+    %span.name {{song.path}}
+    %i.general.foundicon-checkmark
+  .small.button.radius{ ng_click: "addSelectedSongs()" }
+    Submit
