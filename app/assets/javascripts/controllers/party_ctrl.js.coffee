@@ -20,5 +20,14 @@ ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
     $scope.addSelectedSongs = ->
       # TODO send $scope.selectedSongs to endpoint
       # TODO push $scope.selectedSongs to party.playlist
+      future = $http.post "/parties/16/playlist/add_songs.json",
+          song_ids: $scope.selectedSongs
+
+      future.then (response) =>
+        if response.status == 201
+          $scope.user.parties.push(response.data)
+          $location.path("/parties/#{response.data.id}/add_songs")
+        # TODO else render error message
+
       $location.path("/parties/#{partyId}")
 ]
