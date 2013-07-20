@@ -11,6 +11,8 @@
       $routeProvider
         .when '/parties/:partyId',
           templateUrl: '/partials/parties/show.html'
+        .when '/parties/:partyId/add_songs',
+          templateUrl: '/partials/parties/add_songs.html'
         .when '/',
           templateUrl: '/partials/profile.html'
         .otherwise
