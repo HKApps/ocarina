@@ -25,16 +25,16 @@ class Vote < ActiveRecord::Base
   end
 
   class << self
-    def up; Up.new; end
-    def down; Down.new; end
+    def upvote; Upvote.new; end
+    def downvote; Downvote.new; end
   end
 
-  class Up
+  class Upvote
     def action;      :increment_counter; end
     def vote_method; :increment_decision; end
   end
 
-  class Down
+  class Downvote
     def action;      :decrement_counter; end
     def vote_method; :decrement_decision; end
   end

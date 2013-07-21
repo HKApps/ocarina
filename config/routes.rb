@@ -20,8 +20,8 @@ Ocarina::Application.routes.draw do
     post 'add_songs', on: :member, to: "playlist_songs#create"
 
     resources :playlist_songs, only: [:create] do
-      post 'up',   on: :member
-      post 'down', on: :member
+      post 'upvote',   on: :member
+      post 'downvote', on: :member
     end
   end
 

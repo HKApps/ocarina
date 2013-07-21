@@ -8,15 +8,15 @@ class PlaylistSongsController < ApplicationController
     end
   end
 
-  def up
-    PlaylistSongVoterWorker.perform_async(vote_params, :up)
+  def upvote
+    PlaylistSongVoterWorker.perform_async(vote_params, :upvote)
     respond_to do |format|
       format.json { render json: {status: "ok"} }
     end
   end
 
-  def down
-    PlaylistSongVoterWorker.perform_async(vote_params, :down)
+  def downvote
+    PlaylistSongVoterWorker.perform_async(vote_params, :downvote)
     respond_to do |format|
       format.json { render json: {status: "ok"} }
     end
