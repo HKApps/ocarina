@@ -14,9 +14,9 @@ class AddPlaylistSongToPlaylistService
   def create
     ActiveRecord::Base.transaction do
       songs.map do |song|
-        song.playlists_songs.create do |s|
-          s.song_path   = song.path
-          s.playlist_id = @playlist_id
+        song.playlist_songs.create do |ps|
+          ps.path        = song.path
+          ps.playlist_id = @playlist_id
         end
       end
     end

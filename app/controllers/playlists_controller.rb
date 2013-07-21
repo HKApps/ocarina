@@ -27,7 +27,7 @@ class PlaylistsController < ApplicationController
       format.json do
         @playlist= Playlist.find_by id: params[:id]
         if @playlist
-          render json: @playlist, include: :playlists
+          render json: @playlist, include: :playlist_songs
         else
           render json: {error: "record not found"}, status: 404
         end
