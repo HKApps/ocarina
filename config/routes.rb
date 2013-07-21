@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 
-MusicApp::Application.routes.draw do
+Ocarina::Application.routes.draw do
 
   # TODO(mn) - Make this admin-only
   mount Sidekiq::Web, at: '/sidekiq'
