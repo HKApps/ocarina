@@ -1,5 +1,5 @@
 ---
 :verbose: true
 :queues:
-  - [add_song_to_playlist_worker, 1]
+  - [playlist_song_voter_worker, 1]
   - [default, 1]

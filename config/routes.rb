@@ -17,7 +17,12 @@ Ocarina::Application.routes.draw do
   get 'partials/*partial' => 'partials#partial'
 
   resources :playlists, only: [:index, :show, :create] do
-    post 'add_songs', on: :member
+    post 'add_songs', on: :member, to: "playlist_songs#create"
+
+    resources :playlist_songs, only: [:create] do
+      post 'upvote',   on: :member
+      post 'downvote', on: :member
+    end
   end
 
   get 'current_user', to: 'users#current_user_json'
