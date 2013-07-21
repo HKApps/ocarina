@@ -1,8 +1,8 @@
-ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
+ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
   ($scope, $http, $route, $location) ->
-    partyId = $route.current.params.partyId
-    $http.get("/parties/#{partyId}.json").then (response) =>
-      $scope.party = response.data
+    playlistId = $route.current.params.playlistId
+    $http.get("/playlists/#{playlistId}.json").then (response) =>
+      $scope.playlist = response.data
 
     $scope.selectedSongs = []
 
@@ -17,24 +17,24 @@ ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
         $scope.selectedSongs.push(song)
 
     $scope.addSelectedSongs = ->
-      future = $http.post "/parties/#{partyId}/playlist/add_songs.json",
+      future = $http.post "/playlists/#{playlistId}/playlist/add_songs.json",
           song_ids: $scope.selectedSongs
 
       future.then (response) =>
         if response.status == 201
           _.each response.data, (songToAdd) ->
-            $scope.party.playlists.push(songToAdd)
+            $scope.playlist.playlists.push(songToAdd)
         # TODO else render message
 
-        $location.path("/parties/#{partyId}")
+        $location.path("/playlists/#{playlistId}")
 
     $scope.upvoteSong = (song) ->
-      upvotedSong = _.findWhere($scope.party.playlists, song)
+      upvotedSong = _.findWhere($scope.playlist.playlists, song)
       upvotedSong.up_votes++
       # submit vote to server?
 
     $scope.downvoteSong = (song) ->
-      downvotedSong = _.findWhere($scope.party.playlists, song)
+      downvotedSong = _.findWhere($scope.playlist.playlists, song)
       downvotedSong.down_votes++
       # submit vote to server?
 ]

@@ -1,13 +1,13 @@
 .profile-container.ng-cloak{ ng_controller: 'ProfileCtrl' }
   .user-parties
     %h3 {{user.first_name}}'s Playlists
-    .parties-list{ ng_repeat: 'party in user.parties' }
-      %a.party{ ng_href: "/parties/{{party.id}}" }
-        {{party.name}}
+    .parties-list{ ng_repeat: 'playlist in user.parties' }
+      %a.playlist{ ng_href: "/parties/{{playlist.id}}" }
+        {{playlist.name}}
 
-  .create-party
-    %h3 Create Party
+  .create-playlist
+    %h3 Create Playlist
 
-    %form.create-party-form{ ng_submit: "createParty()" }
-      %input{ :type => "text", ng_model: "newParty.name" }
-      %input.small.button.radius{ :type => "submit", :value => "Create Party" }
+    %form.create-playlist-form{ ng_submit: "createPlaylist()" }
+      %input{ :type => "text", ng_model: "newPlaylist.name" }
+      %input.small.button.radius{ :type => "submit", :value => "Create Playlist" }
