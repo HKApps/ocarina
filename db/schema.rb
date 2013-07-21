@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130720212902) do
+ActiveRecord::Schema.define(version: 20130721185525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,26 +27,22 @@ ActiveRecord::Schema.define(version: 20130720212902) do
     t.string   "access_token_secret"
   end
 
-  create_table "parties", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "host_id",    null: false
-    t.datetime "updated_at"
-    t.datetime "created_at"
+  create_table "playlist_songs", force: true do |t|
+    t.integer "playlist_id",             null: false
+    t.integer "song_id",                 null: false
+    t.integer "vote_count",  default: 0, null: false
+    t.string  "path",                    null: false
+    t.string  "media_url"
   end
-
-  add_index "parties", ["host_id"], name: "index_parties_on_host_id", using: :btree
 
   create_table "playlists", force: true do |t|
-    t.integer  "party_id",               null: false
-    t.integer  "song_id",                null: false
-    t.integer  "up_votes",   default: 0
-    t.integer  "down_votes", default: 0
-    t.datetime "created_at"
+    t.string   "name",       null: false
+    t.integer  "owner_id",   null: false
     t.datetime "updated_at"
-    t.string   "song_path"
+    t.datetime "created_at"
   end
 
-  add_index "playlists", ["party_id", "song_id"], name: "index_playlists_on_party_id_and_song_id", using: :btree
+  add_index "playlists", ["owner_id"], name: "index_playlists_on_owner_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "name",       null: false
