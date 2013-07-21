@@ -17,24 +17,24 @@ ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
         $scope.selectedSongs.push(song)
 
     $scope.addSelectedSongs = ->
-      future = $http.post "/playlists/#{playlistId}/playlist/add_songs.json",
+      future = $http.post "/playlists/#{playlistId}/add_songs.json",
           song_ids: $scope.selectedSongs
 
       future.then (response) =>
         if response.status == 201
           _.each response.data, (songToAdd) ->
-            $scope.playlist.playlists.push(songToAdd)
+            $scope.playlist.playlist_songs.push(songToAdd)
         # TODO else render message
 
         $location.path("/playlists/#{playlistId}")
 
     $scope.upvoteSong = (song) ->
-      upvotedSong = _.findWhere($scope.playlist.playlists, song)
-      upvotedSong.up_votes++
+      upvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
+      upvotedSong.vote_count++
       # submit vote to server?
 
     $scope.downvoteSong = (song) ->
-      downvotedSong = _.findWhere($scope.playlist.playlists, song)
-      downvotedSong.down_votes++
+      downvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
+      downvotedSong.vote_count--
       # submit vote to server?
 ]

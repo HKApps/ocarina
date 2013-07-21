@@ -1,8 +1,8 @@
 .profile-container.ng-cloak{ ng_controller: 'ProfileCtrl' }
   .user-parties
     %h3 {{user.first_name}}'s Playlists
-    .parties-list{ ng_repeat: 'playlist in user.parties' }
-      %a.playlist{ ng_href: "/parties/{{playlist.id}}" }
+    .parties-list{ ng_repeat: 'playlist in user.playlists' }
+      %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
         {{playlist.name}}
 
   .create-playlist
