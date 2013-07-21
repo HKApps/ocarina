@@ -19,9 +19,9 @@ class PlaylistSongVoterService
   end
 
   def create
-    vote          = Vote.where(user_id: @user_id, playlist_song_id: @playlist_song_id).first_or_initialize
-    vote.decision = @decision.vote_num
-    vote.save!
+    vote = Vote.where(user_id: @user_id, playlist_song_id: @playlist_song_id).first_or_initialize
+    vote.send(@decision.vote_method)
+    vote.valid_decision? ? vote.save! : vote.touch
   end
 
   def update_vote_counter
