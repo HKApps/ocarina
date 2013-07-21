@@ -1,0 +1,11 @@
+.songs-to-add{
+  i.general.foundicon-checkmark{
+    display: none;
+  }
+  &.selected{
+    i.general.foundicon-checkmark{
+      display: inline-block;
+    }
+  }
+}
+
