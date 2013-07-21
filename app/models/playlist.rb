@@ -1,8 +1,5 @@
 class Playlist < ActiveRecord::Base
-  belongs_to :song
+  has_many :playlist_songs
 
-  belongs_to :party
-
-  validate :party_id, presence: true
-  validate :song_id, presence: true
+  belongs_to :user, class_name: 'User', foreign_key: 'owner_id'
 end
