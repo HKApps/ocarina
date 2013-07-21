@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :authentications
   has_many :songs
-  has_many :parties, foreign_key: :host_id
+  has_many :playlists, foreign_key: :owner_id
 
   validates :email, presence: true
 
@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
       dropbox_authenticated:  dropbox_authenticated?,
       facebook_authenticated: facebook_authenticated?,
       dropbox_songs:          songs,
-      parties:                parties
+      playlists:              playlists
     }).to_json
   end
 
