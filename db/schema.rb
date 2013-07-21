@@ -64,9 +64,9 @@ ActiveRecord::Schema.define(version: 20130721200635) do
   end
 
   create_table "votes", force: true do |t|
-    t.integer "playlist_song_id", null: false
-    t.integer "user_id",          null: false
-    t.integer "decision",         null: false
+    t.integer "playlist_song_id",             null: false
+    t.integer "user_id",                      null: false
+    t.integer "decision",         default: 0, null: false
   end
 
   add_index "votes", ["playlist_song_id", "user_id"], name: "index_votes_on_playlist_song_id_and_user_id", unique: true, using: :btree
