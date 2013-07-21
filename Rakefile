@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-MusicApp::Application.load_tasks
+Ocarina::Application.load_tasks
