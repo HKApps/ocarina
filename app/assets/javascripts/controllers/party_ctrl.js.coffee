@@ -30,11 +30,11 @@ ocarina.controller 'PartyCtrl', ['$scope', '$http', '$route', '$location',
 
     $scope.upvoteSong = (song) ->
       upvotedSong = _.findWhere($scope.party.playlists, song)
-      upvotedSong.up_votes++
+      upvotedSong.votes++
       # submit vote to server?
 
     $scope.downvoteSong = (song) ->
       downvotedSong = _.findWhere($scope.party.playlists, song)
-      downvotedSong.down_votes++
+      downvotedSong.votes--
       # submit vote to server?
 ]
