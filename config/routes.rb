@@ -16,15 +16,13 @@ Ocarina::Application.routes.draw do
 
   get 'partials/*partial' => 'partials#partial'
 
-  resources :parties, only: [:show, :create] do
-    resources :playlist, only: [:index] do
-      post 'add_songs', on: :collection
-    end
+  resources :playlists, only: [:index, :show, :create] do
+    post 'add_songs', on: :member
   end
 
   get 'current_user', to: 'users#current_user_json'
 
-  get '/*path', to: 'parties#index_template'
+  get '/*path', to: 'playlists#index_template'
 
-  root to: "parties#index_template"
+  root to: 'playlists#index_template'
 end
