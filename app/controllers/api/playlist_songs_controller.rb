@@ -1,4 +1,4 @@
-class PlaylistSongsController < ApplicationController
+class Api::PlaylistSongsController < ApiController
   def create
     playlist_songs = AddPlaylistSongToPlaylistService.initialize_from_params(params).create
     if playlist_songs.present?
