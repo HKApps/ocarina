@@ -10,6 +10,15 @@
     = csrf_meta_tags
 
   %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          = link_to "Ocarina", '/', class: "brand brand-title"
+          .pull-right
+            %ul.nav
+              - if current_user
+                %li.divider-vertical
+                  %li= link_to "Logout", logout_path
     = yield
 
     = javascript_include_tag "vendor/custom.modernizr"
