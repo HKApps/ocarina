@@ -20,7 +20,19 @@ class PlaylistsController < ApplicationController
   end
 
   def show
-    @playlist = Playlist.includes(:playlist_songs).where(id: params[:id])
+    respond_to do |format|
+      format.html do
+        if current_user
+          render :index
+        else
+          render 'sessions/logged_out_homepage'
+        end
+      end
+
+      format.json do
+        @playlist = Playlist.includes(:playlist_songs).where(id: params[:id]).first
+      end
+    end
   end
 
   def create

@@ -1,9 +1,9 @@
 .songs-to-add{
-  i.general.foundicon-checkmark{
+  i.icon-ok{
     display: none;
   }
   &.selected{
-    i.general.foundicon-checkmark{
+    i.icon-ok{
       display: inline-block;
     }
   }
