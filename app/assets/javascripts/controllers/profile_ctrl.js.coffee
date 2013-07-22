@@ -1,14 +1,11 @@
-ocarina.controller 'ProfileCtrl', ['$scope', '$http', '$route', '$location',
-  ($scope, $http, $route, $location) ->
+ocarina.controller 'ProfileCtrl', ['Playlist', '$scope', '$http', '$route', '$location',
+  (Playlist, $scope, $http, $route, $location) ->
     $scope.createPlaylist = () ->
-      future = $http.post "/api/playlists.json",
-          name: $scope.newPlaylist.name
-
-      future.then (response) =>
-        if response.status == 201
-          $scope.user.playlists.push(response.data)
-          $location.path("/playlists/#{response.data.id}/add_songs")
-        # TODO else render error message
+      playlist = new Playlist()
+      playlist.name = $scope.newPlaylist.name
+      playlist.create().then (response) =>
+        $scope.user.playlists.push(response.data)
+        $location.path("/playlists/#{response.data.id}/add_songs")
 
       $scope.newPlaylist.name = ''
 ]

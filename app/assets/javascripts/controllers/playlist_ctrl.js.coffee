@@ -1,8 +1,8 @@
-ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
-  ($scope, $http, $route, $location) ->
+ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$http', '$route', '$location',
+  (Playlist, $scope, $http, $route, $location) ->
     playlistId = $route.current.params.playlistId
-    $http.get("/api/playlists/#{playlistId}.json").then (response) =>
-      $scope.playlist = response.data
+    Playlist.get(playlistId).then (response) =>
+      $scope.playlist = response
 
     $scope.selectedSongs = []
 

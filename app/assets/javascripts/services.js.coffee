@@ -23,3 +23,21 @@
       args = arguments
       $rootScope.$apply ->
         callback.apply channel, args
+
+@ocarinaServices.factory 'Playlist', ['$http', ($http) ->
+  Playlist = (data) ->
+    angular.extend(this, data)
+
+  Playlist.get = (id) ->
+    $http.get("/api/playlists/#{id}.json").then (response) =>
+      new Playlist(response.data)
+
+  Playlist.prototype.create = ->
+    playlist = this
+    return $http.post('/api/playlists.json', playlist).then (response) =>
+      playlist = response.data
+
+      return playlist
+
+  return Playlist
+]
