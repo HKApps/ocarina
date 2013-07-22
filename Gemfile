@@ -24,7 +24,6 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'uglifier', '>= 1.3.0'
-gem 'zepto-rails', :github => 'frontfoot/zepto-rails'
 gem 'zurb-foundation'
 
 group :development do

@@ -12,7 +12,6 @@
 #= require filters
 #= require bootstrap
 #= require_self
-#= require zepto/default
 #= require foundation
 
 # Setup foundation
