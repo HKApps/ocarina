@@ -17,6 +17,7 @@ gem 'pusher'
 gem 'omniauth'
 gem 'omniauth-dropbox'
 gem 'omniauth-facebook'
+gem 'bootstrap-sass'
 gem 'sass-rails', '~> 4.0.0.rc2'
 gem 'sidekiq'
 gem 'sinatra', require: false
