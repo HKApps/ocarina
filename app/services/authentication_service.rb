@@ -23,7 +23,7 @@ class AuthenticationService
   end
 
   def user_from_facebook
-    (@current_consumer || find_user_by_omniauth_email).first_or_initialize.tap do |user|
+    (@current_user || find_user_by_omniauth_email.first_or_initialize).tap do |user|
       user.email      = @omniauth["info"]["email"]
       user.first_name = @omniauth["info"]["first_name"]
       user.last_name  = @omniauth["info"]["last_name"]
