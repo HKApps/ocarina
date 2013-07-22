@@ -34,10 +34,23 @@
 
   Playlist.prototype.create = ->
     playlist = this
-    return $http.post('/api/playlists.json', playlist).then (response) =>
+    $http.post('/api/playlists.json', playlist).then (response) =>
       playlist = response.data
 
-      return playlist
+  Playlist
+]
 
-  return Playlist
+@ocarinaServices.factory 'User', ['$http', ($http) ->
+  User = (data) ->
+    angular.extend(this, data)
+
+  User.get = (id) ->
+    $http.get("/api/users/#{id}.json").then (response) =>
+      new User(response.data)
+
+  User.getCurrentUser = ->
+    $http.get("/api/current_user.json").then (response) =>
+      new User(response.data)
+
+  User
 ]

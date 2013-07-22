@@ -1,8 +1,8 @@
 ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$http', '$route', '$location',
   (Playlist, $scope, $http, $route, $location) ->
     playlistId = $route.current.params.playlistId
-    Playlist.get(playlistId).then (response) =>
-      $scope.playlist = response
+    Playlist.get(playlistId).then (p) =>
+      $scope.playlist = p
 
     $scope.selectedSongs = []
 
