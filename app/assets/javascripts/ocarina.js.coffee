@@ -9,10 +9,10 @@
       $locationProvider.html5Mode(true)
 
       $routeProvider
-        .when '/parties/:partyId',
-          templateUrl: '/partials/parties/show.html'
-        .when '/parties/:partyId/add_songs',
-          templateUrl: '/partials/parties/add_songs.html'
+        .when '/playlists/:playlistId',
+          templateUrl: '/partials/playlists/show.html'
+        .when '/playlists/:playlistId/add_songs',
+          templateUrl: '/partials/playlists/add_songs.html'
         .when '/',
           templateUrl: '/partials/profile.html'
         .otherwise

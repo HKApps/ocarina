@@ -16,4 +16,5 @@
 #= require foundation
 
 # Setup foundation
-$(document).foundation()
+$ ->
+  $(document).foundation()

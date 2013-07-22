@@ -11,14 +11,14 @@ class PlaylistSongsController < ApplicationController
   def upvote
     PlaylistSongVoterWorker.perform_async(vote_params, :upvote)
     respond_to do |format|
-      format.json { render json: {status: "ok"} }
+      format.json { head :ok }
     end
   end
 
   def downvote
     PlaylistSongVoterWorker.perform_async(vote_params, :downvote)
     respond_to do |format|
-      format.json { render json: {status: "ok"} }
+      format.json { head :ok }
     end
   end
 
