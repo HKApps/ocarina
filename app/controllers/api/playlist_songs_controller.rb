@@ -1,10 +1,10 @@
-class PlaylistSongsController < ApplicationController
+class Api::PlaylistSongsController < ApiController
   def create
     playlist_songs = AddPlaylistSongToPlaylistService.initialize_from_params(params).create
     if playlist_songs.present?
       render json: playlist_songs, status: 201
     else
-      respond_with({error: "record not found"}, status: 404)
+      render json: {error: "record not found"}, status: 404
     end
   end
 

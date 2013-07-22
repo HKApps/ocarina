@@ -1,7 +1,7 @@
 ocarina.controller 'ProfileCtrl', ['$scope', '$http', '$route', '$location',
   ($scope, $http, $route, $location) ->
     $scope.createPlaylist = () ->
-      future = $http.post "/playlists.json",
+      future = $http.post "/api/playlists.json",
           name: $scope.newPlaylist.name
 
       future.then (response) =>
