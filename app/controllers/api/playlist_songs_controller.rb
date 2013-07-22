@@ -4,7 +4,7 @@ class Api::PlaylistSongsController < ApiController
     if playlist_songs.present?
       render json: playlist_songs, status: 201
     else
-      respond_with({error: "record not found"}, status: 404)
+      render json: {error: "record not found"}, status: 404
     end
   end
 
