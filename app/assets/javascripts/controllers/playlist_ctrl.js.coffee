@@ -30,15 +30,19 @@ ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
 
     $scope.upvoteSong = (song) ->
       upvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
-      $http.post("/playlists/#{playlistId}/playlist_songs/#{upvotedSong.id}/upvote").then (response) =>
-        if response.status == 201
-          upvotedSong.vote_count++
-        # TODO else render message
+      unless upvotedSong.current_consumer_vote_decision == 1
+        $http.post("/playlists/#{playlistId}/playlist_songs/#{upvotedSong.id}/upvote").then (response) =>
+          if response.status == 200
+            upvotedSong.vote_count++
+            upvotedSong.current_consumer_vote_decision++
+          # TODO else render message
 
     $scope.downvoteSong = (song) ->
       downvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
-      $http.post("/playlists/#{playlistId}/playlist_songs/#{downvotedSong.id}/upvote").then (response) =>
-        if response.status == 201
-          downvotedSong.vote_count--
-        # TODO else render message
+      unless downvotedSong.current_consumer_vote_decision == -1
+        $http.post("/playlists/#{playlistId}/playlist_songs/#{downvotedSong.id}/downvote").then (response) =>
+          if response.status == 200
+            downvotedSong.vote_count--
+            downvotedSong.current_consumer_vote_decision--
+          # TODO else render message
 ]
