@@ -5,7 +5,7 @@ class PlaylistsController < ApplicationController
         if current_user
           render :index
         else
-          render 'sessions/new'
+          render 'sessions/new', :layout => "logged_out"
         end
       end
     end
