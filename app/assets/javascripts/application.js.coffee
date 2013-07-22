@@ -15,6 +15,5 @@
 #= require zepto/default
 #= require foundation
 
-# Setups foundation
-$ ->
-  $(document).foundation()
+# Setup foundation
+$(document).foundation()

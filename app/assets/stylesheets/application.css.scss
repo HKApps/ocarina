@@ -9,13 +9,15 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require foundation_and_overrides
+ *= require foundation
  *= require_tree .
  */
 
-/*
+@import 'foundation-grid';
+@import 'bootstrap';
+@import 'bootstrap-responsive';
 
-  http://stackoverflow.com/questions/11249768/angularjs-ng-cloak-ng-show-elements-blink/13276214#13276214
+/*
   Allow angular.js to be loaded in body, hiding cloaked elements until
   templates compile.  The !important is important given that there may be
   other selectors that are more specific or come later and might alter display.
@@ -24,7 +26,3 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
-
-@import 'bootstrap';
-@import 'bootstrap-responsive';
-@import 'foundation-icons';
