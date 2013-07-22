@@ -1,5 +1,6 @@
 class PlaylistsController < ApplicationController
   before_filter :require_authentication
+  respond_to :json
 
   def index_template
     respond_to do |format|
@@ -19,20 +20,7 @@ class PlaylistsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html do
-        render :index
-      end
-
-      format.json do
-        @playlist= Playlist.find_by id: params[:id]
-        if @playlist
-          render json: @playlist, include: :playlist_songs
-        else
-          render json: {error: "record not found"}, status: 404
-        end
-      end
-    end
+    @playlist = Playlist.includes(:playlist_songs).where(id: params[:id])
   end
 
   def create

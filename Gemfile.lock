@@ -122,6 +122,7 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    oj (2.1.4)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
@@ -150,6 +151,8 @@ GEM
     pusher (0.11.3)
       multi_json (~> 1.0)
       signature (~> 0.1.6)
+    rabl (0.8.6)
+      activesupport (>= 2.3.14)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -240,6 +243,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
+  oj
   omniauth
   omniauth-dropbox
   omniauth-facebook
@@ -248,6 +252,7 @@ DEPENDENCIES
   pry-rails
   puma
   pusher
+  rabl
   rails (= 4.0.0)
   sass-rails (~> 4.0.0.rc2)
   sdoc
