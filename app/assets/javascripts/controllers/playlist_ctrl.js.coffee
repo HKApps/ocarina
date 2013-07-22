@@ -1,7 +1,7 @@
 ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
   ($scope, $http, $route, $location) ->
     playlistId = $route.current.params.playlistId
-    $http.get("/playlists/#{playlistId}.json").then (response) =>
+    $http.get("/api/playlists/#{playlistId}.json").then (response) =>
       $scope.playlist = response.data
 
     $scope.selectedSongs = []
@@ -17,7 +17,7 @@ ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
         $scope.selectedSongs.push(song)
 
     $scope.addSelectedSongs = ->
-      future = $http.post "/playlists/#{playlistId}/add_songs.json",
+      future = $http.post "/api/playlists/#{playlistId}/add_songs.json",
           song_ids: $scope.selectedSongs
 
       future.then (response) =>
@@ -31,7 +31,7 @@ ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
     $scope.upvoteSong = (song) ->
       upvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
       unless upvotedSong.current_consumer_vote_decision == 1
-        $http.post("/playlists/#{playlistId}/playlist_songs/#{upvotedSong.id}/upvote").then (response) =>
+        $http.post("/api/playlists/#{playlistId}/playlist_songs/#{upvotedSong.id}/upvote").then (response) =>
           if response.status == 200
             upvotedSong.vote_count++
             upvotedSong.current_consumer_vote_decision++
@@ -40,7 +40,7 @@ ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
     $scope.downvoteSong = (song) ->
       downvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
       unless downvotedSong.current_consumer_vote_decision == -1
-        $http.post("/playlists/#{playlistId}/playlist_songs/#{downvotedSong.id}/downvote").then (response) =>
+        $http.post("/api/playlists/#{playlistId}/playlist_songs/#{downvotedSong.id}/downvote").then (response) =>
           if response.status == 200
             downvotedSong.vote_count--
             downvotedSong.current_consumer_vote_decision--
