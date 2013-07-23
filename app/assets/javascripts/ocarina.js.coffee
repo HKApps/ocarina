@@ -11,8 +11,6 @@
       $routeProvider
         .when '/playlists/:playlistId',
           templateUrl: '/partials/playlists/show.html'
-        .when '/playlists/:playlistId/add_songs',
-          templateUrl: '/partials/playlists/add_songs.html'
         .when '/',
           templateUrl: '/partials/profile.html'
         .otherwise
