@@ -1,8 +1,8 @@
-ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
-  ($scope, $http, $route, $location) ->
+ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
+  (Playlist, $scope, $route, $location) ->
     playlistId = $route.current.params.playlistId
-    $http.get("/api/playlists/#{playlistId}.json").then (response) =>
-      $scope.playlist = response.data
+    Playlist.get(playlistId).then (p) =>
+      $scope.playlist = p
 
     $scope.selectedSongs = []
 
@@ -17,32 +17,22 @@ ocarina.controller 'PlaylistCtrl', ['$scope', '$http', '$route', '$location',
         $scope.selectedSongs.push(song)
 
     $scope.addSelectedSongs = ->
-      future = $http.post "/api/playlists/#{playlistId}/add_songs.json",
-          song_ids: $scope.selectedSongs
+      Playlist.addSongs(playlistId, $scope.selectedSongs).then (res) =>
+        _.each res.data, (song) ->
+          song.current_consumer_vote_decision = 0
+          $scope.playlist.playlist_songs.push(song)
 
-      future.then (response) =>
-        if response.status == 201
-          _.each response.data, (songToAdd) ->
-            $scope.playlist.playlist_songs.push(songToAdd)
-        # TODO else render message
-
-        $location.path("/playlists/#{playlistId}")
+      $location.path("/playlists/#{playlistId}")
 
     $scope.upvoteSong = (song) ->
-      upvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
-      unless upvotedSong.current_consumer_vote_decision == 1
-        $http.post("/api/playlists/#{playlistId}/playlist_songs/#{upvotedSong.id}/upvote").then (response) =>
-          if response.status == 200
-            upvotedSong.vote_count++
-            upvotedSong.current_consumer_vote_decision++
-          # TODO else render message
+      unless song.current_consumer_vote_decision == 1
+        Playlist.vote(playlistId, song, "upvote").then (res) =>
+          song.vote_count++
+          song.current_consumer_vote_decision++
 
     $scope.downvoteSong = (song) ->
-      downvotedSong = _.findWhere($scope.playlist.playlist_songs, song)
-      unless downvotedSong.current_consumer_vote_decision == -1
-        $http.post("/api/playlists/#{playlistId}/playlist_songs/#{downvotedSong.id}/downvote").then (response) =>
-          if response.status == 200
-            downvotedSong.vote_count--
-            downvotedSong.current_consumer_vote_decision--
-          # TODO else render message
+      unless song.current_consumer_vote_decision == -1
+        Playlist.vote(playlistId, song, "downvote").then (res) =>
+          song.vote_count--
+          song.current_consumer_vote_decision--
 ]
