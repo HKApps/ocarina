@@ -5,7 +5,7 @@ ocarina.controller 'ProfileCtrl', ['Playlist', '$scope', '$location',
       playlist.name = $scope.newPlaylist.name
       playlist.create().then (res) =>
         $scope.user.playlists.push(res.data)
-        $location.path("/playlists/#{res.data.id}/add_songs")
+        $location.path("/playlists/#{res.data.id}")
 
       $scope.newPlaylist.name = ''
 ]

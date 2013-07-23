@@ -5,6 +5,16 @@
   .player
     %h3 Audio Player
 
+  .add-dropbox-songs
+    %button.btn{ ng_click: "openAddSongsModal()" }
+      Add Songs
+    %div{ modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
+      .modal-body
+        =render '/partials/playlists/add_songs'
+      .modal-footer
+        %button.btn{ ng_click: "closeAddSongsModal()" } Cancel
+        %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
+
   .songs
     %h3 Songs
     .playlist-song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }

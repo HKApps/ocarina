@@ -1,5 +1,12 @@
 .songs-to-add{
+  border: 1px solid #DDD;
+  padding: 8px;
+  display: block;
+  border-radius: 10px;
+
   i.icon-ok{
+    margin-left: 10px;
+    color: #08C400;
     display: none;
   }
   &.selected{
