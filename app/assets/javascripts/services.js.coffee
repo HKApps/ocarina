@@ -43,7 +43,6 @@
   Playlist.vote = (id, song_id, decision) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/#{decision}")
 
-
   Playlist
 ]
 
