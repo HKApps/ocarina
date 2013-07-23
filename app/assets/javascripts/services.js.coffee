@@ -25,27 +25,37 @@
         callback.apply channel, args
 
 @ocarinaServices.factory 'Playlist', ['$http', ($http) ->
+  url = "/api/playlists"
   Playlist = (data) ->
     angular.extend(this, data)
 
   Playlist.get = (id) ->
-    $http.get("/api/playlists/#{id}.json").then (response) =>
+    $http.get("#{url}/#{id}.json").then (response) =>
       new Playlist(response.data)
 
   Playlist.prototype.create = ->
     playlist = this
-    $http.post('/api/playlists.json', playlist).then (response) =>
+    $http.post("#{url}.json", playlist).then (response) =>
       playlist = response.data
+
+  Playlist.addSongs = (id, songs) ->
+    $http.post("#{url}/#{id}/add_songs.json", song_ids: songs).then (response) =>
+      songs = response.data
+
+  Playlist.vote = (id, song_id, decision) ->
+    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/#{decision}")
+
 
   Playlist
 ]
 
 @ocarinaServices.factory 'User', ['$http', ($http) ->
+  url = "/api/users"
   User = (data) ->
     angular.extend(this, data)
 
   User.get = (id) ->
-    $http.get("/api/users/#{id}.json").then (response) =>
+    $http.get("#{url}/#{id}.json").then (response) =>
       new User(response.data)
 
   User.getCurrentUser = ->
