@@ -1,3 +1,22 @@
+GIT
+  remote: git://github.com/jodosha/redis-store.git
+  revision: 309425a66cb2435478583a17a3073a9c94f32142
+  specs:
+    redis-actionpack (3.2.3)
+      actionpack (>= 3.2.3)
+      redis-rack (~> 1.4.0)
+      redis-store (~> 1.1.0)
+    redis-activesupport (3.2.3)
+      activesupport (>= 3.2.3)
+      redis-store (~> 1.1.0)
+    redis-rack (1.4.2)
+      rack (~> 1.4)
+      redis-store (~> 1.1.0)
+    redis-rails (3.2.3)
+      redis-actionpack (>= 3.2.3)
+      redis-activesupport (>= 3.2.3)
+      redis-store (~> 1.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -174,6 +193,8 @@ GEM
     redis (3.0.4)
     redis-namespace (1.3.0)
       redis (~> 3.0.0)
+    redis-store (1.1.2)
+      redis (>= 2.2.0)
     sass (3.2.9)
     sass-rails (4.0.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -246,6 +267,8 @@ DEPENDENCIES
   pusher
   rabl
   rails (= 4.0.0)
+  redis-rails!
+  redis-store
   sass-rails (~> 4.0.0.rc2)
   sdoc
   sidekiq
