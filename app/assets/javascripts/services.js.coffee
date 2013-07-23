@@ -30,17 +30,15 @@
     angular.extend(this, data)
 
   Playlist.get = (id) ->
-    $http.get("#{url}/#{id}.json").then (response) =>
-      new Playlist(response.data)
+    $http.get("#{url}/#{id}.json").then (res) =>
+      new Playlist(res.data)
 
   Playlist.prototype.create = ->
     playlist = this
-    $http.post("#{url}.json", playlist).then (response) =>
-      playlist = response.data
+    $http.post("#{url}.json", playlist)
 
   Playlist.addSongs = (id, songs) ->
-    $http.post("#{url}/#{id}/add_songs.json", song_ids: songs).then (response) =>
-      songs = response.data
+    $http.post("#{url}/#{id}/add_songs.json", song_ids: songs)
 
   Playlist.vote = (id, song_id, decision) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/#{decision}")
@@ -55,12 +53,12 @@
     angular.extend(this, data)
 
   User.get = (id) ->
-    $http.get("#{url}/#{id}.json").then (response) =>
-      new User(response.data)
+    $http.get("#{url}/#{id}.json").then (res) =>
+      new User(res.data)
 
   User.getCurrentUser = ->
-    $http.get("/api/current_user.json").then (response) =>
-      new User(response.data)
+    $http.get("/api/current_user.json").then (res) =>
+      new User(res.data)
 
   User
 ]
