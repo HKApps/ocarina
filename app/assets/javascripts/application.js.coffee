@@ -4,6 +4,7 @@
 #= require angular-sanitize
 #= require angular-bootstrap
 #= require angular-bootstrap-prettify
+#= require ui-bootstrap
 #= require underscore
 #= require ocarina
 #= require_tree ./controllers/
