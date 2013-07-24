@@ -1,4 +1,6 @@
 class Api::PlaylistSongsController < ApiController
+  respond_to :json
+
   def create
     playlist_songs = AddPlaylistSongToPlaylistService.initialize_from_params(params).create
     if playlist_songs.present?
@@ -6,6 +8,12 @@ class Api::PlaylistSongsController < ApiController
     else
       render json: {error: "record not found"}, status: 404
     end
+  end
+
+  def media_url
+    ps = PlaylistSong.find_by id: params[:id]
+    @media_url = dropbox_client.media_url ps.path
+    respond_with @media_url
   end
 
   def upvote
@@ -27,4 +35,5 @@ class Api::PlaylistSongsController < ApiController
   def vote_params
     params.permit(:id).merge(user_id: session[:user_id])
   end
+
 end
