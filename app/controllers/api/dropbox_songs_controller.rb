@@ -1,4 +1,6 @@
-class DropboxController < ApplicationController
+class Api::DropboxSongsController < ApiController
+  respond_to :json
+
   def index
     respond_to do |format|
       format.json do
@@ -17,4 +19,15 @@ class DropboxController < ApplicationController
     FileToSongService.new(dropbox_client.all_song_files, current_user).convert_and_save
     redirect_to :root
   end
+
+  def update
+    service = UpdateDropboxSongsService.new(session[:user_id])
+    if service.update_songs
+      @songs = service.convert_to_songs
+      service.write_cache(service.dropbox_client.metadata)
+    else
+      render json: {}, status: 304
+    end
+  end
+
 end
