@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
   end
 
   def dropbox_authenticated?
-    !!Authentication.find_by(user_id: self.id, provider: "dropbox")
+    authentications.any? { |x| x.provider == "dropbox" }
   end
 
   def facebook_authenticated?
-    !!Authentication.find_by(user_id: self.id, provider: "facebook")
+    authentications.any? { |x| x.provider == "facebook" }
   end
 end
