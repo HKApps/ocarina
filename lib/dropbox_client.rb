@@ -13,7 +13,7 @@ class DropboxClient < Dropbox::API::Client
   #
   # See: https://www.dropbox.com/developers/core/docs#metadata
   def metadata
-    @metadata ||= self.raw.metadata(path: "/")
+    @metadata ||= Metadata.new(self.raw.metadata(path: "/"))
   end
 
   def metadata=(new)
@@ -27,14 +27,13 @@ class DropboxClient < Dropbox::API::Client
   # no changes were made, then we return false.
   def update_metadata
     begin
-      @metadata = self.raw.metadata(path: "/", hash: metadata["hash"])
+      @metadata = Metadata.new(self.raw.metadata(path: "/", hash: metadata.hash))
     rescue Dropbox::API::Error::Redirect
-      false
     end
   end
 
   def all_song_files
-    metadata['contents'].select{ |file| file['mime_type'] == "audio/mpeg" }
+    metadata.contents.select { |file| file['mime_type'] == "audio/mpeg" }
   end
 
   ##
@@ -59,4 +58,33 @@ class DropboxClient < Dropbox::API::Client
     rescue Dropbox::API::Error::NotFound
     end
   end
+
+  class Metadata
+    include ActiveModel::Model
+
+    attr_accessor :size, :hash, :bytes, :thumb_exists, :rev, :modified,
+                  :path, :is_dir, :icon, :root, :contents, :revision
+
+    def initialize(*args)
+      super
+    end
+  end
+
+  class NullMetadata
+    def initialize(*args); end
+
+    def size;         end
+    def hash;         end
+    def bytes;        end
+    def thumb_exists; end
+    def rev;          end
+    def modified;     end
+    def path;         end
+    def is_dir;       end
+    def icon;         end
+    def root;         end
+    def contents; []; end
+    def revision;     end
+  end
+
 end

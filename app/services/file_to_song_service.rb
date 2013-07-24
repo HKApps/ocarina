@@ -5,14 +5,14 @@ class FileToSongService
   end
 
   def convert_and_save
-    @file_list.each { |song| find_or_create_song(song) }
-    true
+    @file_list.map { |song| find_or_create_song(song) }
   end
 
   def find_or_create_song(song)
-    s = Song.where(user_id: @user.id, provider: "dropbox", path: song['path']).first_or_initialize
-    s.name       = song['path'][1..-1]
-    s.properties = song
-    s.save! if s.changed?
+    Song.where(user_id: @user.id, provider: "dropbox", path: song['path']).first_or_initialize do |s|
+      s.name       = song['path'][1..-1]
+      s.properties = song
+      s.save! if s.changed?
+    end
   end
 end
