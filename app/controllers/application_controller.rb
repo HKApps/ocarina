@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verified_request?
-    super || form_authenticity_token == request.headers['X_XSRF_TOKEN']
+    super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
   end
 
   def require_authentication
