@@ -17,14 +17,15 @@ Ocarina::Application.routes.draw do
         post 'downvote', on: :member
       end
     end
+
+    resources :songs, only: [:index] do
+      post 'dropbox_refresh', on: :collection, to: 'dropbox_songs#update'
+    end
   end
 
   get '/login', to: 'sessions#new', as: 'login'
   match '/auth/:provider/callback', to: 'sessions#create', :via => [:get, :post]
   match "/logout", to: "sessions#destroy", :via => [:get, :post]
-
-  match "/dropbox_files", to: "dropbox#create", :via => [:get, :post]
-  get   "/dropbox", to: "dropbox#index"
 
   get 'partials/*partial' => 'partials#partial'
 
