@@ -16,6 +16,10 @@ class DropboxClient < Dropbox::API::Client
     @metadata ||= self.raw.metadata(path: "/")
   end
 
+  def metadata=(new)
+    @metadata = new
+  end
+
   ##
   # Checks to see if the user's dropbox folder was modified since
   # the last fetch. If modifications were made, then we cache
@@ -24,7 +28,6 @@ class DropboxClient < Dropbox::API::Client
   def update_metadata
     begin
       @metadata = self.raw.metadata(path: "/", hash: metadata["hash"])
-      true
     rescue Dropbox::API::Error::Redirect
       false
     end

@@ -2,4 +2,5 @@
 :verbose: true
 :queues:
   - [playlist_song_voter_worker, 1]
+  - [update_dropbox_songs_worker, 1]
   - [default, 1]
