@@ -2,7 +2,7 @@
   .name
     %h3 {{playlist.name}}
 
-  .player
+  .player{ ng_show: "playlist.owner_id == user.id" }
     %h3 Audio Player
 
   .add-dropbox-songs
