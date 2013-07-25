@@ -1,6 +1,6 @@
-@ocarinaServices = angular.module('ocarinaServices', ['ngResource'])
+ocarinaServices = angular.module('ocarinaServices', ['ngResource'])
 
-@ocarinaServices.factory 'Pusher', ->
+ocarinaServices.factory 'Pusher', ->
   if Pusher?
     pusher = new Pusher("28d86c309600f754848f")
   else
@@ -24,7 +24,7 @@
       $rootScope.$apply ->
         callback.apply channel, args
 
-@ocarinaServices.factory 'Playlist', ['$http', ($http) ->
+ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   url = "/api/playlists"
   Playlist = (data) ->
     angular.extend(this, data)
@@ -46,7 +46,7 @@
   Playlist
 ]
 
-@ocarinaServices.factory 'User', ['$http', ($http) ->
+ocarinaServices.factory 'User', ['$http', ($http) ->
   url = "/api/users"
   User = (data) ->
     angular.extend(this, data)
