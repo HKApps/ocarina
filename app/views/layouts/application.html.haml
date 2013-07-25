@@ -9,6 +9,11 @@
     = stylesheet_link_tag "application", media: "all"
     = csrf_meta_tags
 
+    :javascript
+      if (window.location.hash == '#_=_'){
+        window.location.hash = '';
+      }
+
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
