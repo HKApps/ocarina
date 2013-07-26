@@ -10,4 +10,5 @@
 #= require services
 #= require directives
 #= require filters
+#= require audiojs/audio.min
 #= require_self

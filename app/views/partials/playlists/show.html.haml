@@ -1,9 +1,15 @@
+:javascript
+  audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+
 .playlist-container{ ng_if: 'playlist', ng_controller: 'PlaylistCtrl' }
   .name
     %h3 {{playlist.name}}
 
   .player{ ng_show: "playlist.owner_id == user.id" }
     %h3 Audio Player
+    %audio{ :src => "https://dl-web.dropbox.com/get/Apps/PlayedBy.me/07%20In%20Search%20of%20a%20Place.mp3?w=AABOAACMBc4ViPWG5UEF1GdCUSgUz-wLtVHHW9bENz9JYQ", :preload => "auto" }
 
   .add-dropbox-songs
     %button.btn{ ng_click: "openAddSongsModal()" }
