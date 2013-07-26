@@ -61,3 +61,42 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
 
   User
 ]
+
+ocarinaServices.factory 'Audio', ['$document', '$rootScope', ($document, $rootScope) ->
+    Audio = $document[0].createElement('audio')
+
+    Audio.addEventListener "ended", (->
+      $rootScope.$broadcast("audioEnded")
+    ), false
+    Audio.addEventListener "error", (->
+      console.log("error")
+    ), false
+
+    Audio
+]
+
+ocarinaServices.factory 'Player', ['Audio',
+  (Audio) ->
+    Player = undefined
+
+    current =
+      song: 0
+
+    Player =
+      paused: false
+      playing: false
+      current: current
+      play: (song) ->
+        current.song = song if angular.isDefined(song)
+        Audio.src = song.media_url unless Player.paused
+        Audio.play()
+        Player.playing = true
+        Player.paused = false
+      pause: ->
+        if Player.playing
+          Audio.pause()
+          Player.playing = false
+          Player.paused = true
+
+    Player
+]

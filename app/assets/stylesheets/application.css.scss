@@ -26,3 +26,9 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+.song-list{
+  border: 1px solid #DDD;
+  padding: 8px;
+  display: block;
+  border-radius: 6px;
+}

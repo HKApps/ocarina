@@ -3,7 +3,8 @@
     %h3 {{playlist.name}}
 
   .player{ ng_show: "playlist.owner_id == user.id" }
-    %h3 Audio Player
+    %h4 Audio Player
+    =render 'playlists/player'
 
   .add-dropbox-songs
     %button.btn{ ng_click: "openAddSongsModal()" }
@@ -15,10 +16,10 @@
         %button.btn{ ng_click: "closeAddSongsModal()" } Cancel
         %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
 
-  .songs
-    %h3 Songs
-    .playlist-song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
-      %span.name {{song.path}}
+  .playlist-songs
+    %h4 Songs
+    .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
+      %span.name {{song.song_name}}
       %span.votes {{song.vote_count}} votes
       .btn.btn-mini{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
         %i.upvote.icon-arrow-up
