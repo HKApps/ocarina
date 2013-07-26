@@ -20,20 +20,20 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
       $scope.closeAddSongsModal()
       Playlist.addSongs(playlistId, $scope.selectedSongs).then (res) =>
         _.each res.data, (song) ->
-          song.current_consumer_vote_decision = 0
+          song.current_user_vote_decision = 0
           $scope.playlist.playlist_songs.push(song)
 
     $scope.upvoteSong = (song) ->
-      unless song.current_consumer_vote_decision == 1
+      unless song.current_user_vote_decision == 1
         Playlist.vote(playlistId, song, "upvote").then (res) =>
           song.vote_count++
-          song.current_consumer_vote_decision++
+          song.current_user_vote_decision++
 
     $scope.downvoteSong = (song) ->
-      unless song.current_consumer_vote_decision == -1
+      unless song.current_user_vote_decision == -1
         Playlist.vote(playlistId, song, "downvote").then (res) =>
           song.vote_count--
-          song.current_consumer_vote_decision--
+          song.current_user_vote_decision--
 
     $scope.openAddSongsModal = ->
       $scope.shouldBeOpen = true
