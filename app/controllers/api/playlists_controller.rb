@@ -6,6 +6,13 @@ class Api::PlaylistsController < ApiController
     respond_with @playlist
   end
 
+  def index
+    @playlists = Playlist.all
+    respond_to do |format|
+      format.json { render :json => @playlists }
+    end
+  end
+
   def create
     @playlist = current_user.playlists.build(playlist_params)
     if @playlist.save
