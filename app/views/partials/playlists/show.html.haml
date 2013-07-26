@@ -4,6 +4,7 @@
 
   .player{ ng_show: "playlist.owner_id == user.id" }
     %h3 Audio Player
+    %audio{source: 'source'}
 
   .add-dropbox-songs
     %button.btn{ ng_click: "openAddSongsModal()" }

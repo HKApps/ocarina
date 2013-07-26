@@ -61,3 +61,18 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
 
   User
 ]
+
+ocarinaServices.factory 'AudioService', ->
+  params = {
+    swf_path: '/flash/audio5js.swf',
+    throw_errors: true,
+    format_time: true,
+    codecs: ['mp4', 'wav', 'mp3'],
+    ready: (player) ->
+      # Im trying to get this to load but its not working. Maybe a js loading issue?
+      @load("https://dl.dropboxusercontent.com/1/view/wdgou8i5w5wo3v0/Apps/PlayedBy.me/Arston%20-%20Zodiac%20%5BEDX%20No%20Xcuses%20113%204-28-13%5D.mp3")
+  }
+
+  audio5js = new Audio5js(params)
+
+  audio5js

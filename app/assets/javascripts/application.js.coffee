@@ -10,4 +10,5 @@
 #= require services
 #= require directives
 #= require filters
+#= require audio5
 #= require_self
