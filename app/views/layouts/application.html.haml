@@ -19,6 +19,8 @@
       .navbar-inner
         .container-fluid
           = link_to "Ocarina", '/', class: "brand brand-title"
+          .nav
+            %li= link_to "Search", '/search'
           .pull-right
             %ul.nav
               - if current_user

@@ -6,6 +6,13 @@ class Api::PlaylistsController < ApiController
     respond_with @playlist
   end
 
+  def index
+    @playlists = Playlist.all
+    respond_to do |format|
+      format.json { render :json => @playlists }
+    end
+  end
+
   def create
     @playlist = current_user.playlists.build(playlist_params)
     if @playlist.save
@@ -13,6 +20,11 @@ class Api::PlaylistsController < ApiController
     else
       respond_with @playlist.errors, status: :unauthorized
     end
+  end
+
+  def join
+    JoinPlaylistWorker.perform_async(params[:id], current_user.id)
+    render json: {}, status: 201
   end
 
   private
