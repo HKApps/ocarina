@@ -16,6 +16,7 @@ class AddPlaylistSongToPlaylistService
       songs.map do |song|
         song.playlist_songs.create do |ps|
           ps.path        = song.path
+          ps.song_name   = song.name
           ps.playlist_id = @playlist_id
         end
       end
