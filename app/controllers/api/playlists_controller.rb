@@ -22,6 +22,11 @@ class Api::PlaylistsController < ApiController
     end
   end
 
+  def join
+    JoinPlaylistWorker.perform_async(params[:id], current_user.id)
+    render json: {}, status: 201
+  end
+
   private
 
   def playlist_params
