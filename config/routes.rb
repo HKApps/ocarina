@@ -11,6 +11,7 @@ Ocarina::Application.routes.draw do
 
     resources :playlists, only: [:index, :show, :create] do
       post 'add_songs', on: :member, to: "playlist_songs#create"
+      post 'join',      on: :member, to: "playlists#join"
 
       resources :playlist_songs, only: [:create] do
         get  'media_url', on: :member

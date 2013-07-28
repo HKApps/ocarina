@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :authentications
   has_many :songs
   has_many :playlists, foreign_key: :owner_id
+  has_many :guests
 
   validates :email, presence: true
 
