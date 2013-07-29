@@ -1,4 +1,4 @@
-.user-dropbox-songs{ ng_if: 'user.dropbox_songs', ng_controller: 'SongsCtrl' }
+.user-dropbox-songs{ ng_show: 'user.dropbox_authenticated', ng_controller: 'SongsCtrl' }
   %button.btn{ ng_click: "showDropboxSongs = !showDropboxSongs" }
     Dropbox Songs
   %div{ collapse: "!showDropboxSongs" }
