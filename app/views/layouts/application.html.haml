@@ -1,5 +1,5 @@
 !!! 5
-%html
+%html{ 'ng-app' => "ocarina" }
   %head
     %meta(http-equiv="Content-type" content="text/html;charset=UTF-8")
     %meta{name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1"}
@@ -14,18 +14,23 @@
         window.location.hash = '';
       }
 
-  %body
+  %body{ ng_controller: 'UserCtrl' }
     .navbar.navbar-fixed-top
-      .navbar-inner
+      .navbar-inner{ ng_controller: "NavCtrl" }
         .container-fluid
-          = link_to "Ocarina", '/', class: "brand brand-title"
+          %a.brand.brand-top{ ng_href: "/" } Ocarina
+          -# = link_to "Ocarina", '/', class: "brand brand-title"
           .nav
-            %li= link_to "Search", '/search'
+            %li
+              %a{ ng_href: '/search' } Search
           .pull-right
             %ul.nav
-              - if current_user
-                %li.divider-vertical
-                  %li= link_to "Logout", logout_path
+              %li
+                %a{ ng_show: 'user.dropbox_authenticated',
+              ng_click: "openDbSongsModal()" } My Songs
+              %li.divider-vertical
+                %li
+                  %a{ ng_click: "logout()" } Logout
     = yield
 
     = javascript_include_tag "vendor/custom.modernizr"

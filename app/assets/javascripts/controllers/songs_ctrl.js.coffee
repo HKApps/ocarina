@@ -1,6 +1,6 @@
 ocarina.controller 'SongsCtrl', [ '$scope', '$http', "User",
   ($scope, $http, User) ->
-    $scope.openDbSongsModal = ->
+    $scope.$on "openDbSongsModal", ->
       unless $scope.user.dropbox_songs.length
         # TODO get songs from songs endpoint instead
         User.getCurrentUser().then (u) =>
