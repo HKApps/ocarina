@@ -11,9 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130727230434) do
+ActiveRecord::Schema.define(version: 20130728205559) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
   enable_extension "hstore"
 
   create_table "authentications", force: true do |t|
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 20130727230434) do
     t.integer "vote_count",  default: 0, null: false
     t.string  "path",                    null: false
     t.string  "media_url"
+    t.string  "song_name"
   end
 
   create_table "playlists", force: true do |t|
