@@ -3,6 +3,10 @@ ocarinaServices = angular.module('ocarinaServices', ['ngResource'])
 ocarinaServices.factory 'Pusher', ->
   if Pusher?
     pusher = new Pusher("28d86c309600f754848f")
+    # get socket id
+    # socketId = null
+    # pusher.connection.bind "connected", ->
+    #   socketId = pusher.connection.socket_id
   else
     # if pusher doesn't load
     subscribe: ->
@@ -15,14 +19,14 @@ ocarinaServices.factory 'Pusher', ->
   # Pusher.log = (message) ->
   # window.console.log message if window.console and window.console.log
 
-  subscribe: (channel) ->
-    pusher.subscribe(channel)
+  # subscribe: (channel) ->
+  #   pusher.subscribe(channel)
 
-  bind: (event, callback) ->
-    channel.bind event, ->
-      args = arguments
-      $rootScope.$apply ->
-        callback.apply channel, args
+  # bind: (event, callback) ->
+  #   channel.bind event, ->
+  #     args = arguments
+  #     $rootScope.$apply ->
+  #       callback.apply channel, args
 
 ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   url = "/api/playlists"
