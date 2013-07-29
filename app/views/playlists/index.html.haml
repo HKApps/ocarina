@@ -1,9 +1,5 @@
 .main-container.ng-cloak
   .index{ ng_show: 'user' }
-    .onboarding-dropbox{ ng_hide: 'user.dropbox_authenticated' }
-      =render 'dropbox/authenticate'
-
-    .dropbox-songs{ ng_show: 'user.dropbox_authenticated' }
-      =render 'dropbox/songs'
+    =render 'dropbox/songs'
 
     %div{ ng_view: '' }
