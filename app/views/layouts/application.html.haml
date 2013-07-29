@@ -23,14 +23,12 @@
           .nav
             %li
               %a{ ng_href: '/search' } Search
-          .pull-right
-            %ul.nav
-              %li
-                %a{ ng_show: 'user.dropbox_authenticated',
-              ng_click: "openDbSongsModal()" } My Songs
-              %li.divider-vertical
-                %li
-                  %a{ ng_click: "logout()" } Logout
+          .nav.pull-right
+            %li
+              %a{ ng_show: 'user.dropbox_authenticated',
+            ng_click: "openDbSongsModal()" } My Songs
+            %li.divider-vertical
+              %a{ ng_click: "logout()" } Logout
     = yield
 
     = javascript_include_tag "vendor/custom.modernizr"
