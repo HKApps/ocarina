@@ -10,6 +10,8 @@
     %button.btn{ ng_click: "openAddSongsModal()" }
       Add Songs
     %div{ modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
+      .modal-header
+        %h3 Select Songs to Add
       .modal-body
         =render '/partials/playlists/add_songs'
       .modal-footer
