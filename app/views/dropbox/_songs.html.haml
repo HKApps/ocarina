@@ -6,8 +6,8 @@
     .modal-header
       %h3 {{user.first_name}}'s Dropbox Songs
     .modal-body
-      .dropbox-songs-list{ ng_repeat: 'song in user.dropbox_songs' }
-        %span.name {{song.path}}
+      .song-list{ ng_repeat: 'song in user.dropbox_songs' }
+        %span.name {{song.name}}
     .modal-footer
       %button.btn{ ng_click: "refreshDropboxSongs()" }
         %i.icon-refresh
