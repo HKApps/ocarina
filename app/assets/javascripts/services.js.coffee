@@ -83,6 +83,7 @@ ocarinaServices.factory 'Player', ['Audio',
       song: 0
 
     Player =
+      audio: Audio
       paused: false
       playing: false
       current: current
