@@ -1,0 +1,9 @@
+.player-container{ ng_controller: "PlaybackCtrl" }
+  .playlist
+    .playback-controls
+      %button.btn.control.play{ ng_click: "playerAction('play')", ng_hide: "player.playing" } Play
+      %button.btn.control.pause{ ng_click: "player.pause()", ng_show: "player.playing" } Pause
+      %button.btn.control.skip{ ng_click: "playerAction('skip')" } Skip
+    .currently-playing{ ng_show: "player.current.song" }
+      %b Currently Playing:
+      {{player.current.song.song_name}}
