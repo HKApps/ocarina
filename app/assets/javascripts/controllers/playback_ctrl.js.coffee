@@ -41,7 +41,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
       seekbar.min = audio.startTime
       seekbar.max = audio.startTime + audio.duration
     updateUI = ->
-      lastBuffered = audio.buffered.end(audio.buffered.length-1)
+      try lastBuffered = audio.buffered.end(audio.buffered.length-1)
       seekbar.min = audio.startTime
       seekbar.max = lastBuffered
       seekbar.value = audio.currentTime
