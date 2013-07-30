@@ -31,3 +31,5 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+#redis
+dump.rdb
