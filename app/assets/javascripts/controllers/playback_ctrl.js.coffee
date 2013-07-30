@@ -3,6 +3,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
     $scope.player = Player
 
     $scope.$on "audioEnded", ->
+      url = "/api/playlists"
+      $http.post("#{url}/#{$scope.playlist.id}/playlist_songs/#{Player.current.song.id}/played")
+
       $scope.playerAction("play")
 
     $scope.playerAction = (action) ->

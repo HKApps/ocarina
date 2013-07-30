@@ -10,6 +10,13 @@ class Api::PlaylistSongsController < ApiController
     end
   end
 
+  def played
+    PlaylistSongPlayedWorker.perform_async(params[:id])
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
   def media_url
     ps = PlaylistSong.find_by id: params[:id]
     @media_url = dropbox_client.media_url ps.path
