@@ -43,12 +43,19 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     $scope.modalOpts = { backdropFade:true, dialogFade:true }
 
-    # Realtime - for playlist-songs and votes
+    # Realtime - for news songs, played songs, and votes
     setupPlaylistListener = (playlistChannel) ->
       playlistChannel.bind 'new-playlist-songs', (data) ->
         return if data.user_id == $scope.user.id
         _.each data.playlist_songs, (song) ->
           $scope.playlist.playlist_songs.push(song)
+        $scope.$apply() unless $scope.$$phase
+
+      playlistChannel.bind 'song-played', (data) ->
+        return if data.user_id == $scope.user.id
+        playlist = $scope.playlist.playlist_songs
+        song = _.findWhere(playlist, {id: data.song_id})
+        $scope.playlist.playlist_songs = _.without(playlist, song)
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'new-vote', (data) ->
