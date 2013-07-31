@@ -1,12 +1,12 @@
 .songs-to-add{
 
-  i.icon-ok{
+  .icon-ok{
     margin-left: 10px;
     color: #08C400;
     display: none;
   }
   &.selected{
-    i.icon-ok{
+    .icon-ok{
       display: inline-block;
     }
   }

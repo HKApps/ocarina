@@ -20,7 +20,6 @@ gem 'omniauth-facebook'
 gem 'redis-rails', git: 'git://github.com/jodosha/redis-store.git'
 gem 'redis-store'
 gem 'rabl'
-gem 'bootstrap-sass'
 gem 'sass-rails', '~> 4.0.0.rc2'
 gem 'sidekiq'
 gem 'sinatra', require: false

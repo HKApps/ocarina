@@ -1,6 +1,8 @@
 require 'dropbox-api'
 
 class DropboxClient < Dropbox::API::Client
+  AUDIO_MIME_TYPES = ["audio/aac", "audio/mp4", "audio/mpeg", "audio/ogg", "audio/wav", "audio/x-wav"]
+
   def initialize(access_token, access_secret)
     super(token: access_token, secret: access_secret)
   end
@@ -33,7 +35,7 @@ class DropboxClient < Dropbox::API::Client
   end
 
   def all_song_files
-    metadata.contents.select { |file| file['mime_type'] == "audio/mpeg" }
+    metadata.contents.select { |file| AUDIO_MIME_TYPES.include?(file["mime_type"]) }
   end
 
   ##
