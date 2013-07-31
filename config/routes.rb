@@ -14,9 +14,12 @@ Ocarina::Application.routes.draw do
       post 'join',      on: :member, to: "playlists#join"
 
       resources :playlist_songs, only: [:create] do
-        get  'media_url', on: :member
-        post 'upvote',    on: :member
-        post 'downvote',  on: :member
+        member do
+          get  'media_url'
+          post 'upvote'
+          post 'downvote'
+          post 'played'
+        end
       end
     end
 
