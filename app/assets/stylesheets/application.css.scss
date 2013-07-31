@@ -8,8 +8,8 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require bootstrap
+ *= require_self
  *= require_tree .
  */
 
@@ -22,6 +22,11 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav li a {
+  color: #EEE;
+}
+
 .song-list{
   background-color: #EEE;
   padding: 8px;
