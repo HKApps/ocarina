@@ -1,7 +1,7 @@
 object @playlist
 attributes :id, :name, :owner_id, :updated_at, :created_at
 
-child :playlist_songs, object_root: false do
+child @playlist_songs, object_root: false do
   attributes :id, :playlist_id, :song_id, :vote_count, :path, :media_url, :song_name
 
   node :current_user_vote_decision do |ps|

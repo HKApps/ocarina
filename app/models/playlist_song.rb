@@ -3,4 +3,9 @@ class PlaylistSong < ActiveRecord::Base
 
   belongs_to :playlist
   belongs_to :song
+
+  def played!
+    self.played_at = Time.now
+    self.save
+  end
 end
