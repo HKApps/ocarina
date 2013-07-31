@@ -16,16 +16,22 @@
 
   %body{ ng_controller: 'UserCtrl' }
     .navbar{ ng_controller: 'NavCtrl' }
-      %a.navbar-brand{ ng_href: "/" } Ocarina
-      %ul.nav.navbar-nav
-        %li
-          %a{ ng_href: '/search' } Search
-      %ul.nav.navbar-nav.pull-right
-        %li
-          %a{ :href => "", ng_show: 'user.dropbox_authenticated',
-            ng_click: "openDbSongsModal()" } My Songs
-        %li
-          %a{ :href => "", ng_click: "logout()" } Logout
+      .container
+        %button.navbar-toggle{ "data-toggle" => "collapse", :type => "button", "data-target" => ".navbar-responsive-collapse" }
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        %a.navbar-brand{ ng_href: "/" } Ocarina
+        .nav-collapse.collapse.navbar-responsive-collapse
+          %ul.nav.navbar-nav
+            %li
+              %a{ ng_href: '/search' } Search
+          %ul.nav.navbar-nav.pull-right
+            %li
+              %a{ :href => "", ng_show: 'user.dropbox_authenticated',
+                ng_click: "openDbSongsModal()" } My Songs
+            %li
+              %a{ :href => "", ng_click: "logout()" } Logout
 
     .container
       = yield
