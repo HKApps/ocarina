@@ -2,8 +2,7 @@ class Api::PlaylistsController < ApiController
   respond_to :json
 
   def show
-    @playlist       = Playlist.includes(:playlist_songs).where(id: params[:id]).first
-    @playlist_songs = @playlist.playlist_songs.select { |x| !x.played_at }
+    @playlist = Playlist.includes(:playlist_songs).where(id: params[:id]).first
   end
 
   def index
