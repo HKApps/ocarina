@@ -8,3 +8,4 @@
   .currently-playing{ ng_show: "player.current.song" }
     %b Currently Playing:
     {{player.current.song.song_name}}
+  %input.seekbar{ ng_show: "player.current.song", :type => "range", :step => "any" }

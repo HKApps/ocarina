@@ -1,7 +1,10 @@
 ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
   ($scope, $http, Player) ->
     $scope.player = Player
+    audio = $scope.player.audio
 
+    ##
+    # Audo Playback
     $scope.$on "audioEnded", ->
       $scope.playerAction("play")
 
@@ -20,4 +23,28 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
           # TODO mark song as played
 
         $scope.playlist.playlist_songs = _.without(playlist, song)
+
+    ##
+    # Seekbar
+    audio.addEventListener "durationchange", (->
+      setupSeekbar()
+    ), false
+    audio.addEventListener "timeupdate", (->
+      updateUI()
+    ), false
+
+    seekbar = $('.seekbar')[0]
+    seekbar.value = 0
+    seekbar.onchange = ->
+      seekAudio()
+    setupSeekbar = ->
+      seekbar.min = audio.startTime
+      seekbar.max = audio.startTime + audio.duration
+    updateUI = ->
+      try lastBuffered = audio.buffered.end(audio.buffered.length-1)
+      seekbar.min = audio.startTime
+      seekbar.max = lastBuffered
+      seekbar.value = audio.currentTime
+    seekAudio = ->
+      audio.currentTime = seekbar.value
 ]
