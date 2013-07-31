@@ -6,8 +6,11 @@
         {{playlist.name}}
 
   .create-playlist
-    %h3 Create Playlist
-
-    %form.create-playlist-form{ ng_submit: "createPlaylist()" }
-      %input{ :type => "text", ng_model: "newPlaylist.name" }
-      %input.small.button.radius{ :type => "submit", :value => "Create Playlist" }
+    %h4 Create Playlist
+    .row
+      .col-lg-6
+        .input-group
+          %input.form-control{ :type => "text", ng_model: "newPlaylist.name" }
+          %span.input-group-btn
+            %button.btn.btn-default{ ng_click: "createPlaylist()" }
+              Create Playlist

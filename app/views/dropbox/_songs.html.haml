@@ -3,12 +3,14 @@
 
 .user-dropbox-songs{ ng_show: 'user.dropbox_authenticated', ng_controller: 'SongsCtrl' }
   %div{ modal: "shouldBeOpen", close: "closeDbSongsModal()", options: "modalOpts" }
-    .modal-header
-      %h3 {{user.first_name}}'s Dropbox Songs
-    .modal-body
-      .song-list{ ng_repeat: 'song in user.dropbox_songs' }
-        %span.name {{song.name}}
-    .modal-footer
-      %button.btn{ ng_click: "refreshDropboxSongs()" }
-        %i.icon-refresh
-      %button.btn{ ng_click: "closeDbSongsModal()" } Close
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %h3 {{user.first_name}}'s Dropbox Songs
+        .modal-body
+          .song-list{ ng_repeat: 'song in user.dropbox_songs' }
+            %span.name {{song.name}}
+        .modal-footer
+          %button.btn.btn-default{ ng_click: "closeDbSongsModal()" } Close
+          %button.btn.btn-success{ ng_click: "refreshDropboxSongs()" }
+            ♺
