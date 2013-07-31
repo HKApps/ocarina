@@ -7,23 +7,26 @@
     =render 'playlists/player'
 
   .add-dropbox-songs
-    %button.btn{ ng_click: "openAddSongsModal()" }
+    %button.btn.btn-default{ ng_click: "openAddSongsModal()" }
       Add Songs
     %div{ modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
-      .modal-header
-        %h3 Select Songs to Add
-      .modal-body
-        =render '/partials/playlists/add_songs'
-      .modal-footer
-        %button.btn{ ng_click: "closeAddSongsModal()" } Cancel
-        %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %h3 Select Songs to Add
+          .modal-body
+            =render '/partials/playlists/add_songs'
+          .modal-footer
+            %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
+            %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
 
   .playlist-songs
     %h4 Songs
     .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
       %span.name {{song.song_name}}
-      %span.votes {{song.vote_count}} votes
-      .btn.btn-mini{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
-        %i.upvote.icon-arrow-up
-      .btn.btn-mini{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
-        %i.downvote.icon-arrow-down
+      .playlist-votes
+        %b.votes {{song.vote_count}} votes
+        .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
+          ⬆
+        .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
+          ⬇

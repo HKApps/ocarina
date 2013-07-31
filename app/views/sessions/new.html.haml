@@ -1,15 +1,8 @@
 .row
-  .small-12.large-12.columns
-    .logo-area
-      .small-8.small-centered.large-4.columns.signup-btn
-        .main-logo
-          %h1 Ocarina
+  .logo-area
+    .main-logo
+      %h1 Ocarina
 
-.row
-  .small-12.large-12.columns
-    .connect-area
-      .small-8.small-centered.large-4.columns.signup-btn
-        = link_to '/auth/facebook', class: "small button radius expand" do
-          %i.social.foundicon-facebook.fb-connect-icon
-          %span.fb-connect-text connect with facebook
-
+  .connect-area
+    %a.signup-btn.btn.btn-primary{ :href => "/auth/facebook" }
+      connect with facebook

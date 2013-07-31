@@ -9,13 +9,9 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require foundation
+ *= require bootstrap
  *= require_tree .
  */
-
-@import 'foundation';
-@import 'bootstrap';
-@import 'bootstrap-responsive';
 
 /*
   Allow angular.js to be loaded in body, hiding cloaked elements until
@@ -27,8 +23,10 @@
   display: none !important;
 }
 .song-list{
-  border: 1px solid #DDD;
+  background-color: #EEE;
   padding: 8px;
-  display: block;
+  display: inline-block;
   border-radius: 6px;
+  width: 100%;
+  margin-bottom: 5px;
 }
