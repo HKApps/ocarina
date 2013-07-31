@@ -24,8 +24,9 @@
     %h4 Songs
     .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
       %span.name {{song.song_name}}
-      %span.votes {{song.vote_count}} votes
-      .btn.btn-default{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
-        ⬆
-      .btn.btn-default{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
-        ⬇
+      .playlist-votes
+        %b.votes {{song.vote_count}} votes
+        .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
+          ⬆
+        .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
+          ⬇
