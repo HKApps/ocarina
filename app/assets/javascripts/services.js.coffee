@@ -15,14 +15,14 @@ ocarinaServices.factory 'Pusher', ->
   # Pusher.log = (message) ->
   # window.console.log message if window.console and window.console.log
 
-  subscribe: (channel) ->
-    pusher.subscribe(channel)
+  # subscribe: (channel) ->
+  #   pusher.subscribe(channel)
 
-  bind: (event, callback) ->
-    channel.bind event, ->
-      args = arguments
-      $rootScope.$apply ->
-        callback.apply channel, args
+  # bind: (event, callback) ->
+  #   channel.bind event, ->
+  #     args = arguments
+  #     $rootScope.$apply ->
+  #       callback.apply channel, args
 
 ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   url = "/api/playlists"
