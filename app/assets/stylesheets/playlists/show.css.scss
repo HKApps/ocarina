@@ -1,3 +1,11 @@
 .playlist-votes{
   float: right;
 }
+
+.playlist-songs{
+  margin-top: 20px;
+}
+
+.playlist-songs.zero-state{
+  text-align: center;
+}
