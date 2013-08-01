@@ -4,9 +4,36 @@
   padding: 10px;
   border-radius: 15px;
   width: 50%;
+  min-width: 300px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
+  // margin-top: 10px;
+
+  .play, .pause, .skip{
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .currently-playing{
+    margin: 5px;
+  }
 }
 img{
   height: 18px;
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  top: 18px;
+  width: 76%;
+  height: 3px;
+  border-radius: 20px;
+  background-color: #474949;
+}
+input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+  background: #f0ad4e;
 }

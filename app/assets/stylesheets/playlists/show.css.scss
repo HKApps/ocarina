@@ -2,10 +2,23 @@
   float: right;
 }
 
+.name{
+  text-align: center;
+}
+
 .playlist-songs{
   margin-top: 20px;
 }
 
-.playlist-songs.zero-state{
+.add-song-btn{
+  border-radius: 20px;
+  margin-bottom: 9px;
+}
+
+.add-song-zero-state-btn{
+  width: 160px;
+}
+
+.zero-state{
   text-align: center;
 }

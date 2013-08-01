@@ -1,13 +1,11 @@
 .playlist-container{ ng_if: 'playlist', ng_controller: 'PlaylistCtrl' }
   .name
-    %h3 {{playlist.name}}
+    %h2 {{playlist.name}}
 
-  .player{ ng_show: "playlist.owner_id == user.id" }
+  .player
     =render 'playlists/player'
 
   .add-dropbox-songs
-    %button.btn.btn-default{ ng_click: "openAddSongsModal()" }
-      Add Songs
     %div{ modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
       .modal-dialog
         .modal-content
@@ -20,6 +18,8 @@
             %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
 
   .playlist-songs{ ng_show: "playlist.playlist_songs.length" }
+    .pull-right.btn.btn-default.btn-small.add-song-btn{ ng_click: "openAddSongsModal()" }
+      ✚
     .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
       %span.name {{song.song_name}}
       .playlist-votes
@@ -29,4 +29,6 @@
         .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
           ⬇
   .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
-    %h4 Your playlist is empty! Add some songs to keep the party going.
+    %h4 Your playlist is empty!
+    %button.btn.btn-default.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
+      Add Songs
