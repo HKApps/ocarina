@@ -14,6 +14,6 @@ ocarina.controller 'SongsCtrl', [ '$scope', '$http', "User",
 
     $scope.refreshDropboxSongs = ->
       $http.post("/api/songs/dropbox_refresh").then (res) =>
-        if res.data.status == 200
+        if res.status == 200
           $scope.user.dropbox_songs = res.data
 ]
