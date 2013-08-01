@@ -2,11 +2,10 @@ class Api::UsersController < ApiController
   respond_to :json
 
   def show
-    @user = User.find_by(id: params[:id]).try(:status)
-    respond_with @user
+    @user = User.includes(:songs, :playlists, :guests).where(id: params[:id]).first
   end
 
   def current_user_json
-    respond_with current_user.try(:status)
+    @user = current_user
   end
 end
