@@ -5,7 +5,6 @@
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
 
     %title= content_for?(:title) ? yield(:title) : "Ocarina"
-
     = stylesheet_link_tag "application", media: "all"
     = csrf_meta_tags
 
@@ -37,4 +36,5 @@
       = yield
 
     = javascript_include_tag "vendor/custom.modernizr"
+    = javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
     = javascript_include_tag "application"
