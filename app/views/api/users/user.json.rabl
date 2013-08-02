@@ -12,6 +12,6 @@ child :playlists do
 end
 
 child :guests => "playlists_as_guest" do
-  attributes :id, :user_id, :playlist_id, :created_at, :updated_at
+  attributes :id, :playlist_name, :user_id, :playlist_id, :created_at, :updated_at
 end
 

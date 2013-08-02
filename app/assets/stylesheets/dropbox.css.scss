@@ -1,0 +1,28 @@
+.jumbotron {
+  #header {
+    text-align: center;
+  }
+
+  #sub-header {
+    text-align: center;
+  }
+
+  .row#connect-area {
+    text-align: center;
+
+    #dropbox-logo {
+      height: auto;
+      display: inline;
+
+      img {
+        height: 40px;
+      }
+    }
+
+    .connect-later {
+      margin-top: 10px;
+      padding-left: 0px;
+      font-size: 16px;
+    }
+  }
+}
