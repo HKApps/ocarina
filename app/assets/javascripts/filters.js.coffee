@@ -1,7 +1,9 @@
 ocarinaFilters = angular.module('ocarinaFilters', [])
 
 ocarinaFilters.filter 'truncate', ->
-  (input, chars, breakOnWord) ->
+  (input, chars, breakOnWord, mobileOnly) ->
+    if mobileOnly
+      return input if $(window).width() > 768
     return input  if isNaN(chars)
     return ""  if chars <= 0
     if input and input.length >= chars
