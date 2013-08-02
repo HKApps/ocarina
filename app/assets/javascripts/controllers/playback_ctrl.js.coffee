@@ -26,12 +26,10 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
 
     ##
     # Seekbar
-    audio.addEventListener "durationchange", (->
+    $scope.$on "audioDurationchange", ->
       setupSeekbar()
-    ), false
-    audio.addEventListener "timeupdate", (->
+    $scope.$on "audioTimeupdate", ->
       updateUI()
-    ), false
 
     seekbar = $('.seekbar')[0]
     seekbar.value = 0
