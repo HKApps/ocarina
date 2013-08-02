@@ -35,3 +35,10 @@
   width: 100%;
   margin-bottom: 5px;
 }
+
+.wordwrap {
+   white-space: -moz-pre-wrap; /* Firefox */
+   white-space: -pre-wrap;     /* Opera <7 */
+   white-space: -o-pre-wrap;   /* Opera 7 */
+   word-wrap: break-word;      /* IE */
+}

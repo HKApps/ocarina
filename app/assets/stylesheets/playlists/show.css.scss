@@ -1,8 +1,17 @@
 .playlist-votes{
   float: right;
+  .btn, .votes{
+    vertical-align: middle;
+  }
 }
 
-.name{
+.song-name{
+  float: left;
+  margin-right: 8px;
+  width: 65%;
+}
+
+.playlist-name{
   text-align: center;
 }
 
