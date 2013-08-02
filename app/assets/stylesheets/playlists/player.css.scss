@@ -1,9 +1,9 @@
 .player-container{
   text-align: center;
   background-color: #EEE;
-  padding: 10px;
+  padding: 18px;
   border-radius: 15px;
-  width: 50%;
+  width: 73%;
   min-width: 300px;
   margin-left: auto;
   margin-right: auto;
@@ -12,12 +12,20 @@
 
   .play, .pause, .skip{
     margin-top: 2px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
 
   .currently-playing{
-    margin: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 8px;
   }
+}
+.wordwrap {
+   white-space: -moz-pre-wrap; /* Firefox */
+   white-space: -pre-wrap;     /* Opera <7 */
+   white-space: -o-pre-wrap;   /* Opera 7 */
+   word-wrap: break-word;      /* IE */
 }
 img{
   height: 18px;

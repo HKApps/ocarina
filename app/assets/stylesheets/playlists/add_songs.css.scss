@@ -1,5 +1,4 @@
 .songs-to-add{
-
   .icon-ok{
     margin-left: 10px;
     color: #08C400;
@@ -12,3 +11,11 @@
   }
 }
 
+.song-filter{
+  text-align: center;
+  input{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

@@ -1,6 +1,5 @@
 .player-container{ ng_controller: "PlaybackCtrl" }
-  .currently-playing{ ng_show: "player.current.song" }
-    %b Currently Playing:
+  .currently-playing.wordwrap{ ng_show: "player.current.song" }
     {{player.current.song.song_name}}
   .playback-controls{ ng_show: "playlist.owner_id == user.id" }
     %button.btn.btn-default.control.play{ ng_click: "playerAction('play')", ng_hide: "player.playing" }

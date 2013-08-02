@@ -21,7 +21,7 @@
     .pull-right.btn.btn-default.btn-small.add-song-btn{ ng_click: "openAddSongsModal()" }
       ✚
     .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
-      %span.name {{song.song_name}}
+      %span.name {{ song.song_name | truncate:60:true:true }}
       .playlist-votes
         %b.votes {{song.vote_count}} votes
         .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
@@ -30,5 +30,5 @@
           ⬇
   .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
     %h4 Your playlist is empty!
-    %button.btn.btn-default.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
+    %button.btn.btn-default.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
       Add Songs

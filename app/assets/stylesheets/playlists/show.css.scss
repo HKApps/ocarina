@@ -10,7 +10,10 @@
   margin-top: 20px;
 }
 
-.add-song-btn{
+.add-song-btn, .add-song-btn:hover{
+  border: none;
+  background-color: #EEE;
+  color: #000;
   border-radius: 20px;
   margin-bottom: 9px;
 }
