@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130730060628) do
+ActiveRecord::Schema.define(version: 20130802054356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(version: 20130730060628) do
   end
 
   create_table "guests", force: true do |t|
-    t.integer "user_id",     null: false
-    t.integer "playlist_id", null: false
+    t.integer "user_id",       null: false
+    t.integer "playlist_id",   null: false
+    t.string  "playlist_name"
   end
 
   add_index "guests", ["user_id", "playlist_id"], name: "index_guests_on_user_id_and_playlist_id", using: :btree
