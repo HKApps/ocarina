@@ -10,6 +10,7 @@
       .modal-dialog
         .modal-content
           .modal-header
+            %button.close{ ng_click: "closeAddSongsModal()" } &times;
             %h3 Select Songs to Add
           .modal-body
             =render '/partials/playlists/add_songs'
