@@ -15,6 +15,7 @@
           .modal-body
             =render '/partials/playlists/add_songs'
           .modal-footer
+            %button.btn{ ng_click: "clearSelectedSongs()" } Clear
             %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
             %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
 
