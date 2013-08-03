@@ -26,13 +26,13 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     $scope.upvoteSong = (song) ->
       unless song.current_user_vote_decision == 1
-        Playlist.vote(playlistId, song, "upvote").then (res) =>
+        Playlist.vote(playlistId, song.id, "upvote").then (res) =>
           song.vote_count++
           song.current_user_vote_decision++
 
     $scope.downvoteSong = (song) ->
       unless song.current_user_vote_decision == -1
-        Playlist.vote(playlistId, song, "downvote").then (res) =>
+        Playlist.vote(playlistId, song.id, "downvote").then (res) =>
           song.vote_count--
           song.current_user_vote_decision--
 
