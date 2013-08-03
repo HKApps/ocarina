@@ -7,6 +7,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
     # Audo Playback
     $scope.$on "audioEnded", ->
       $scope.playerAction("play")
+    $scope.$on "audioError", ->
+      # because errors typically mean bad src
+      $scope.playerAction("play")
 
     $scope.playerAction = (action) ->
       playlist = $scope.playlist.playlist_songs

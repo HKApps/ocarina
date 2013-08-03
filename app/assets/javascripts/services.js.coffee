@@ -75,7 +75,8 @@ ocarinaServices.factory 'Audio', ['$document', '$rootScope', ($document, $rootSc
       $rootScope.$broadcast("audioEnded")
     ), false
     Audio.addEventListener "error", (->
-      console.log("error")
+      console.log("error playing that song")
+      $rootScope.$broadcast("audioError")
     ), false
 
     Audio
