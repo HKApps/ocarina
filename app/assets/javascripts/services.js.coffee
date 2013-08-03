@@ -65,11 +65,18 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
 ocarinaServices.factory 'Audio', ['$document', '$rootScope', ($document, $rootScope) ->
     Audio = $document[0].createElement('audio')
 
+    Audio.addEventListener "durationchange", (->
+      $rootScope.$broadcast("audioDurationchange")
+    ), false
+    Audio.addEventListener "timeupdate", (->
+      $rootScope.$broadcast("audioTimeupdate")
+    ), false
     Audio.addEventListener "ended", (->
       $rootScope.$broadcast("audioEnded")
     ), false
     Audio.addEventListener "error", (->
-      console.log("error")
+      console.log("error playing that song")
+      $rootScope.$broadcast("audioError")
     ), false
 
     Audio
