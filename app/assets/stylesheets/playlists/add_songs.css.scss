@@ -1,5 +1,5 @@
 .songs-to-add{
-  .icon-ok{
+  .glyphicon-ok{
     margin-left: 10px;
     display: none;
     float: right;
@@ -7,7 +7,7 @@
   &.selected{
     background-color: #d9edf7;
 
-    .icon-ok{
+    .glyphicon-ok{
       display: inline-block;
     }
   }
