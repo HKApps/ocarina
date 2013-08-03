@@ -24,7 +24,7 @@
                     %input.form-control{ type: "text", ng_model: "newPlaylist.name", placeholder: "Playlist Name" }
                     .modal-footer
                       %button.btn.btn-default{ ng_click: "closeCreatePlaylistModal()" } Cancel
-                      %button.btn.btn-primary{ ng_click: "createPlaylist()" } Create!
+                      %button.btn.btn-primary{ :type => "submit" } Create!
 
         %ul#playlists
           %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy: created_at:true' }
