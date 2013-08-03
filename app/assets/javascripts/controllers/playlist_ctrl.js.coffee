@@ -24,6 +24,9 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
           $scope.playlist.playlist_songs.push(song)
       $scope.selectedSongs = []
 
+    $scope.clearSelectedSongs = ->
+      $scope.selectedSongs = []
+
     $scope.upvoteSong = (song) ->
       unless song.current_user_vote_decision == 1
         Playlist.vote(playlistId, song.id, "upvote").then (res) =>
