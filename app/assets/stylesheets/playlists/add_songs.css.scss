@@ -6,9 +6,7 @@
     float: right;
   }
   &.selected{
-    .icon-ok{
-      display: inline-block;
-    }
+    background-color: #08C400;
   }
 }
 
