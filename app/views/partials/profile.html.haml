@@ -27,7 +27,7 @@
                       %button.btn.btn-primary{ ng_submit: "createPlaylist()" } Create!
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists' }
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy: created_at:true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
 
