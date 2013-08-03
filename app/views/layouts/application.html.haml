@@ -23,8 +23,11 @@
         %a.navbar-brand{ ng_href: "/" } Ocarina
         .nav-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
-            %li
-              %a{ ng_href: '/search' } Search
+          %form.navbar-form{ ng_submit: "joinPlaylist(selectedPlaylist.id)" }
+            %input.nav-search.form-control.col-lg-8.pull-left{ :placeholder => "search", :type => "text", ng_model: "selectedPlaylist", typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
+            -# %span.input-group-btn
+            -#   %button.btn.btn-default{ :type => "button", ng_click: 'joinPlaylist(selectedPlaylist.id)' } Join
+            -# %a{ ng_href: '/search' } Search
           %ul.nav.navbar-nav.pull-right
             %li
               %a{ :href => "", ng_show: 'user.dropbox_authenticated',
