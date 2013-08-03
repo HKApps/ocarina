@@ -29,7 +29,11 @@
 }
 
 .nav-search{
-  width: 30%;
+  margin-top: 2px;
+  width: 35%;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 }
 
 .song-list{
