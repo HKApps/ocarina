@@ -6,6 +6,8 @@
     float: right;
   }
   &.selected{
+    background-color: #ddd;
+
     .icon-ok{
       display: inline-block;
     }
