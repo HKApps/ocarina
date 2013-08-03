@@ -7,6 +7,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
     # Audo Playback
     $scope.$on "audioEnded", ->
       $scope.playerAction("play")
+    $scope.$on "audioError", ->
+      # because errors typically mean bad src
+      $scope.playerAction("play")
 
     $scope.playerAction = (action) ->
       playlist = $scope.playlist.playlist_songs
@@ -26,12 +29,10 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
 
     ##
     # Seekbar
-    audio.addEventListener "durationchange", (->
+    $scope.$on "audioDurationchange", ->
       setupSeekbar()
-    ), false
-    audio.addEventListener "timeupdate", (->
+    $scope.$on "audioTimeupdate", ->
       updateUI()
-    ), false
 
     seekbar = $('.seekbar')[0]
     seekbar.value = 0
