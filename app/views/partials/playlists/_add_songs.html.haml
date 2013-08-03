@@ -3,3 +3,5 @@
     %input{ ng_model: "songFilter", :placeholder => "search your songs" }
   .songs-to-add.song-list{ ng_repeat: "song in user.dropbox_songs | filter: songFilter", ng_click: "toggleSongSelected(song.id)", ng_class: '{"selected": isSongSelected(song.id)}' }
     %span.name.wordwrap {{song.name}}
+    .icon-ok
+      ✔
