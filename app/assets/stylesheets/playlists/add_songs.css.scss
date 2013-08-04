@@ -1,14 +1,23 @@
 .songs-to-add{
-
-  .icon-ok{
+  .glyphicon-ok{
     margin-left: 10px;
-    color: #08C400;
     display: none;
+    float: right;
   }
   &.selected{
-    .icon-ok{
+    background-color: #d9edf7;
+
+    .glyphicon-ok{
       display: inline-block;
     }
   }
 }
 
+.song-filter{
+  text-align: center;
+  input{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}

@@ -1,32 +1,36 @@
 .playlist-container{ ng_if: 'playlist', ng_controller: 'PlaylistCtrl' }
-  .name
-    %h3 {{playlist.name}}
+  .playlist-name
+    %h2 {{playlist.name}}
 
-  .player{ ng_show: "playlist.owner_id == user.id" }
-    %h4 Audio Player
+  .player
     =render 'playlists/player'
 
   .add-dropbox-songs
-    %button.btn.btn-default{ ng_click: "openAddSongsModal()" }
-      Add Songs
     %div{ modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
       .modal-dialog
         .modal-content
           .modal-header
+            %button.close{ ng_click: "closeAddSongsModal()" } &times;
             %h3 Select Songs to Add
           .modal-body
             =render '/partials/playlists/add_songs'
           .modal-footer
             %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
+            %button.btn{ ng_click: "clearSelectedSongs()" } Clear
             %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
 
-  .playlist-songs
-    %h4 Songs
+  .playlist-songs{ ng_show: "playlist.playlist_songs.length" }
+    .pull-right.btn.btn-default.btn-small.add-song-btn{ ng_click: "openAddSongsModal()" }
+      %i.glyphicon.glyphicon-plus
     .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
-      %span.name {{song.song_name}}
+      .song-name.wordwrap {{ song.song_name | truncate:60:true:true }}
       .playlist-votes
         %b.votes {{song.vote_count}} votes
         .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
-          ⬆
+          %i.glyphicon.glyphicon-arrow-up
         .btn.btn-default.btn-small{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
-          ⬇
+          %i.glyphicon.glyphicon-arrow-down
+  .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
+    %h4 Your playlist is empty!
+    %button.btn.btn-default.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
+      Add Songs

@@ -1,3 +1,36 @@
 .playlist-votes{
   float: right;
+  .btn, .votes{
+    vertical-align: middle;
+  }
+}
+
+.song-name{
+  float: left;
+  margin-right: 8px;
+  width: 50%;
+}
+
+.playlist-name{
+  text-align: center;
+}
+
+.playlist-songs{
+  margin-top: 20px;
+}
+
+.add-song-btn, .add-song-btn:hover{
+  border: none;
+  background-color: #EEE;
+  color: #000;
+  border-radius: 20px;
+  margin-bottom: 9px;
+}
+
+.add-song-zero-state-btn{
+  width: 160px;
+}
+
+.zero-state{
+  text-align: center;
 }
