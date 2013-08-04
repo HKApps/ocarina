@@ -62,8 +62,11 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
   User
 ]
 
-ocarinaServices.factory 'Audio', ['$document', '$rootScope', ($document, $rootScope) ->
-    Audio = $document[0].createElement('audio')
+ocarinaServices.factory 'Audio', ['$rootScope',
+  ($rootScope) ->
+    # TODO making Audio a directive, controller action, or leaving a service
+    # when we work on continuous playback
+    Audio = $('audio')[0]
 
     Audio.addEventListener "durationchange", (->
       $rootScope.$broadcast("audioDurationchange")

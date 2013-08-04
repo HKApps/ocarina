@@ -1,4 +1,5 @@
 .player-container{ ng_controller: "PlaybackCtrl" }
+  %audio
   .currently-playing.wordwrap{ ng_show: "player.current.song" }
     {{player.current.song.song_name}}
   .playback-controls{ ng_show: "playlist.owner_id == user.id" }
