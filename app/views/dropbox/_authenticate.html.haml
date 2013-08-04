@@ -1,3 +1,19 @@
-%h3 Connect Dropbox
-%button.btn{ dropbox_auth: '' }
-  Link Dropbox
+.jumbotron{ ng_hide: "hasDropboxAuth" }
+  %h1#header Welcome to Ocarina, {{user.first_name}}!
+  %p#sub-header.lead Connect with Dropbox now to create playlists and enjoy music with the people around you.
+
+  .row#connect-area
+    .col-lg-3.col-offset-4.dropbox-connect
+      %button.btn.btn-primary{ dropbox_auth: '' }
+        #dropbox-logo= image_tag "dropbox-logos_dropbox-glyph-white.png"
+        Connect with Dropbox
+    .col-lg-2.connect-later
+      %a{ href: "#", ng_click: "hasDropboxAuth = !hasDropboxAuth" }
+        I'll do it later
+
+-# This appears unless the user authenticated with dropbox and created a playlist
+.row{ ng_hide: "user.hasPlaylists()" }
+  .col-offset-3.col-12.col-lg-6
+    %form.form-inline{ ng_submit: "createPlaylist()" }
+      %input#create-playlist-input.form-control{ type: "text", ng_model: "newPlaylist.name", placeholder: "Playlist Name" }
+      %button.btn.btn-default{ ng_click: "createPlaylist()" } Create!
