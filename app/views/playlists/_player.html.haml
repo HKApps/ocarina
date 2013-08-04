@@ -1,11 +1,11 @@
 .player-container{ ng_controller: "PlaybackCtrl" }
-  .playback-controls
+  .currently-playing.wordwrap{ ng_show: "player.current.song" }
+    {{player.current.song.song_name}}
+  .playback-controls{ ng_show: "playlist.owner_id == user.id" }
     %button.btn.btn-default.control.play{ ng_click: "playerAction('play')", ng_hide: "player.playing" }
       = image_tag "audio_play.png"
     %button.btn.btn-default.control.pause{ ng_click: "player.pause()", ng_show: "player.playing" }
       = image_tag "audio_pause.png"
     %button.btn.btn-default.control.skip{ ng_click: "playerAction('skip')" } Skip
-  .currently-playing{ ng_show: "player.current.song" }
-    %b Currently Playing:
-    {{player.current.song.song_name}}
-  %input.seekbar{ ng_show: "player.current.song", :type => "range", :step => "any" }
+    .seekbar-container
+      %input.seekbar{ ng_show: "player.current.song", :type => "range", :step => "any" }
