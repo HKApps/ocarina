@@ -16,4 +16,4 @@
   .col-offset-3.col-12.col-lg-6
     %form.form-inline{ ng_submit: "createPlaylist()" }
       %input#create-playlist-input.form-control{ type: "text", ng_model: "newPlaylist.name", placeholder: "Playlist Name" }
-      %button.btn.btn-default{ ng_click: "createPlaylist()" } Create!
+      %button.btn.btn-default{ type: "submit" } Create!

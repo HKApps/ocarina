@@ -4,6 +4,8 @@ class Playlist < ActiveRecord::Base
 
   belongs_to :user, class_name: 'User', foreign_key: 'owner_id'
 
+  validates :name, presence: true
+
   def unplayed_songs
     playlist_songs.select { |ps| !ps.played_at }
   end
