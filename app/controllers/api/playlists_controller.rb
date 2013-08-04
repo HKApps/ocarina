@@ -22,8 +22,13 @@ class Api::PlaylistsController < ApiController
   end
 
   def join
-    JoinPlaylistWorker.perform_async(params[:id], current_user.id)
-    render json: {}, status: 201
+    @playlist = Playlist.includes(:playlist_songs).where(id: params[:id]).first
+    if @playlist
+      JoinPlaylistWorker.perform_async(params[:id], current_user.id)
+      render "api/playlists/join", status: 201
+    else
+      render json: {error: "record not found"}, status: 403
+    end
   end
 
   private
