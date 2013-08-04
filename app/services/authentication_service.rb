@@ -34,6 +34,8 @@ class AuthenticationService
         provider: @provider,
         uid:      @omniauth["uid"].to_s
       ).first_or_create
+
+      update_dropbox_songs(user.id) if user.authentications.any? { |auth| auth.provider == "dropbox" }
     end
   end
 
@@ -45,11 +47,17 @@ class AuthenticationService
       auth.access_token        = @omniauth["credentials"]["token"]
       auth.access_token_secret = @omniauth["credentials"]["secret"]
       auth.save!
+
+      update_dropbox_songs(user.id)
     end
   end
 
   def find_user_by_omniauth_email
     User.where email: @omniauth["info"]["email"]
+  end
+
+  def update_dropbox_songs(user_id)
+    UpdateDropboxSongsWorker.perform_async(user_id)
   end
 
 end
