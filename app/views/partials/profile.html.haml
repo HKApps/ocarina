@@ -1,16 +1,42 @@
 .profile-container.ng-cloak{ ng_controller: 'ProfileCtrl' }
-  .user-parties
-    %h3 {{user.first_name}}'s Playlists
-    .parties-list{ ng_repeat: 'playlist in user.playlists' }
-      %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
-        {{playlist.name}}
+  .dropbox-auth
+    =render 'dropbox/authenticate'
 
-  .create-playlist
-    %h4 Create Playlist
+  .playlists{ ng_show: "user.hasPlaylists()" }
     .row
-      .col-lg-6
-        .input-group
-          %input.form-control{ :type => "text", ng_model: "newPlaylist.name" }
-          %span.input-group-btn
-            %button.btn.btn-default{ ng_click: "createPlaylist()" }
-              Create Playlist
+      -# List of user's playlists
+      .col-12.col-lg-6
+        .user-parties
+          %h3.playlist-title My Playlists
+
+          -# Button to launch create playlist modal
+          .btn.create-playlist-btn{ ng_click: "openCreatePlaylistModal()" }= image_tag "glyphicons_432_plus.png"
+          %div{ modal: "shouldBeOpen", close: "closeCreatePlaylistModal()", options:"modalOpts"}
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %h3 Create Playlist
+                .modal-body
+                  %form.form-inline{ ng_submit: "createPlaylist()" }
+                    %input.form-control{ type: "text", ng_model: "newPlaylist.name", placeholder: "Playlist Name" }
+                    .modal-footer
+                      %button.btn.btn-default{ ng_click: "closeCreatePlaylistModal()" } Cancel
+                      %button.btn.btn-primary{ type: "submit" } Create!
+
+        %ul#playlists
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy: created_at:true' }
+            %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
+              {{playlist.name}}
+
+      -# List of participating playlists
+      .col-12.col-lg-6
+        .guest-parties
+          %h3.playlist-title Shared Playlists
+        .alert{ ng_hide: "user.hasPlaylistsAsGuest" }
+          You haven't joined any playlists!
+          %a.alert-link{ ng_href: "/search" } Search to find a playlist to join!
+
+        %ul#playlists
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest' }
+            %a.playlist{ ng_href: "/playlists/{{playlist.playlist_id}}" }
+              {{playlist.playlist_name}}

@@ -1,6 +1,3 @@
-.dropbox-auth{ ng_hide: 'user.dropbox_authenticated' }
-  =render 'dropbox/authenticate'
-
 .user-dropbox-songs{ ng_show: 'user.dropbox_authenticated', ng_controller: 'SongsCtrl' }
   %div{ modal: "shouldBeOpen", close: "closeDbSongsModal()", options: "modalOpts" }
     .modal-dialog

@@ -8,4 +8,13 @@ ocarina.controller 'ProfileCtrl', ['Playlist', '$scope', '$location',
         $location.path("/playlists/#{res.data.id}")
 
       $scope.newPlaylist.name = ''
+      $scope.closeCreatePlaylistModal()
+
+    $scope.openCreatePlaylistModal = ->
+      $scope.shouldBeOpen = true
+
+    $scope.closeCreatePlaylistModal = ->
+      $scope.shouldBeOpen = false
+
+    $scope.modalOpts = { backdropFade:true, dialogFade:true }
 ]
