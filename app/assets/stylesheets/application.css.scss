@@ -28,6 +28,19 @@
   color: #EEE;
 }
 
+.navbar-inverse .navbar-nav > .dropdown > a .caret{
+  border-top-color: #eee;
+  border-bottom-color: #eee;
+}
+
+.navbar-brand{
+  margin-top: 6px;
+}
+
+.navbar-inverse .dropdown ul li a{
+  color: #000;
+}
+
 .nav-search{
   margin-top: 2px;
   width: 35%;
