@@ -1,2 +1,2 @@
 object @user
-extends "api/users/user"
+extends "api/users/base"
