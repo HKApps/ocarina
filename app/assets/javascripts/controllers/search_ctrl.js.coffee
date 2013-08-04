@@ -6,7 +6,7 @@ ocarina.controller "SearchCtrl", ['$scope', '$http', '$location',
 
     $scope.joinPlaylist = (id) ->
       $http.post("/api/playlists/#{id}/join").then (res) =>
-        if res.status == 200
-          $scope.user.playlists.push(res.data)
+        if res.status == 201
+          $scope.user.playlists_as_guest.push(res.data)
       $location.path("/playlists/#{id}")
 ]
