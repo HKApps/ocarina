@@ -3,8 +3,8 @@ attributes :id, :email, :first_name, :last_name, :image, :created_at, :updated_a
 node(:dropbox_authenticated)  { |u| u.dropbox_authenticated? }
 node(:facebook_authenticated) { |u| u.facebook_authenticated? }
 
-child :songs => "dropbox_songs" do
-  attributes :id, :name, :path, :user_id, :properties, :created_at, :updated_at
+child :current_songs => "dropbox_songs" do
+  attributes :id, :name, :path, :user_id, :created_at, :updated_at
 end
 
 child :playlists do

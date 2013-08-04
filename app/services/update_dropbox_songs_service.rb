@@ -29,7 +29,9 @@ class UpdateDropboxSongsService
   end
 
   def convert_to_songs
-    file_to_song_service.convert_and_save
+    file_to_song_service.convert_and_save.tap do
+      file_to_song_service.update_removed_dropbox_songs
+    end
   end
 
   def user
@@ -45,7 +47,7 @@ class UpdateDropboxSongsService
   end
 
   def file_to_song_service
-    FileToSongService.new(dropbox_client.all_song_files, user)
+    @file_to_song_service ||= FileToSongService.new(dropbox_client.all_song_files, user)
   end
 
   def cache_key
