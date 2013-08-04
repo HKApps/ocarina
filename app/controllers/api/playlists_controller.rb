@@ -1,8 +1,8 @@
 class Api::PlaylistsController < ApiController
   respond_to :json
+  before_filter :fetch_playlist
 
   def show
-    @playlist = Playlist.includes(:playlist_songs).where(id: params[:id]).first
   end
 
   def index
@@ -22,7 +22,6 @@ class Api::PlaylistsController < ApiController
   end
 
   def join
-    @playlist = Playlist.includes(:playlist_songs).where(id: params[:id]).first
     if @playlist
       JoinPlaylistWorker.perform_async(params[:id], current_user.id)
       render "api/playlists/join", status: 201
@@ -32,6 +31,10 @@ class Api::PlaylistsController < ApiController
   end
 
   private
+
+  def fetch_playlist
+    @playlist = Playlist.includes(playlist_songs: :votes).where(id: params[:id]).first
+  end
 
   def playlist_params
     params.require(:playlist).permit(:name)
