@@ -6,13 +6,8 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
 
-  def status
-    self.attributes.merge({
-      dropbox_authenticated:  dropbox_authenticated?,
-      facebook_authenticated: facebook_authenticated?,
-      dropbox_songs:          songs,
-      playlists:              playlists
-    }).to_json
+  def current_songs
+    songs.select { |s| !s.removed_at }
   end
 
   def dropbox_authenticated?
