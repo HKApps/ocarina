@@ -13,10 +13,15 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
 
     $scope.playerAction = (action) ->
       playlist = $scope.playlist.playlist_songs
-      if Player.paused && action != "skip"
+
+      if Player.paused && action == "play"
         Player.play()
+
+      else if !playlist.length
+        Player.stop()
+        return
+
       else
-        return unless playlist.length
         song = _.max playlist, (s) ->
           s.vote_count
 

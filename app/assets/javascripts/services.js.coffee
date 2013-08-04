@@ -105,6 +105,12 @@ ocarinaServices.factory 'Player', ['Audio',
           Audio.pause()
           Player.playing = false
           Player.paused = true
+      stop: ->
+        Audio.pause()
+        Player.playing = false
+        Player.paused = false
+        current.song = 0
+
 
     Player
 ]
