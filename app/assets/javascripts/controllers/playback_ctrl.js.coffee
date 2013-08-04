@@ -16,20 +16,15 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
 
       if Player.paused && action == "play"
         Player.play()
-
       else if !playlist.length
         Player.stop()
-        return
-
       else
         song = _.max playlist, (s) ->
           s.vote_count
-
         $http.get("/api/playlists/#{$scope.playlist.id}/playlist_songs/#{song.id}/media_url.json").then (res) =>
           song.media_url = res.data.url
           Player.play(song)
           $http.post("/api/playlists/#{$scope.playlist.id}/playlist_songs/#{song.id}/played")
-
         $scope.playlist.playlist_songs = _.without(playlist, song)
 
     ##

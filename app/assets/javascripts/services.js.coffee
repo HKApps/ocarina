@@ -95,8 +95,9 @@ ocarinaServices.factory 'Player', ['Audio',
       playing: false
       current: current
       play: (song) ->
-        current.song = song if angular.isDefined(song)
-        Audio.src = song.media_url unless Player.paused
+        if angular.isDefined(song)
+          current.song = song
+          Audio.src = song.media_url
         Audio.play()
         Player.playing = true
         Player.paused = false
