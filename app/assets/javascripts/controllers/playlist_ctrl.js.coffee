@@ -12,7 +12,7 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     $scope.toggleSongSelected = (song) ->
       if $scope.isSongSelected(song)
-        $scope.selectedSongs.pop(song)
+        $scope.selectedSongs = _.without($scope.selectedSongs, song)
       else
         $scope.selectedSongs.push(song)
 
