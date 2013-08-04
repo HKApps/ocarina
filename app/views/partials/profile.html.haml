@@ -1,5 +1,5 @@
 .profile-container.ng-cloak{ ng_controller: 'ProfileCtrl' }
-  .dropbox-auth{ ng_hide: "hasDropboxAuth" }
+  .dropbox-auth
     =render 'dropbox/authenticate'
 
   .playlists{ ng_show: "user.hasPlaylists()" }
