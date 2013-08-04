@@ -8,7 +8,7 @@
         #dropbox-logo= image_tag "dropbox-logos_dropbox-glyph-white.png"
         Connect with Dropbox
     .col-lg-2.connect-later
-      %a{ href: "#" }
+      %a{ href: "#", ng_click: "hasDropboxAuth = !hasDropboxAuth" }
         I'll do it later
 
 -# This appears unless the user authenticated with dropbox and created a playlist
