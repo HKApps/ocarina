@@ -28,16 +28,16 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
       $scope.selectedSongs = []
 
     $scope.upvoteSong = (song) ->
-      unless song.current_user_vote_decision == 1
-        Playlist.vote(playlistId, song.id, "upvote").then (res) =>
-          song.vote_count++
-          song.current_user_vote_decision++
+      return if song.current_user_vote_decision == 1
+      Playlist.vote(playlistId, song.id, "upvote")
+      song.vote_count++
+      song.current_user_vote_decision++
 
     $scope.downvoteSong = (song) ->
-      unless song.current_user_vote_decision == -1
-        Playlist.vote(playlistId, song.id, "downvote").then (res) =>
-          song.vote_count--
-          song.current_user_vote_decision--
+      return if song.current_user_vote_decision == -1
+      Playlist.vote(playlistId, song.id, "downvote")
+      song.vote_count--
+      song.current_user_vote_decision--
 
     $scope.openAddSongsModal = ->
       $scope.shouldBeOpen = true
@@ -52,6 +52,7 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
       playlistChannel.bind 'new-playlist-songs', (data) ->
         return if data.user_id == $scope.user.id
         _.each data.playlist_songs, (song) ->
+          song.current_user_vote_decision = 0
           $scope.playlist.playlist_songs.push(song)
         $scope.$apply() unless $scope.$$phase
 
