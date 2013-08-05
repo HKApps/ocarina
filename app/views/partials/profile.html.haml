@@ -24,7 +24,7 @@
                       %button.btn.btn-primary{ type: "submit" } Create!
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy: created_at:true' }
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:created_at:true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
 
@@ -32,11 +32,11 @@
       .col-12.col-lg-6
         .guest-parties
           %h3.playlist-title Shared Playlists
-        .alert{ ng_hide: "user.hasPlaylistsAsGuest" }
+        .alert{ ng_hide: "user.hasPlaylistsAsGuest()" }
           You haven't joined any playlists!
           %a.alert-link{ ng_href: "/search" } Search to find a playlist to join!
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest' }
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest | orderBy:created_at:true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.playlist_id}}" }
-              {{playlist.playlist_name}}
+              {{playlist.name}}
