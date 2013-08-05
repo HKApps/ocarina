@@ -7,7 +7,7 @@ ocarina.controller 'UserCtrl', ['User', '$scope',
         $scope.user.playlists.length > 0
 
       $scope.user.hasPlaylistsAsGuest = ->
-        $scope.user.playlists_as_guests.length > 0
+        $scope.user.playlists_as_guest.length > 0
 
       $scope.hasDropboxAuth = $scope.user.dropbox_authenticated
 
