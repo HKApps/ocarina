@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
 
+  def playlists_as_guest
+    guests.map { |guest| guest.playlist }
+  end
+
   def current_songs
     songs.select { |s| !s.removed_at }
   end
