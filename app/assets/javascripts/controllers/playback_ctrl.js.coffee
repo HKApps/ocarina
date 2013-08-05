@@ -7,6 +7,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
     ##
     # Audo Playback
 
+    # make sure the player has stopped
+    Player.stop()
+
     # add event listeners
     $scope.$on "audioEnded", ->
       $scope.playerAction("play")
