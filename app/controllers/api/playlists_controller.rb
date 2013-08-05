@@ -1,8 +1,8 @@
 class Api::PlaylistsController < ApiController
   respond_to :json
+  before_filter :fetch_playlist
 
   def show
-    @playlist = Playlist.includes(:playlist_songs).where(id: params[:id]).first
   end
 
   def index
@@ -22,11 +22,19 @@ class Api::PlaylistsController < ApiController
   end
 
   def join
-    JoinPlaylistWorker.perform_async(params[:id], current_user.id)
-    render json: {}, status: 201
+    if @playlist
+      JoinPlaylistWorker.perform_async(params[:id], current_user.id)
+      render "api/playlists/join", status: 201
+    else
+      render json: {error: "record not found"}, status: 403
+    end
   end
 
   private
+
+  def fetch_playlist
+    @playlist = Playlist.includes(playlist_songs: :votes).where(id: params[:id]).first
+  end
 
   def playlist_params
     params.require(:playlist).permit(:name)
