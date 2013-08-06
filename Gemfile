@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
@@ -17,6 +19,7 @@ gem 'oj'
 gem 'omniauth'
 gem 'omniauth-dropbox'
 gem 'omniauth-facebook'
+gem 'rails_12factor'
 gem 'redis-rails', git: 'git://github.com/jodosha/redis-store.git'
 gem 'redis-store'
 gem 'rabl'
