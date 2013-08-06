@@ -31,7 +31,5 @@ module Ocarina
     config.assets.precompile += %w(*.png *.jpg *jpeg *.gif)
 
     config.autoload_paths += %W( #{config.root}/lib )
-
-    config.cache_store = :redis_store
   end
 end
