@@ -8,7 +8,12 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', '$route', 'Playlist', 'Pl
 
     # add event listeners
     $scope.$on "audioEnded", ->
-      $scope.playerAction("play")
+      if $scope.isPlayingPlaylist()
+        $scope.playerAction("play")
+      else
+        # TODO maybe get song from playlist_songs?
+        Player.stop()
+        initializePlayer()
     $scope.$on "audioError", ->
       # because errors typically mean bad src
       $scope.playerAction("play")
@@ -31,8 +36,6 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', '$route', 'Playlist', 'Pl
       else if !playlist.length
         Player.stop()
         initializePlayer()
-        # TODO figure out why do I have to do this??
-        $scope.$apply() unless $scope.$$phase
       # if pressing play and non-empty playlist
       else
         song = _.max playlist, (s) ->
@@ -49,6 +52,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', '$route', 'Playlist', 'Pl
       $scope.player.currentSong = undefined
       $scope.player.state = undefined
       Player.playlistId = $scope.playlistId
+      $scope.$apply() unless $scope.$$phase
 
     $scope.isPlayingPlaylist = ->
       Player.playlistId == $scope.playlistId
