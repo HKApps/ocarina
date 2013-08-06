@@ -42,8 +42,10 @@
 }
 
 .nav-search{
-  margin-top: 3px;
+  margin-top: 6px;
   width: 35%;
+  height: 36px;
+  background-color: #EEE;
   @media screen and (max-width: 767px) {
     width: 100%;
   }

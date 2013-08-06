@@ -25,18 +25,18 @@
           %form.navbar-form{ ng_submit: "joinPlaylist(selectedPlaylist)" }
             %input.nav-search.form-control.col-lg-8.pull-left{ :placeholder => "search", :type => "text", ng_model: "selectedPlaylist", typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
           .nav.navbar-nav.pull-right
-            %li.dropdown
-              %a.dropdown-toggle.dropdown{ href: "" }
-                Settings
-                %b.caret
-              %ul.dropdown-menu
-                %li
-                  %a{ :href => "", ng_show: 'true',
-                    ng_click: "openDbSongsModal()",
-                    :tabindex => "-1" } My Songs
-                %li.divider
-                %li
-                  %a{ :href => "", ng_click: "logout()" } Logout
+            -# TODO create conditional dropdown
+            -# %li.dropdown
+            -#   %a.dropdown-toggle{ href: "" }
+            -#     Settings
+            -#     %b.caret
+            -# %ul.dropdown-menu
+            %li
+              %a{ :href => "", ng_show: 'true',
+                ng_click: "openDbSongsModal()"} My Songs
+            %li.divider
+            %li
+              %a{ :href => "", ng_click: "logout()" } Logout
 
     .container
       = yield
