@@ -1,34 +1,66 @@
-ocarina.controller 'PlaybackCtrl', ['$scope', '$http', 'Player',
-  ($scope, $http, Player) ->
-    $scope.player = Player
-    audio = $scope.player.audio
+ocarina.controller 'PlaybackCtrl', ['$scope', '$http', '$route', 'Playlist', 'Player',
+  ($scope, $http, $route, Playlist, Player) ->
+    $scope.playlistId = $route.current.params.playlistId
 
     ##
     # Audo Playback
+    $scope.player = Player
+
+    # add event listeners
     $scope.$on "audioEnded", ->
-      $scope.playerAction("play")
+      if $scope.isPlayingPlaylist()
+        $scope.playerAction("play")
+      else
+        # TODO maybe get song from playlist_songs?
+        Player.stop()
+        initializePlayer()
     $scope.$on "audioError", ->
       # because errors typically mean bad src
       $scope.playerAction("play")
 
+    # playback controls
     $scope.playerAction = (action) ->
+      unless $scope.isPlayingPlaylist()
+        # TODO alert some shit
+        initializePlayer()
       playlist = $scope.playlist.playlist_songs
-      if Player.paused && action != "skip"
+      # pressing pause
+      if action == "pause"
+        Player.pause()
+        $scope.player.state = 'paused'
+      # if paused and pressing play
+      else if $scope.player.state == 'paused' && action == "play"
         Player.play()
+        $scope.player.state = 'playing'
+      # if pressing play and empty playlist
+      else if !playlist.length
+        Player.stop()
+        initializePlayer()
+      # if pressing play and non-empty playlist
       else
-        return unless playlist.length
         song = _.max playlist, (s) ->
           s.vote_count
-
-        $http.get("/api/playlists/#{$scope.playlist.id}/playlist_songs/#{song.id}/media_url.json").then (res) =>
+        $scope.player.currentSong = song
+        Playlist.getMediaURL($scope.playlistId, song.id).then (res) =>
           song.media_url = res.data.url
           Player.play(song)
-          $http.post("/api/playlists/#{$scope.playlist.id}/playlist_songs/#{song.id}/played")
-
+          $scope.player.state = 'playing'
+          Playlist.songPlayed($scope.playlistId, song.id)
         $scope.playlist.playlist_songs = _.without(playlist, song)
+
+    initializePlayer = ->
+      $scope.player.currentSong = undefined
+      $scope.player.state = undefined
+      Player.playlistId = $scope.playlistId
+      $scope.$apply() unless $scope.$$phase
+
+    $scope.isPlayingPlaylist = ->
+      Player.playlistId == $scope.playlistId
 
     ##
     # Seekbar
+    audio = $scope.player.audio
+
     $scope.$on "audioDurationchange", ->
       setupSeekbar()
     $scope.$on "audioTimeupdate", ->
