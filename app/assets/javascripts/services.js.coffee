@@ -34,6 +34,12 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   Playlist.vote = (id, song_id, decision) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/#{decision}")
 
+  Playlist.getMediaURL = (id, song_id) ->
+    $http.get("#{url}/#{id}/playlist_songs/#{song_id}/media_url.json")
+
+  Playlist.songPlayed = (id, song_id) ->
+    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played")
+
   Playlist
 ]
 
@@ -53,11 +59,9 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
   User
 ]
 
-ocarinaServices.factory 'Audio', ['$rootScope',
-  ($rootScope) ->
-    # TODO making Audio a directive, controller action, or leaving a service
-    # when we work on continuous playback
-    Audio = $('audio')[0]
+ocarinaServices.factory 'Audio', ['$document', '$rootScope',
+  ($document, $rootScope) ->
+    Audio = $document[0].createElement('audio')
 
     Audio.addEventListener "durationchange", (->
       $rootScope.$broadcast("audioDurationchange")
@@ -76,36 +80,18 @@ ocarinaServices.factory 'Audio', ['$rootScope',
     Audio
 ]
 
-ocarinaServices.factory 'Player', ['Audio',
-  (Audio) ->
-    Player = undefined
+ocarinaServices.factory 'Player', ['Audio', (Audio) ->
+  Player =
+    playlistId: undefined
+    audio: Audio
+    play: (song) ->
+      if angular.isDefined(song)
+        Audio.src = song.media_url
+      Audio.play()
+    pause: ->
+      Audio.pause()
+    stop: ->
+      Audio.pause()
 
-    current =
-      song: 0
-
-    Player =
-      audio: Audio
-      paused: false
-      playing: false
-      current: current
-      play: (song) ->
-        if angular.isDefined(song)
-          current.song = song
-          Audio.src = song.media_url
-        Audio.play()
-        Player.playing = true
-        Player.paused = false
-      pause: ->
-        if Player.playing
-          Audio.pause()
-          Player.playing = false
-          Player.paused = true
-      stop: ->
-        Audio.pause()
-        Player.playing = false
-        Player.paused = false
-        current.song = 0
-
-
-    Player
+  Player
 ]
