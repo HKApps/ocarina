@@ -15,15 +15,6 @@ ocarinaServices.factory 'Pusher', ->
   # Pusher.log = (message) ->
   # window.console.log message if window.console and window.console.log
 
-  # subscribe: (channel) ->
-  #   pusher.subscribe(channel)
-
-  # bind: (event, callback) ->
-  #   channel.bind event, ->
-  #     args = arguments
-  #     $rootScope.$apply ->
-  #       callback.apply channel, args
-
 ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   url = "/api/playlists"
   Playlist = (data) ->
@@ -42,6 +33,12 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
 
   Playlist.vote = (id, song_id, decision) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/#{decision}")
+
+  Playlist.getMediaURL = (id, song_id) ->
+    $http.get("#{url}/#{id}/playlist_songs/#{song_id}/media_url.json")
+
+  Playlist.songPlayed = (id, song_id) ->
+    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played")
 
   Playlist
 ]
@@ -62,7 +59,8 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
   User
 ]
 
-ocarinaServices.factory 'Audio', ['$document', '$rootScope', ($document, $rootScope) ->
+ocarinaServices.factory 'Audio', ['$document', '$rootScope',
+  ($document, $rootScope) ->
     Audio = $document[0].createElement('audio')
 
     Audio.addEventListener "durationchange", (->
@@ -82,29 +80,18 @@ ocarinaServices.factory 'Audio', ['$document', '$rootScope', ($document, $rootSc
     Audio
 ]
 
-ocarinaServices.factory 'Player', ['Audio',
-  (Audio) ->
-    Player = undefined
+ocarinaServices.factory 'Player', ['Audio', (Audio) ->
+  Player =
+    playlistId: undefined
+    audio: Audio
+    play: (song) ->
+      if angular.isDefined(song)
+        Audio.src = song.media_url
+      Audio.play()
+    pause: ->
+      Audio.pause()
+    stop: ->
+      Audio.pause()
 
-    current =
-      song: 0
-
-    Player =
-      audio: Audio
-      paused: false
-      playing: false
-      current: current
-      play: (song) ->
-        current.song = song if angular.isDefined(song)
-        Audio.src = song.media_url unless Player.paused
-        Audio.play()
-        Player.playing = true
-        Player.paused = false
-      pause: ->
-        if Player.playing
-          Audio.pause()
-          Player.playing = false
-          Player.paused = true
-
-    Player
+  Player
 ]
