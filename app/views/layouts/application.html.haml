@@ -22,13 +22,19 @@
           %span.icon-bar
         %a.navbar-brand{ ng_href: "/" } Ocarina
         .nav-collapse.collapse.navbar-responsive-collapse
-          %ul.nav.navbar-nav
+          %form.navbar-form{ ng_submit: "joinPlaylist(selectedPlaylist)" }
+            %input.nav-search.form-control.col-lg-8.pull-left{ :placeholder => "search", :type => "text", ng_model: "selectedPlaylist", typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
+          .nav.navbar-nav.pull-right
+            -# TODO create conditional dropdown
+            -# %li.dropdown
+            -#   %a.dropdown-toggle{ href: "" }
+            -#     = "#{current_user.first_name} #{current_user.last_name}"
+            -#     %b.caret
+            -# %ul.dropdown-menu
             %li
-              %a{ ng_href: '/search' } Search
-          %ul.nav.navbar-nav.pull-right
-            %li
-              %a{ :href => "", ng_show: 'user.dropbox_authenticated',
-                ng_click: "openDbSongsModal()" } My Songs
+              %a{ :href => "", ng_show: 'true',
+                ng_click: "openDbSongsModal()"} My Songs
+            %li.divider
             %li
               %a{ :href => "", ng_click: "logout()" } Logout
 

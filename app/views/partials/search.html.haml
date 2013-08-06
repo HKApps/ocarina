@@ -1,9 +1,0 @@
-.search-playlists{ ng_controller: 'SearchCtrl' }
-  %h3 Search for Playlists
-  .row
-    .col-lg-6
-      .input-group
-        %input.form-control{ :type => "text", ng_model: "selectedPlaylist", typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
-        %span.input-group-btn
-          %button.btn.btn-default{ :type => "button", ng_click: 'joinPlaylist(selectedPlaylist)' } Join
-
