@@ -1,6 +1,7 @@
 ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
   ($rootScope, $scope, $http, $location) ->
-    $scope.isCollapsed = false
+    $scope.collapseNav = ->
+      $('.nav-collapse').collapse('hide')
 
     $scope.openDbSongsModal = ->
       $rootScope.$broadcast("openDbSongsModal")
