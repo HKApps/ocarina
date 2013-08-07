@@ -38,5 +38,5 @@
 
         %ul#playlists
           %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest | orderBy:created_at:true' }
-            %a.playlist{ ng_href: "/playlists/{{playlist.playlist_id}}" }
+            %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
