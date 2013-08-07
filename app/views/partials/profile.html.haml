@@ -2,10 +2,10 @@
   .dropbox-auth
     =render 'dropbox/authenticate'
 
-  .playlists{ ng_show: "user.hasPlaylists()" }
+  .playlists
     .row
       -# List of user's playlists
-      .col-12.col-lg-6
+      .col-12.col-lg-6{ ng_show: "user.hasPlaylists()" }
         .user-parties
           %h3.playlist-title My Playlists
 
