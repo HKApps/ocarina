@@ -15,8 +15,9 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
 
     $scope.selectedPlaylist = undefined
 
-    $http.get("/api/playlists.json").then (res) =>
-      $scope.playlists = res.data
+    $scope.updatePlaylists = ->
+      $http.get("/api/playlists.json").then (res) =>
+        $scope.playlists = res.data
 
     $scope.joinPlaylist = (playlist) ->
       return unless playlist.id
