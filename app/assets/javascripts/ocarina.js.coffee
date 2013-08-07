@@ -18,4 +18,22 @@
   ])
   .run(['$rootScope', '$location', ($rootScope, $location) ->
     $rootScope.location = $location
+    $rootScope.isMobilized = isMobilized()
+    $rootScope.isiOS = isiOS()
   ])
+
+# set mobile class
+if navigator.userAgent.match(/Android|BlackBerry|iPhone|iPod|iPad|IEMObile/i)
+  $('body').addClass('is-touch')
+else
+  $('body').addClass('is-pointer')
+
+# bc iOS is for chumps
+isiOS = ->
+  if navigator.userAgent.match(/iPhone|iPod|iPad/i)
+    true
+  else
+    false
+
+isMobilized = ->
+  $(window).width() <= 768 ? true : false

@@ -1,5 +1,5 @@
-ocarina.controller 'PlaybackCtrl', ['$scope', '$http', '$route', 'Playlist', 'Player',
-  ($scope, $http, $route, Playlist, Player) ->
+ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', 'Playlist', 'Player',
+  ($scope, $rootScope, $http, $route, Playlist, Player) ->
     $scope.playlistId = $route.current.params.playlistId
 
     ##
@@ -23,6 +23,8 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$http', '$route', 'Playlist', 'Pl
       unless $scope.isPlayingPlaylist()
         # TODO alert some shit
         initializePlayer()
+      if $rootScope.isiOS && $scope.player.state == undefined
+        Player.play()
       playlist = $scope.playlist.playlist_songs
       # pressing pause
       if action == "pause"
