@@ -5,7 +5,7 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
       window.scrollTo(0, 1)) if $rootScope.isMobilized
 
     $scope.collapseNav = ->
-      $('.nav-collapse').collapse('hide')
+      $('.nav-collapse').collapse('hide') if $(window).width() <= 768
 
     $scope.openDbSongsModal = ->
       $rootScope.$broadcast("openDbSongsModal")
