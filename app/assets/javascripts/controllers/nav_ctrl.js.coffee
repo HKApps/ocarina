@@ -1,5 +1,9 @@
 ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
   ($rootScope, $scope, $http, $location) ->
+
+    $scope.$on('$routeChangeStart', (next, current) ->
+      window.scrollTo(0, 1)) if $rootScope.isMobilized
+
     $scope.collapseNav = ->
       $('.nav-collapse').collapse('hide')
 
