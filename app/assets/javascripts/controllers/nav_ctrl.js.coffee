@@ -24,6 +24,7 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
         $http.post("/api/playlists/#{playlist.id}/join").then (res) =>
           if res.status == 201
             $scope.user.playlists_as_guest.push(res.data)
+      $scope.collapseNav()
       $location.path("/playlists/#{playlist.id}")
       $scope.selectedPlaylist = undefined
 ]
