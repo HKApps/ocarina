@@ -19,12 +19,22 @@
   margin-top: 20px;
 }
 
+.my-playlists{
+  margin-bottom: 20px;
+}
+
 .add-song-btn, .add-song-btn:hover{
   border: none;
   background-color: #EEE;
   color: #000;
   border-radius: 20px;
   margin-bottom: 9px;
+}
+
+.clear-btn, .clear-btn:hover{
+  color: #000;
+  border-color: #EEE;
+  background-color: #EEE;
 }
 
 .add-song-zero-state-btn{

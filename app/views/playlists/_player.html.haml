@@ -1,7 +1,7 @@
-.player-container{ ng_controller: "PlaybackCtrl" }
+.player-container{ ng_controller: "PlaybackCtrl", ng_show: "playlist.owner_id == user.id" }
   .currently-playing.wordwrap{ ng_show: "player.currentSong && isPlayingPlaylist()" }
     {{player.currentSong.song_name}}
-  .playback-controls{ ng_show: "playlist.owner_id == user.id" }
+  .playback-controls
     %button.btn.btn-default.control.play{ ng_click: "playerAction('play')", ng_show: "player.state != 'playing' || !isPlayingPlaylist()" }
       = image_tag "audio_play.png"
     %button.btn.btn-default.control.pause{ ng_click: "playerAction('pause')", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }

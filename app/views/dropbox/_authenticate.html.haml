@@ -10,10 +10,3 @@
     .col-lg-2.connect-later
       %a{ href: "#", ng_click: "hasDropboxAuth = !hasDropboxAuth" }
         I'll do it later
-
--# This appears unless the user authenticated with dropbox and created a playlist
-.row{ ng_hide: "user.hasPlaylists()" }
-  .col-offset-3.col-12.col-lg-6
-    %form.form-inline{ ng_submit: "createPlaylist()" }
-      %input#create-playlist-input.form-control{ type: "text", ng_model: "newPlaylist.name", placeholder: "Playlist Name" }
-      %button.btn.btn-default{ type: "submit" } Create!
