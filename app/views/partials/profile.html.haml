@@ -2,10 +2,10 @@
   .dropbox-auth
     =render 'dropbox/authenticate'
 
-  .playlists{ ng_show: "user.hasPlaylists()" }
+  .playlists
     .row
       -# List of user's playlists
-      .col-12.col-lg-6
+      .col-12.col-lg-6.my-playlists
         .user-parties
           %h3.playlist-title My Playlists
 
@@ -29,7 +29,7 @@
               {{playlist.name}}
 
       -# List of participating playlists
-      .col-12.col-lg-6
+      .col-12.col-lg-6.shared-playlists
         .guest-parties
           %h3.playlist-title Shared Playlists
         .alert{ ng_hide: "user.hasPlaylistsAsGuest()" }
@@ -38,5 +38,5 @@
 
         %ul#playlists
           %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest | orderBy:created_at:true' }
-            %a.playlist{ ng_href: "/playlists/{{playlist.playlist_id}}" }
+            %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}

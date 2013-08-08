@@ -2,7 +2,7 @@
 %html{ 'ng-app' => "ocarina" }
   %head
     %meta(http-equiv="Content-type" content="text/html;charset=UTF-8")
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"}
 
     %title= content_for?(:title) ? yield(:title) : "Ocarina"
     = stylesheet_link_tag "application", media: "all"
@@ -14,32 +14,12 @@
       }
 
   %body{ ng_controller: 'UserCtrl' }
-    .navbar.navbar-inverse{ ng_controller: 'NavCtrl' }
-      .container
-        %button.navbar-toggle{ "data-toggle" => "collapse", :type => "button", "data-target" => ".navbar-responsive-collapse" }
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-        %a.navbar-brand{ ng_href: "/" } Ocarina
-        .nav-collapse.collapse.navbar-responsive-collapse
-          %form.navbar-form{ ng_submit: "joinPlaylist(selectedPlaylist)" }
-            %input.nav-search.form-control.col-lg-8.pull-left{ :placeholder => "search", :type => "text", ng_model: "selectedPlaylist", typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
-          .nav.navbar-nav.pull-right
-            -# TODO create conditional dropdown
-            -# %li.dropdown
-            -#   %a.dropdown-toggle{ href: "" }
-            -#     = "#{current_user.first_name} #{current_user.last_name}"
-            -#     %b.caret
-            -# %ul.dropdown-menu
-            %li
-              %a{ :href => "", ng_show: 'true',
-                ng_click: "openDbSongsModal()"} My Songs
-            %li.divider
-            %li
-              %a{ :href => "", ng_click: "logout()" } Logout
+    = render 'partials/nav'
 
     .container
       = yield
+
+    = render 'partials/footer'
 
     = javascript_include_tag "vendor/custom.modernizr"
     = javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"

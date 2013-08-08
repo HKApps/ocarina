@@ -1,6 +1,11 @@
 ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
   ($rootScope, $scope, $http, $location) ->
-    $scope.isCollapsed = false
+
+    $scope.$on('$routeChangeStart', (next, current) ->
+      window.scrollTo(0, 1)) if $rootScope.isMobilized
+
+    $scope.collapseNav = ->
+      $('.nav-collapse').collapse('hide') if $(window).width() <= 768
 
     $scope.openDbSongsModal = ->
       $rootScope.$broadcast("openDbSongsModal")
@@ -10,14 +15,17 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
 
     $scope.selectedPlaylist = undefined
 
-    $http.get("/api/playlists.json").then (res) =>
-      $scope.playlists = res.data
+    $scope.updatePlaylists = ->
+      $http.get("/api/playlists.json").then (res) =>
+        $scope.playlists = res.data
 
     $scope.joinPlaylist = (playlist) ->
-      $scope.selectedPlaylist = undefined
+      return unless playlist.id
       unless playlist.owner_id == $scope.user.id or _.findWhere($scope.user.playlists_as_guest, { id: playlist.id })
         $http.post("/api/playlists/#{playlist.id}/join").then (res) =>
           if res.status == 201
             $scope.user.playlists_as_guest.push(res.data)
+      $scope.collapseNav()
       $location.path("/playlists/#{playlist.id}")
+      $scope.selectedPlaylist = undefined
 ]
