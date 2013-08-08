@@ -38,7 +38,7 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
     $http.get("#{url}/#{id}/playlist_songs/#{song_id}/media_url.json")
 
   Playlist.songPlayed = (id, song_id) ->
-    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played")
+    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played.json")
 
   Playlist
 ]
