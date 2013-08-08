@@ -5,7 +5,7 @@
   .playlists
     .row
       -# List of user's playlists
-      .col-12.col-lg-6{ ng_show: "user.hasPlaylists()" }
+      .col-12.col-lg-6.my-playlists
         .user-parties
           %h3.playlist-title My Playlists
 
@@ -29,7 +29,7 @@
               {{playlist.name}}
 
       -# List of participating playlists
-      .col-12.col-lg-6
+      .col-12.col-lg-6.shared-playlists
         .guest-parties
           %h3.playlist-title Shared Playlists
         .alert{ ng_hide: "user.hasPlaylistsAsGuest()" }
