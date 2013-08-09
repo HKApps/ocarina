@@ -16,3 +16,8 @@ ocarinaDirectives.directive 'onFocus', ->
   (scope, $elm, attr) ->
     $elm.on 'focusin', ->
       scope.$apply(attr.onFocus)
+
+ocarinaDirectives.directive 'onClickFocus', ->
+  (scope, $elm, attr) ->
+    $elm.on 'click', ->
+      $(attr.onClickFocus).focus()
