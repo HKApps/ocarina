@@ -1,3 +1,3 @@
-web:    bundle exec rails server puma -p $PORT -e $RACK_ENV
+web:    bundle exec puma -p $PORT -C config/puma.rb
 redis:  redis-server
 worker: bundle exec sidekiq -C config/sidekiq.yml -c $SIDEKIQ_CONCURRENCY
