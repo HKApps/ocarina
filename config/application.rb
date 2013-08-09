@@ -31,5 +31,7 @@ module Ocarina
     config.assets.precompile += %w(*.png *.jpg *jpeg *.gif)
 
     config.autoload_paths += %W( #{config.root}/lib )
+
+    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
   end
 end
