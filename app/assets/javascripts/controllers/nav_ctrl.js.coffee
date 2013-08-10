@@ -10,6 +10,11 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
     $scope.openDbSongsModal = ->
       $rootScope.$broadcast("openDbSongsModal")
 
+    # $scope.showSearch = false
+
+    $scope.toggleSearch = ->
+      $scope.showSearch = !$scope.showSearch
+
     $scope.logout = ->
       window.location.replace("/logout")
 
