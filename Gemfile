@@ -27,6 +27,7 @@ gem 'sass-rails', '~> 4.0.0.rc2'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem 'sucker_punch'
 gem 'uglifier', '>= 1.3.0'
 gem 'zurb-foundation'
 

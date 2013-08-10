@@ -3,7 +3,7 @@ require 'sidekiq/web'
 Ocarina::Application.routes.draw do
 
   # TODO(mn) - Make this admin-only
-  mount Sidekiq::Web, at: '/sidekiq'
+  #mount Sidekiq::Web, at: '/sidekiq'
 
   namespace :api do
     get 'current_user', to: 'users#current_user_json'

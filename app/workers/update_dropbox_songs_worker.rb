@@ -1,11 +1,11 @@
 class UpdateDropboxSongsWorker
-  include Sidekiq::Worker
+  include SuckerPunch::Job
 
-  sidekiq_options queue:     :update_dropbox_songs_worker,
-                  backtrace: true
+  #sidekiq_options queue:     :update_dropbox_songs_worker,
+                  #backtrace: true
 
   def perform(user_id)
-    UpdateDropboxSongsService.perform(user_id)
+    ::UpdateDropboxSongsService.perform(user_id)
   end
 
 end
