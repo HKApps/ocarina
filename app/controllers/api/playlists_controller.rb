@@ -33,7 +33,7 @@ class Api::PlaylistsController < ApiController
   private
 
   def fetch_playlist
-    @playlist = Playlist.includes(playlist_songs: :votes).where(id: params[:id]).first
+    @playlist = Playlist.fetch params[:id]
   end
 
   def playlist_params
