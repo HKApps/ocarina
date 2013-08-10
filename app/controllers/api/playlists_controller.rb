@@ -1,6 +1,6 @@
 class Api::PlaylistsController < ApiController
   respond_to :json
-  before_filter :fetch_playlist
+  before_filter :fetch_playlist, only: [:show, :join]
 
   def show
   end
