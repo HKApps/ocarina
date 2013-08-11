@@ -47,7 +47,9 @@ class Api::PlaylistSongsController < ApiController
   def push_playlist_songs(playlist_id, playlist_songs)
     Pusher.trigger("playlist-#{playlist_id}", "new-playlist-songs", {
       user_id: current_user.id,
-      playlist_songs: playlist_songs })
+      playlist_songs: playlist_songs,
+      current_user_vote_decision: 0
+    })
   end
 
   def push_played_song(playlist_id, song_id)

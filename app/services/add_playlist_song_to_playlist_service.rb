@@ -14,11 +14,13 @@ class AddPlaylistSongToPlaylistService
   def create
     ActiveRecord::Base.transaction do
       songs.map do |song|
-        song.playlist_songs.create do |ps|
+        playlist_song = song.playlist_songs.create do |ps|
           ps.path        = song.path
           ps.song_name   = song.name
           ps.playlist_id = @playlist_id
-        end
+        end.attributes
+        playlist_song["current_user_vote_decision"] = 0
+        playlist_song
       end
     end
   end
