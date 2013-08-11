@@ -23,7 +23,6 @@
     window.onresize = ->
       $rootScope.isMobilized = isMobilized()
       $rootScope.$apply()
-
   ])
 
 # set mobile class
