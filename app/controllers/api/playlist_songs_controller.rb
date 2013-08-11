@@ -15,7 +15,7 @@ class Api::PlaylistSongsController < ApiController
   def played
     playlist_id = params[:playlist_id]
     song_id = params[:id]
-    PlaylistSongPlayedWorker.perform_async(song_id)
+    PlaylistSongPlayedWorker.new.async.perform(song_id)
     push_played_song(playlist_id, song_id.to_i)
     respond_to do |format|
       format.json { head :ok }
@@ -29,7 +29,7 @@ class Api::PlaylistSongsController < ApiController
   end
 
   def upvote
-    PlaylistSongVoterWorker.perform_async(vote_params, :upvote)
+    PlaylistSongVoterWorker.new.async.perform(vote_params, :upvote)
     push_vote(params[:action], params[:playlist_id], params[:id].to_i)
     respond_to do |format|
       format.json { head :ok }
@@ -37,7 +37,7 @@ class Api::PlaylistSongsController < ApiController
   end
 
   def downvote
-    PlaylistSongVoterWorker.perform_async(vote_params, :downvote)
+    PlaylistSongVoterWorker.new.async.perform(vote_params, :downvote)
     push_vote(params[:action], params[:playlist_id], params[:id].to_i)
     respond_to do |format|
       format.json { head :ok }

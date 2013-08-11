@@ -57,7 +57,7 @@ class AuthenticationService
   end
 
   def update_dropbox_songs(user_id)
-    UpdateDropboxSongsWorker.perform_async(user_id)
+    UpdateDropboxSongsWorker.new.async.perform(user_id)
   end
 
 end

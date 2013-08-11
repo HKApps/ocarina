@@ -1,8 +1,8 @@
 #!/usr/bin/env puma
 
 environment ENV['RACK_ENV']
-threads 0, 16
-workers 2
+threads 1, 4
+workers 4
 preload_app!
 
 on_worker_boot do
