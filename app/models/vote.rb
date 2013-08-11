@@ -1,4 +1,6 @@
 class Vote < ActiveRecord::Base
+  include IdentityCache
+
   belongs_to :user
   belongs_to :playlist_song
 
