@@ -20,6 +20,9 @@
     $rootScope.location = $location
     $rootScope.isMobilized = isMobilized()
     $rootScope.isiOS = isiOS()
+    window.onresize = ->
+      $rootScope.isMobilized = isMobilized()
+      $rootScope.$apply()
   ])
 
 # set mobile class
