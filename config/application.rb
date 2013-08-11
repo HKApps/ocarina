@@ -32,6 +32,8 @@ module Ocarina
 
     config.autoload_paths += %W( #{config.root}/lib )
 
-    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
+    config.cache_store          = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
+    config.identity_cache_store = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
+
   end
 end

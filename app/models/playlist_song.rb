@@ -1,5 +1,8 @@
 class PlaylistSong < ActiveRecord::Base
+  include IdentityCache
+
   has_many :votes
+  cache_has_many :votes, embed: true
 
   belongs_to :playlist
   belongs_to :song

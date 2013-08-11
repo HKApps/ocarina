@@ -7,7 +7,7 @@ child :current_songs => "dropbox_songs" do
   attributes :id, :name, :path, :user_id, :created_at, :updated_at
 end
 
-child :playlists do
+child :playlists_as_owner => :playlists do
   attributes :id, :name, :created_at, :updated_at
 end
 
