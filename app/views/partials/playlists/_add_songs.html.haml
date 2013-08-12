@@ -5,7 +5,7 @@
         %button.close{ ng_click: "closeAddSongsModal()" } &times;
         %h3 Select Songs to Add
       .modal-body
-        .btn-group
+        .btn-group.toggle-provider
           %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Dropbox'" }
             Dropbox
           %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Soundcloud'" }
