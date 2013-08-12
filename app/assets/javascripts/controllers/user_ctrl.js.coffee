@@ -1,5 +1,5 @@
-ocarina.controller 'UserCtrl', ['User', '$scope',
-  (User, $scope) ->
+ocarina.controller 'UserCtrl', ['User', '$http', '$scope',
+  (User, $http, $scope) ->
     User.getCurrentUser().then (u) =>
       $scope.user = u
 
@@ -9,6 +9,8 @@ ocarina.controller 'UserCtrl', ['User', '$scope',
       $scope.user.hasPlaylistsAsGuest = ->
         $scope.user.playlists_as_guest.length > 0
 
-      $scope.hasDropboxAuth = $scope.user.dropbox_authenticated
+      $scope.deferDropboxConnect = ->
+        $http.post("/defer_dropbox_connect").then () =>
+          $scope.user.defer_dropbox_connect = true
 
 ]

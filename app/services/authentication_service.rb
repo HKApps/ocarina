@@ -1,4 +1,6 @@
 class AuthenticationService
+  attr_reader :provider
+
   def initialize(omniauth, current_user = nil)
     @omniauth     = omniauth
     @current_user = current_user
