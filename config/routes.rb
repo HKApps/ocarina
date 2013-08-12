@@ -31,6 +31,7 @@ Ocarina::Application.routes.draw do
   get '/login', to: 'sessions#new', as: 'login'
   match '/auth/:provider/callback', to: 'sessions#create', :via => [:get, :post]
   match "/logout", to: "sessions#destroy", :via => [:get, :post]
+  post '/defer_dropbox_connect', to: 'sessions#defer_dropbox_connect'
 
   get 'partials/*partial' => 'partials#partial'
 
