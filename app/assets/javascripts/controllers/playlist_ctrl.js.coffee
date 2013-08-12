@@ -61,6 +61,7 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         playlist = $scope.playlist.playlist_songs
         song = _.findWhere(playlist, {id: data.song_id})
         $scope.playlist.playlist_songs = _.without(playlist, song)
+        $scope.playlist.currentSong = song
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'new-vote', (data) ->
