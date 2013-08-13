@@ -26,3 +26,26 @@ ocarinaDirectives.directive 'onClickFocus', ->
   (scope, $elm, attr) ->
     $elm.on 'click', ->
       $(attr.onClickFocus).focus()
+
+# will end up removing this when upgrading angular
+ocarinaDirectives.directive "ocarinaIf", ->
+  transclude: "element"
+  priority: 1000
+  terminal: true
+  restrict: "A"
+  compile: (element, attr, transclude) ->
+    (scope, element, attr) ->
+      childElement = undefined
+      childScope = undefined
+      scope.$watch attr.ocarinaIf, (newValue) ->
+        if childElement
+          childElement.remove()
+          childElement = `undefined`
+        if childScope
+          childScope.$destroy()
+          childScope = `undefined`
+        if newValue
+          childScope = scope.$new()
+          transclude childScope, (clone) ->
+            childElement = clone
+            element.after clone

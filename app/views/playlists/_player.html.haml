@@ -1,4 +1,4 @@
-.player-container{ ng_controller: "PlaybackCtrl", ng_show: "playlist.owner_id == user.id" }
+.player-container{ ng_controller: "PlaybackCtrl", ocarina_if: "playlist.owner_id == user.id" }
   .currently-playing.wordwrap{ ng_show: "player.currentSong && isPlayingPlaylist()" }
     {{player.currentSong.song_name}}
   .playback-controls
@@ -9,3 +9,9 @@
     %button.btn.btn-default.control.skip{ ng_click: "playerAction('skip')" } Skip
     .seekbar-container
       %input.seekbar{ ng_show: "player.currentSong && isPlayingPlaylist()", :type => "range", :step => "any" }
+
+.player-container{ ocarina_if: "playlist.owner_id != user.id" }
+  .currently-playing.wordwrap{ ng_show: "playlist.currentSong" }
+    {{playlist.currentSong.song_name}}
+  .nothing-playing{ ng_show: "!playlist.currentSong" }
+    "tell the host to get this party started!"
