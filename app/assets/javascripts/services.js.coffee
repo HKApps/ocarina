@@ -68,8 +68,14 @@ ocarinaServices.factory 'Audio', ['$document', '$rootScope',
     Audio.addEventListener "durationchange", (->
       $rootScope.$broadcast("audioDurationchange")
     ), false
+    Audio.addEventListener "loadedmetadata", (->
+      $rootScope.$broadcast("audioLoadedMetadata")
+    ), false
     Audio.addEventListener "timeupdate", (->
       $rootScope.$broadcast("audioTimeupdate")
+    ), false
+    Audio.addEventListener "progress", (->
+      $rootScope.$broadcast("audioProgress")
     ), false
     Audio.addEventListener "ended", (->
       $rootScope.$broadcast("audioEnded")

@@ -69,22 +69,17 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     audio = $scope.player.audio
 
     $scope.$on "audioDurationchange", ->
-      setupSeekbar()
+      $('.duration').text(timeFormat(audio.duration))
     $scope.$on "audioTimeupdate", ->
-      updateUI()
+      $('.current-time').text(timeFormat(audio.currentTime))
+      percentage = 100 * audio.currentTime / audio.duration
+      $('.timebar').css('width', "#{percentage}%")
+    $scope.$on "audioProgress", ->
+      try percentage = 100 * audio.buffered.end(0) / audio.duration
+      $('.bufferbar').css('width', "#{percentage}%")
 
-    seekbar = $('.seekbar')[0]
-    seekbar.value = 0
-    seekbar.onchange = ->
-      seekAudio()
-    setupSeekbar = ->
-      seekbar.min = audio.startTime
-      seekbar.max = audio.startTime + audio.duration
-    updateUI = ->
-      try lastBuffered = audio.buffered.end(audio.buffered.length-1)
-      seekbar.min = audio.startTime
-      seekbar.max = lastBuffered
-      seekbar.value = audio.currentTime
-    seekAudio = ->
-      audio.currentTime = seekbar.value
+    timeFormat = (seconds) ->
+      m = (if Math.floor(seconds / 60) < 10 then "0" + Math.floor(seconds / 60) else Math.floor(seconds / 60))
+      s = (if Math.floor(seconds - (m * 60)) < 10 then "0" + Math.floor(seconds - (m * 60)) else Math.floor(seconds - (m * 60)))
+      m + ":" + s
 ]
