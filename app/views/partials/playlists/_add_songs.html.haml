@@ -30,7 +30,7 @@
                 :placeholder => "search your songs" }
             .songs-to-add.song-list{ ng_repeat: "song in user.dropbox_songs | filter: dbFilter",
                 ng_click: "toggleSongSelected('dropbox', song.id)",
-                ng_class: '{"selected": isSongSelected("dropbox", song.id)}' }
+                ng_class: '{"song-in-playlist": songInPlaylist(song.id),"selected": isSongSelected("dropbox", song.id)}' }
               %span.name.wordwrap {{song.name}}
               %i.glyphicon.glyphicon-ok
       .modal-footer
