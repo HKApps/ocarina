@@ -38,14 +38,17 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
     # soundcloud search
     $scope.scResults = []
     $scope.searchSc = (query) ->
-      SC.get '/tracks',
-        q: query
-        order: "hotness"
-        duration:
-          to: 600000
-        limit: 10
-      , (tracks) ->
-        console.log tracks
-        $scope.scResults = tracks
-        $scope.$apply()
+      if query
+        SC.get '/tracks',
+          q: query
+          order: "hotness"
+          duration:
+            to: 600000
+          limit: 10
+        , (tracks) ->
+          console.log tracks
+          $scope.scResults = tracks
+          $scope.$apply()
+      else
+        $scope.scResults = []
 ]
