@@ -27,6 +27,9 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
       $scope.clearSelectedSongs()
 
     $scope.clearSelectedSongs = ->
+      $scope.scFilter = undefined
+      $scope.dbFilter = undefined
+      $scope.scResults = []
       $scope.selectedSongs =
         dropbox: []
         soundcloud: []
