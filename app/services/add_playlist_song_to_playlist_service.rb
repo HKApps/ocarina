@@ -17,6 +17,7 @@ class AddPlaylistSongToPlaylistService
         playlist_song = song.playlist_songs.create do |ps|
           ps.path        = song.path
           ps.song_name   = song.name
+          ps.provider    = song.provider
           ps.playlist_id = @playlist_id
         end.attributes
         playlist_song["current_user_vote_decision"] = 0
