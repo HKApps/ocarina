@@ -1,5 +1,5 @@
-ocarina.controller 'ProfileCtrl', ['Playlist', '$scope', '$location',
-  (Playlist, $scope, $location) ->
+ocarina.controller 'ProfileCtrl', ['Playlist', '$rootScope', '$scope', '$location',
+  (Playlist, $rootScope, $scope, $location) ->
     $scope.createPlaylist = () ->
       playlist = new Playlist()
       playlist.name = $scope.newPlaylist.name
@@ -17,4 +17,7 @@ ocarina.controller 'ProfileCtrl', ['Playlist', '$scope', '$location',
       $scope.shouldBeOpen = false
 
     $scope.modalOpts = { backdropFade:true, dialogFade:true }
+
+    $scope.showSearch = ->
+      $rootScope.$broadcast("showSearch")
 ]
