@@ -3,7 +3,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     $scope.playlistId = $route.current.params.playlistId
 
     ##
-    # Audo Playback
+    # audo playback
     $scope.player = Player
 
     # add event listeners
@@ -12,50 +12,52 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
         $scope.playerAction("play")
       else
         # TODO maybe get song from playlist_songs?
-        Player.stop()
         initializePlayer()
     $scope.$on "audioError", ->
       # because errors typically mean bad src
       $scope.playerAction("play")
 
-    # playback controls
+    $scope.playerPause = ->
+      Player.pause()
+      $scope.player.state = 'paused'
+
     $scope.playerAction = (action) ->
-      unless $scope.isPlayingPlaylist()
-        # TODO alert some shit
-        initializePlayer()
+      playlist = $scope.playlist.playlist_songs
+      initializePlayer() unless $scope.isPlayingPlaylist()
+      # makes playback work in safari mobile
       if $rootScope.isiOS && $scope.player.state == undefined
         Player.play()
-      playlist = $scope.playlist.playlist_songs
-      # pressing pause
-      if action == "pause"
-        Player.pause()
-        $scope.player.state = 'paused'
       # if paused and pressing play
-      else if $scope.player.state == 'paused' && action == "play"
+      if $scope.player.state == 'paused' && action == "play"
         Player.play()
         $scope.player.state = 'playing'
-      # if pressing play and empty playlist
+      # if play or skip and empty playlist
       else if !playlist.length
-        Player.stop()
         initializePlayer()
-      # if pressing play and non-empty playlist
+      # if play or skip and non-empty playlist
       else
-        song = _.max playlist, (s) ->
-          s.vote_count
-        $scope.player.currentSong = song
-        if song.provider == "dropbox"
-          Playlist.getMediaURL($scope.playlistId, song.id).then (res) =>
-            song.media_url = res.data.url
-            Player.play(song)
-            $scope.player.state = 'playing'
-            Playlist.songPlayed($scope.playlistId, song.id)
-        if song.provider == "soundcloud"
-          Player.play(song)
-          $scope.player.state = 'playing'
-          Playlist.songPlayed($scope.playlistId, song.id)
-        $scope.playlist.playlist_songs = _.without(playlist, song)
+        getNextSong(playlist)
+
+    getNextSong = (playlist) ->
+      song = _.max playlist, (s) ->
+        s.vote_count
+      $scope.player.currentSong = song
+      # TODO get rid of this when playlist_songs come with media url
+      if song.provider == "dropbox"
+        Playlist.getMediaURL($scope.playlistId, song.id).then (res) =>
+          song.media_url = res.data.url
+          playNextSong(playlist, song)
+      else if song.provider == "soundcloud"
+        playNextSong(playlist, song)
+
+    playNextSong = (playlist, song) ->
+      Player.play(song)
+      $scope.player.state = 'playing'
+      Playlist.songPlayed($scope.playlistId, song.id)
+      $scope.playlist.playlist_songs = _.without(playlist, song)
 
     initializePlayer = ->
+      Player.stop()
       $scope.player.currentSong = undefined
       $scope.player.state = undefined
       Player.playlistId = $scope.playlistId
@@ -65,21 +67,49 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       Player.playlistId == $scope.playlistId
 
     ##
-    # Seekbar
+    # progress bar
     audio = $scope.player.audio
 
     $scope.$on "audioDurationchange", ->
-      $('.duration').text(timeFormat(audio.duration))
+      # set the duration
+      $('.duration').text(" / " + timeFormat(audio.duration))
     $scope.$on "audioTimeupdate", ->
+      # set the current time
       $('.current-time').text(timeFormat(audio.currentTime))
+      # update progress
       percentage = 100 * audio.currentTime / audio.duration
-      $('.timebar').css('width', "#{percentage}%")
+      setTimebar(percentage)
     $scope.$on "audioProgress", ->
+      # update buffer
       try percentage = 100 * audio.buffered.end(0) / audio.duration
-      $('.bufferbar').css('width', "#{percentage}%")
+      $('.bufferbar').css 'width', percentage + '%'
+
+    setTimebar = (percentage) ->
+      $(".timebar").css "width", percentage + "%"
+
+    ##
+    # seek updates
+    $scope.timeDrag = false
+    $scope.updatebar = (x) ->
+      progress = $(".progressbar")
+      # audio duration / click position
+      percentage = 100 * (x - progress.offset().left) / progress.width()
+      # make sure it stays within range
+      percentage = 100 if percentage > 100
+      percentage = 0 if percentage < 0
+      #update progress bar and current time
+      setTimebar (percentage)
+      audio.currentTime = audio.duration * percentage / 100
+
 
     timeFormat = (seconds) ->
-      m = (if Math.floor(seconds / 60) < 10 then "0" + Math.floor(seconds / 60) else Math.floor(seconds / 60))
-      s = (if Math.floor(seconds - (m * 60)) < 10 then "0" + Math.floor(seconds - (m * 60)) else Math.floor(seconds - (m * 60)))
+      if Math.floor(seconds / 60) < 10
+        m = "0" + Math.floor(seconds / 60)
+      else
+        m = Math.floor(seconds / 60)
+      if Math.floor(seconds - (m * 60)) < 10
+        s= "0" + Math.floor(seconds - (m * 60))
+      else
+        s= Math.floor(seconds - (m * 60))
       m + ":" + s
 ]

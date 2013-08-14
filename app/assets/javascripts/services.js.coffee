@@ -64,6 +64,7 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
 ocarinaServices.factory 'Audio', ['$document', '$rootScope',
   ($document, $rootScope) ->
     Audio = $document[0].createElement('audio')
+    Audio.preload = "auto"
 
     Audio.addEventListener "durationchange", (->
       $rootScope.$broadcast("audioDurationchange")

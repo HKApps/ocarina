@@ -4,11 +4,11 @@
   .playback-controls
     %button.btn.btn-default.control.play{ ng_click: "playerAction('play')", ng_show: "player.state != 'playing' || !isPlayingPlaylist()" }
       = image_tag "audio_play.png"
-    %button.btn.btn-default.control.pause{ ng_click: "playerAction('pause')", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }
+    %button.btn.btn-default.control.pause{ ng_click: "playerPause()", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }
       = image_tag "audio_pause.png"
     %button.btn.btn-default.control.skip{ ng_click: "playerAction('skip')" } Skip
-  .progressbar-container
-    .progressbar
+  .progressbar-container{ ng_show: "player.currentSong && isPlayingPlaylist()" }
+    .progressbar{ seek_progress_bar: "" }
       %span.bufferbar
       %span.timebar
     .time
