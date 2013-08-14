@@ -29,7 +29,9 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
     $http.post("#{url}.json", playlist)
 
   Playlist.addSongs = (id, songs) ->
-    $http.post("#{url}/#{id}/add_songs.json", song_ids: songs)
+    $http.post "#{url}/#{id}/add_songs.json",
+      dropbox: songs["dropbox"]
+      soundcloud: songs["soundcloud"]
 
   Playlist.vote = (id, song_id, decision) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/#{decision}")

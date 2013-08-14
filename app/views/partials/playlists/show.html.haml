@@ -6,18 +6,7 @@
     =render 'playlists/player'
 
   .add-dropbox-songs
-    %div{ modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{ ng_click: "closeAddSongsModal()" } &times;
-            %h3 Select Songs to Add
-          .modal-body
-            =render '/partials/playlists/add_songs'
-          .modal-footer
-            %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
-            %button.clear-btn.btn.btn-default{ ng_click: "clearSelectedSongs()" } Clear
-            %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
+    =render '/partials/playlists/add_songs'
 
   .playlist-songs{ ng_show: "playlist.playlist_songs.length" }
     .pull-right.btn.btn-default.btn-small.add-song-btn{ ng_click: "openAddSongsModal()" }
