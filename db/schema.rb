@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130810065019) do
+ActiveRecord::Schema.define(version: 20130813164554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20130810065019) do
     t.string   "media_url"
     t.string   "song_name"
     t.datetime "played_at"
+    t.string   "provider"
   end
 
   add_index "playlist_songs", ["song_id", "playlist_id"], name: "index_playlist_songs_on_song_id_and_playlist_id", using: :btree
