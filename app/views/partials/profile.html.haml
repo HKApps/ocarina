@@ -34,7 +34,7 @@
           %h3.playlist-title Shared Playlists
         .alert{ ng_hide: "user.hasPlaylistsAsGuest()" }
           You haven't joined any playlists!
-          %a.alert-link{ on_click_focus: ".nav-search" } Search to find a playlist to join!
+          %a.alert-link{ ng_click: "showSearch()", on_click_focus: ".nav-search" } Search to find a playlist to join!
 
         %ul#playlists
           %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest | orderBy:created_at:true' }

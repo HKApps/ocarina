@@ -7,11 +7,20 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
     $scope.collapseNav = ->
       $('.nav-collapse').collapse('hide') if $(window).width() <= 768
 
+    $scope.openNav = ->
+      $('.nav-collapse').collapse('show')
+
     $scope.openDbSongsModal = ->
       $rootScope.$broadcast("openDbSongsModal")
 
     $scope.toggleSearch = ->
       $scope.showSearch = !$scope.showSearch
+
+    $scope.$on "showSearch", ->
+      if $rootScope.isMobilized
+        $scope.openNav()
+      else
+        $scope.toggleSearch()
 
     $scope.logout = ->
       window.location.replace("/logout")

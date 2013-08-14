@@ -17,16 +17,25 @@
           type: "text",
           ng_model: "selectedPlaylist",
           typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
-      .nav.navbar-nav.pull-right
-        -# TODO create conditional dropdown
-        -# %li.dropdown
-        -#   %a.dropdown-toggle{ href: "" }
-        -#     = "#{current_user.first_name} #{current_user.last_name}"
-        -#     %b.caret
-        -# %ul.dropdown-menu
-        %li
-          %a{ href: "", ng_show: 'true',
-            ng_click: "openDbSongsModal()"} My Songs
-        %li.divider
-        %li
-          %a{ href:  "", ng_click: "logout()" } Logout
+        .nav.navbar-nav.pull-right
+          -# TODO directive to handle nav template
+          %li.dropdown{ ocarina_if: "!isMobilized" }
+            %a.dropdown-toggle{ href: "" }
+              = "#{current_user.first_name} #{current_user.last_name}"
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                %a{ href: "", ng_show: 'true',
+                  ng_click: "openDbSongsModal()"} My Songs
+              %li
+                %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+              %li.divider
+              %li
+                %a{ href:  "", ng_click: "logout()" } Logout
+          %li{ ocarina_if: "isMobilized" }
+            %a{ href: "", ng_show: 'true', ng_click: "openDbSongsModal()" } My Songs
+          %li{ ocarina_if: "isMobilized" }
+            %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+          %li.divider
+          %li{ ocarina_if: "isMobilized" }
+            %a{ href:  "", ng_click: "logout()" } Logout
