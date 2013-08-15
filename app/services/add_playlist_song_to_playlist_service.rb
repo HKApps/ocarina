@@ -1,17 +1,18 @@
 class AddPlaylistSongToPlaylistService
-  def self.initialize_from_params(params, user_id)
+  def self.initialize_from_params(params, user_id, dropbox_client)
     playlist_id = params.delete(:id)         { raise "Required param: id" }
     dropbox     = params.delete(:dropbox)    { raise "Required param: dropbox" }
     soundcloud  = params.delete(:soundcloud) { raise "Required param: soundcloud" }
 
-    new(dropbox, soundcloud, playlist_id, user_id)
+    new(dropbox, soundcloud, playlist_id, user_id, dropbox_client)
   end
 
-  def initialize(dropbox, soundcloud, playlist_id, user_id)
-    @dropbox     = dropbox
-    @soundcloud  = soundcloud
-    @playlist_id = playlist_id
-    @user_id     = user_id
+  def initialize(dropbox, soundcloud, playlist_id, user_id, dropbox_client)
+    @dropbox        = dropbox
+    @soundcloud     = soundcloud
+    @playlist_id    = playlist_id
+    @user_id        = user_id
+    @dropbox_client = dropbox_client
     @playlist_songs = []
   end
 
@@ -29,6 +30,7 @@ class AddPlaylistSongToPlaylistService
           ps.song_name   = song.name
           ps.provider    = song.provider
           ps.playlist_id = @playlist_id
+          ps.media_url   = @dropbox_client.media_url(song.path)['url']
         end.attributes
         playlist_song["current_user_vote_decision"] = 0
         @playlist_songs << playlist_song
@@ -54,21 +56,8 @@ class AddPlaylistSongToPlaylistService
     end
   end
 
-  def soundcloud_ids
-    @soundcloud.map { |song| song["id"] }
-  end
-
   def dropbox_songs
     @dropbox_songs ||= Song.where(id: @dropbox)
   end
 
-  def songs_with_media_urls(dropbox_client)
-    return unless dropbox_client.present?
-
-    songs.map do |song|
-      song.attributes.merge({
-        media_url: dropbox_client.media_url(song.path)
-      })
-    end
-  end
 end

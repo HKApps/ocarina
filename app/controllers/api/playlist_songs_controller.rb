@@ -3,7 +3,7 @@ class Api::PlaylistSongsController < ApiController
 
   def create
     playlist_id = params[:id]
-    playlist_songs = AddPlaylistSongToPlaylistService.initialize_from_params(params, current_user.id).create
+    playlist_songs = AddPlaylistSongToPlaylistService.initialize_from_params(params, current_user.id, dropbox_client).create
     if playlist_songs.present?
       push_playlist_songs(playlist_id, playlist_songs)
       render json: playlist_songs, status: 201
