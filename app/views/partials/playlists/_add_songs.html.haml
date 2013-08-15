@@ -1,6 +1,39 @@
-.add_songs{ ng_show: "user.dropbox_songs" }
-  .song-filter
-    %input{ ng_model: "songFilter", :placeholder => "search your songs" }
-  .songs-to-add.song-list{ ng_repeat: "song in user.dropbox_songs | filter: songFilter", ng_click: "toggleSongSelected(song.id)", ng_class: '{"selected": isSongSelected(song.id)}' }
-    %span.name.wordwrap {{song.name}}
-    %i.glyphicon.glyphicon-ok
+%div{ ng_controller: "AddSongsCtrl", modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ ng_click: "closeAddSongsModal()" } &times;
+        %h3 Select Songs to Add
+      .modal-body
+        .btn-group.toggle-provider
+          %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Dropbox'" }
+            = image_tag "https://dt8kf6553cww8.cloudfront.net/static/images/favicon-vflonlsct.ico"
+            Dropbox
+          %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Soundcloud'" }
+            = image_tag "//soundcloud.com/favicon.ico"
+            Soundcloud
+        .add_songs
+          .add-soundcloud{ ng_show: "provider == 'Soundcloud'" }
+            .song-filter
+              %input{ ng_model: "scFilter",
+                :placeholder => "search soundcloud",
+                on_debounced_keyup: "searchSc(scFilter)"  }
+            .songs-to-add.song-list{ ng_repeat: "song in scResults",
+                ng_click: "toggleSongSelected('soundcloud', song)",
+                ng_class: '{"selected": isSongSelected("soundcloud", song)}' }
+              %span.name.wordwrap {{song.title}}
+              %i.glyphicon.glyphicon-ok
+
+          .add-dropbox{ ng_show: "provider == 'Dropbox' && user.dropbox_songs" }
+            .song-filter
+              %input{ ng_model: "dbFilter",
+                :placeholder => "search your songs" }
+            .songs-to-add.song-list{ ng_repeat: "song in user.dropbox_songs | filter: dbFilter",
+                ng_click: "toggleSongSelected('dropbox', song.id)",
+                ng_class: '{"selected": isSongSelected("dropbox", song.id)}' }
+              %span.name.wordwrap {{song.name}}
+              %i.glyphicon.glyphicon-ok
+      .modal-footer
+        %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
+        %button.clear-btn.btn.btn-default{ ng_click: "clearSelectedSongs()" } Clear
+        %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs

@@ -1,41 +1,19 @@
 ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location', 'Pusher',
   (Playlist, $scope, $route, $location, Pusher) ->
-    playlistId = $route.current.params.playlistId
-    Playlist.get(playlistId).then (p) =>
+    $scope.playlistId = $route.current.params.playlistId
+
+    Playlist.get($scope.playlistId).then (p) =>
       $scope.playlist = p
-
-    $scope.selectedSongs = []
-
-    $scope.isSongSelected = (song) ->
-      _.any $scope.selectedSongs, (selectedSong) ->
-        selectedSong == song
-
-    $scope.toggleSongSelected = (song) ->
-      if $scope.isSongSelected(song)
-        $scope.selectedSongs = _.without($scope.selectedSongs, song)
-      else
-        $scope.selectedSongs.push(song)
-
-    $scope.addSelectedSongs = ->
-      $scope.closeAddSongsModal()
-      Playlist.addSongs(playlistId, $scope.selectedSongs).then (res) =>
-        _.each res.data, (song) ->
-          song.current_user_vote_decision = 0
-          $scope.playlist.playlist_songs.push(song)
-      $scope.selectedSongs = []
-
-    $scope.clearSelectedSongs = ->
-      $scope.selectedSongs = []
 
     $scope.upvoteSong = (song) ->
       return if song.current_user_vote_decision == 1
-      Playlist.vote(playlistId, song.id, "upvote")
+      Playlist.vote($scope.playlistId, song.id, "upvote")
       song.vote_count++
       song.current_user_vote_decision++
 
     $scope.downvoteSong = (song) ->
       return if song.current_user_vote_decision == -1
-      Playlist.vote(playlistId, song.id, "downvote")
+      Playlist.vote($scope.playlistId, song.id, "downvote")
       song.vote_count--
       song.current_user_vote_decision--
 
@@ -74,6 +52,6 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         $scope.$apply() unless $scope.$$phase
 
     # Subscribe to pusher channels
-    playlistChannel = Pusher.subscribe("playlist-#{playlistId}")
+    playlistChannel = Pusher.subscribe("playlist-#{$scope.playlistId}")
     setupPlaylistListener(playlistChannel)
 ]

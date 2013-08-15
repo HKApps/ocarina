@@ -12,6 +12,18 @@ ocarinaDirectives.directive 'onReturn', ->
         e.preventDefault()
         scope.$apply(attr.onReturn)
 
+ocarinaDirectives.directive 'onInput', ->
+  (scope, $elm, attr) ->
+    $elm.on 'keydown', ->
+      scope.$apply(attr.onInput)
+
+ocarinaDirectives.directive 'onDebouncedKeyup', ->
+  (scope, $elm, attr) ->
+    debouncedApply = _.debounce ->
+      scope.$apply(attr.onDebouncedKeyup)
+    , 300
+    $elm.bind('keyup', debouncedApply)
+
 ocarinaDirectives.directive 'onFocus', ->
   (scope, $elm, attr) ->
     $elm.on 'focusin', ->

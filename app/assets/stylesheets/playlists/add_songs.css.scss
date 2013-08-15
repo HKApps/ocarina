@@ -1,4 +1,5 @@
 .songs-to-add{
+  text-align: left;
   .glyphicon-ok{
     margin-left: 10px;
     display: none;
@@ -12,9 +13,14 @@
     }
   }
 }
+.modal-body{
+  text-align: center;
+  .toggle-provider{
+    margin-bottom: 5px;
+  }
+}
 
 .song-filter{
-  text-align: center;
   input{
     text-align: center;
     width: 100%;
