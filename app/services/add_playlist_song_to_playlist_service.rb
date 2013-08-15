@@ -25,15 +25,7 @@ class AddPlaylistSongToPlaylistService
   def create_from_dropbox
     ActiveRecord::Base.transaction do
       dropbox_songs.map do |song|
-        playlist_song = song.playlist_songs.create do |ps|
-          ps.path        = song.path
-          ps.song_name   = song.name
-          ps.provider    = song.provider
-          ps.playlist_id = @playlist_id
-          ps.media_url   = @dropbox_client.media_url(song.path)['url']
-        end.attributes
-        playlist_song["current_user_vote_decision"] = 0
-        @playlist_songs << playlist_song
+        add_playlist_song_to_playlist(song)
       end
     end
   end
@@ -42,17 +34,27 @@ class AddPlaylistSongToPlaylistService
     ActiveRecord::Base.transaction do
       @soundcloud.map do |sc|
         song = Song.find_or_initialize_from_soundcloud(sc, @user_id)
-
-        playlist_song = song.playlist_songs.create do |ps|
-          ps.path        = song.path
-          ps.song_name   = song.name
-          ps.provider    = song.provider
-          ps.playlist_id = @playlist_id
-          ps.media_url   = "#{song.path}/stream?client_id = 3d6e76640c62f42c02cb78d2c53d0db9"
-        end.attributes
-        playlist_song["current_user_vote_decision"] = 0
-        @playlist_songs << playlist_song
+        add_playlist_song_to_playlist(song)
       end
+    end
+  end
+
+  def add_playlist_song_to_playlist(song)
+    playlist_song = PlaylistSong.where(playlist_id: @playlist_id, song_id: song.id).first_or_initialize.tap do |ps|
+      ps.path        = song.path
+      ps.song_name   = song.name
+      ps.provider    = song.provider
+      ps.media_url   = set_media_url(song)
+      ps.changed? ? ps.save! : ps.touch
+    end.attributes
+    playlist_song["current_user_vote_decision"] = 0
+    @playlist_songs << playlist_song
+  end
+
+  def set_media_url(song)
+    case song.provider
+    when "soundcloud" then "#{song.path}/stream?client_id=3d6e76640c62f42c02cb78d2c53d0db9"
+    when "dropbox"    then @dropbox_client.media_url(song.path)['url']
     end
   end
 
