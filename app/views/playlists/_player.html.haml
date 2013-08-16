@@ -4,11 +4,16 @@
   .playback-controls
     %button.btn.btn-default.control.play{ ng_click: "playerAction('play')", ng_show: "player.state != 'playing' || !isPlayingPlaylist()" }
       = image_tag "audio_play.png"
-    %button.btn.btn-default.control.pause{ ng_click: "playerAction('pause')", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }
+    %button.btn.btn-default.control.pause{ ng_click: "playerPause()", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }
       = image_tag "audio_pause.png"
     %button.btn.btn-default.control.skip{ ng_click: "playerAction('skip')" } Skip
-    .seekbar-container
-      %input.seekbar{ ng_show: "player.currentSong && isPlayingPlaylist()", :type => "range", :step => "any" }
+  .progressbar-container{ ng_show: "player.currentSong && isPlayingPlaylist()" }
+    .progressbar{ seek_progress_bar: "" }
+      %span.bufferbar
+      %span.timebar
+    .time
+      %span.current-time
+      %span.duration
 
 .player-container{ ocarina_if: "playlist.owner_id != user.id" }
   .currently-playing.wordwrap{ ng_show: "playlist.currentSong" }

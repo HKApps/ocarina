@@ -61,3 +61,15 @@ ocarinaDirectives.directive "ocarinaIf", ->
           transclude childScope, (clone) ->
             childElement = clone
             element.after clone
+
+ocarinaDirectives.directive 'seekProgressBar', ->
+  (scope, $elm, attr) ->
+    $elm.on 'mousedown', (e) ->
+      scope.timeDrag = true
+      scope.updatebar e.pageX
+    $elm.on 'mouseup', (e) ->
+      if scope.timeDrag
+        scope.timeDrag = false
+        scope.updatebar e.pageX
+    $elm.on 'mousemove', (e) ->
+      scope.updatebar e.pageX if scope.timeDrag

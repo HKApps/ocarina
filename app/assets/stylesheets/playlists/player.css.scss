@@ -24,18 +24,51 @@
 img{
   height: 18px;
 }
-input[type="range"] {
-  -webkit-appearance: none;
-  top: 18px;
-  width: 76%;
-  height: 3px;
-  border-radius: 20px;
-  background-color: #474949;
+.bufferbar{
+  z-index:5;
+  width:0;
+  background: #777;
 }
-input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
-  border-radius: 10px;
-  background: #f0ad4e;
+.timebar{
+  z-index:10;
+  width:0;
+  background: #3FB7FC; /* fallback */
+  background:-moz-linear-gradient(top,#A0DCFF 50%,#3FB7FC 50%,#16A9FF 100%);
+  background:-webkit-linear-gradient(top,#A0DCFF 50%,#3FB7FC 50%,#16A9FF 100%);
+  background:-o-linear-gradient(top,#A0DCFF 50%,#3FB7FC 50%,#16A9FF 100%);
+}
+.progressbar{
+  margin-bottom: 8px;
+  margin-top: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  width:75%;
+  height:10px;
+  position:relative;
+  cursor:pointer;
+  background: #444; /* fallback */
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}
+.progressbar span{
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}
+.time{
+  margin-left: auto;
+  margin-right: auto;
+  width:15%;
+  text-align:center;
+  font-size:11px;
+  line-height:12px;
+}
+.progressbar-container{
+  margin-bottom: 5px;
 }
