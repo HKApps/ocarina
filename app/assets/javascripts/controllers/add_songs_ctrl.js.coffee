@@ -53,7 +53,6 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
             to: 600000
           limit: 10
         , (tracks) ->
-          console.log tracks
           $scope.scResults = tracks
           $scope.$apply()
       else
