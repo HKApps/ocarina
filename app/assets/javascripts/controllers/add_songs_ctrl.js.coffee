@@ -8,11 +8,18 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
       dropbox: []
       soundcloud: []
 
+    $scope.songInPlaylist = (song) ->
+      if $scope.provider == "Dropbox"
+        _.findWhere($scope.playlist.playlist_songs, {song_id: song})
+      else if $scope.provider == "Soundcloud"
+        _.findWhere($scope.playlist.playlist_songs, {path: song.uri})
+
     $scope.isSongSelected = (provider, song) ->
       _.any $scope.selectedSongs[provider], (selectedSong) ->
         selectedSong == song
 
     $scope.toggleSongSelected = (provider, song) ->
+      return if $scope.songInPlaylist(song)
       if $scope.isSongSelected(provider, song)
         $scope.selectedSongs[provider] = _.without($scope.selectedSongs[provider], song)
       else
@@ -46,7 +53,6 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
             to: 600000
           limit: 10
         , (tracks) ->
-          console.log tracks
           $scope.scResults = tracks
           $scope.$apply()
       else
