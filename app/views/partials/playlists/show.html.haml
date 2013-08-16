@@ -2,8 +2,11 @@
   .playlist-name
     %h2 {{playlist.name}}
 
-  .player
+  .player{ ocarina_if: "playlist.owner_id == user.id" }
     =render 'playlists/player'
+
+  .guest-feedback{ ocarina_if: "playlist.owner_id != user.id" }
+    =render 'playlists/guest_feedback'
 
   .add-dropbox-songs
     =render '/partials/playlists/add_songs'

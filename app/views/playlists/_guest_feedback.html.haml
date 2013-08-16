@@ -1,0 +1,7 @@
+.player-container{ ng_controller: "GuestFeedbackCtrl" }
+  .currently-playing.wordwrap{ ng_show: "playlist.currentSong" }
+    {{playlist.currentSong.song_name}}
+  .nothing-playing{ ng_show: "!playlist.currentSong" }
+    "tell the host to get this party started!"
+  %span.save-song.glyphicon.glyphicon-thumbs-up{ ng_click: "saveSong(playlist.currentSong" }
+  %span.vote-to-skip.glyphicon.glyphicon-thumbs-up{ ng_click: "voteToSkip(playlist.currentSong" }
