@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   has_many :guests
   cache_has_many :guests, embed: true
 
+  has_many :saved_songs
+  cache_has_many :saved_songs, embed: true
+
   validates :email, presence: true
 
   def playlists_as_owner
