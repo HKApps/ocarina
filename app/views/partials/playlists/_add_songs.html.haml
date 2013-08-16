@@ -20,7 +20,7 @@
                 on_debounced_keyup: "searchSc(scFilter)"  }
             .songs-to-add.song-list{ ng_repeat: "song in scResults",
                 ng_click: "toggleSongSelected('soundcloud', song)",
-                ng_class: '{"selected": isSongSelected("soundcloud", song)}' }
+                ng_class: '{"song-in-playlist": songInPlaylist(song), "selected": isSongSelected("soundcloud", song)}' }
               %span.name.wordwrap {{song.title}}
               %i.glyphicon.glyphicon-ok
 
@@ -30,7 +30,7 @@
                 :placeholder => "search your songs" }
             .songs-to-add.song-list{ ng_repeat: "song in user.dropbox_songs | filter: dbFilter",
                 ng_click: "toggleSongSelected('dropbox', song.id)",
-                ng_class: '{"song-in-playlist": songInPlaylist(song.id),"selected": isSongSelected("dropbox", song.id)}' }
+                ng_class: '{"song-in-playlist": songInPlaylist(song.id), "selected": isSongSelected("dropbox", song.id)}' }
               %span.name.wordwrap {{song.name}}
               %i.glyphicon.glyphicon-ok
       .modal-footer

@@ -8,8 +8,11 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
       dropbox: []
       soundcloud: []
 
-    $scope.songInPlaylist = (id) ->
-      _.findWhere($scope.playlist.playlist_songs, {id: id})
+    $scope.songInPlaylist = (song) ->
+      if $scope.provider == "Dropbox"
+        _.findWhere($scope.playlist.playlist_songs, {song_id: song})
+      else if $scope.provider == "Soundcloud"
+        _.findWhere($scope.playlist.playlist_songs, {path: song.uri})
 
     $scope.isSongSelected = (provider, song) ->
       _.any $scope.selectedSongs[provider], (selectedSong) ->
