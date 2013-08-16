@@ -7,6 +7,8 @@ class PlaylistSong < ActiveRecord::Base
   belongs_to :playlist
   belongs_to :song
 
+  validates :playlist_id, presence: true, uniqueness: { scope: :song_id }
+
   def played!
     self.played_at = Time.now
     self.save
