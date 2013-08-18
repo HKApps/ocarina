@@ -21,6 +21,7 @@ Ocarina::Application.routes.draw do
           post 'upvote'
           post 'downvote'
           post 'played'
+          post 'skip_song_vote'
         end
       end
     end

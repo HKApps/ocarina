@@ -44,6 +44,15 @@ class Api::PlaylistSongsController < ApiController
     end
   end
 
+  def skip_song_vote
+    SkipSongVoterWorker.new.async.perform(skip_song_params)
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
+  private
+
   def push_playlist_songs(playlist_id, playlist_songs)
     Pusher.trigger("playlist-#{playlist_id}", "new-playlist-songs", {
       user_id: current_user.id,
@@ -65,10 +74,12 @@ class Api::PlaylistSongsController < ApiController
       song_id: song_id })
   end
 
-  private
-
   def vote_params
     params.permit(:id).merge(user_id: session[:user_id])
+  end
+
+  def skip_song_params
+    params.permit(:id, :playlist_id).merge(user_id: session[:user_id])
   end
 
 end

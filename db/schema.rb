@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130820064105) do
+ActiveRecord::Schema.define(version: 20130818005818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,16 +41,16 @@ ActiveRecord::Schema.define(version: 20130820064105) do
   add_index "guests", ["user_id"], name: "index_guests_on_user_id", using: :btree
 
   create_table "playlist_songs", force: true do |t|
-    t.integer  "playlist_id",             null: false
-    t.integer  "song_id",                 null: false
-    t.integer  "vote_count",  default: 0, null: false
-    t.string   "path",                    null: false
+    t.integer  "playlist_id",                      null: false
+    t.integer  "song_id",                          null: false
+    t.integer  "vote_count",           default: 0, null: false
+    t.string   "path",                             null: false
     t.string   "media_url"
     t.string   "song_name"
     t.datetime "played_at"
     t.string   "provider"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "skipped_song_at"
+    t.integer  "skip_song_vote_count", default: 0
   end
 
   add_index "playlist_songs", ["playlist_id", "song_id"], name: "index_playlist_songs_on_playlist_id_and_song_id", unique: true, using: :btree
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20130820064105) do
   end
 
   add_index "saved_songs", ["playlist_song_id", "user_id"], name: "index_saved_songs_on_playlist_song_id_and_user_id", unique: true, using: :btree
+
+  create_table "skip_song_votes", force: true do |t|
+    t.integer "playlist_song_id"
+    t.integer "user_id"
+  end
+
+  add_index "skip_song_votes", ["playlist_song_id", "user_id"], name: "index_skip_song_votes_on_playlist_song_id_and_user_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "name",       null: false
