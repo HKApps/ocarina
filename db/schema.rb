@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20130820064105) do
     t.string  "name",             null: false
   end
 
+  add_index "saved_songs", ["playlist_song_id"], name: "index_saved_songs_on_playlist_song_id", unique: true, using: :btree
+
   create_table "songs", force: true do |t|
     t.string   "name",       null: false
     t.string   "provider",   null: false

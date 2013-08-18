@@ -4,5 +4,4 @@
   .nothing-playing{ ng_show: "!playlist.currentSong" }
     "tell the host to get this party started!"
   .feedback{ ng_show: "playlist.currentSong" }
-    %span.save-song.glyphicon.glyphicon-thumbs-up{ ng_click: "saveSong(playlist.currentSong" }
-    %span.vote-to-skip.glyphicon.glyphicon-thumbs-down{ ng_click: "voteToSkip(playlist.currentSong" }
+    %button.save-song.btn.btn-default{ ng_click: "saveSong(playlist.currentSong)" } save
