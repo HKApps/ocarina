@@ -4,5 +4,5 @@
   .nothing-playing{ ng_show: "!playlist.currentSong" }
     "tell the host to get this party started!"
   .feedback{ ng_show: "true" }
-    .save-song{ ng_click: "toggleSongSaved(playlist.currentSong)" }
-      %span.glyphicon.glyphicon-heart{ng_class: '{"song-saved": songSaved(playlist.currentSong.id)}' }
+    .save-song
+      %span.glyphicon.glyphicon-heart{ ng_click: "toggleSongSaved(playlist.currentSong)", ng_class: '{"song-saved": songSaved(playlist.currentSong.id)}' }
