@@ -19,4 +19,12 @@ class Api::SavedSongsController < ApiController
     end
   end
 
+  def destroy
+    @saved_song = SavedSong.where(id: params[:id]).first
+    if @saved_song.destroy!
+      respond_with status: 201
+    else
+      respond_with status: 404
+    end
+  end
 end

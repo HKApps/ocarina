@@ -12,6 +12,7 @@ Ocarina::Application.routes.draw do
     # TODO resource?
     get 'saved_songs', to: 'saved_songs#index'
     post 'saved_songs', to: 'saved_songs#create'
+    delete 'saved_songs/:id', to: 'saved_songs#destroy'
 
     resources :playlists, only: [:index, :show, :create] do
       post 'add_songs', on: :member, to: "playlist_songs#create"

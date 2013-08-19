@@ -8,6 +8,10 @@ child :current_songs => "dropbox_songs" do
   attributes :id, :name, :path, :user_id, :created_at, :updated_at
 end
 
+child :saved_songs => "saved_songs" do
+  attributes :id, :playlist_song_id, :name
+end
+
 child :playlists_as_owner => :playlists do
   attributes :id, :name, :created_at, :updated_at
 end
