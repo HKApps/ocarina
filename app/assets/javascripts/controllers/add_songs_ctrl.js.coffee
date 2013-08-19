@@ -52,9 +52,12 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
           duration:
             to: 600000
           limit: 10
-        , (tracks) ->
-          $scope.scResults = tracks
-          $scope.$apply()
+        , (tracks, error) ->
+          if error
+            $scope.searchSc(query)
+          else
+            $scope.scResults = tracks
+            $scope.$apply()
       else
         $scope.scResults = []
 ]
