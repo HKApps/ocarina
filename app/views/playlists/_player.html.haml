@@ -7,6 +7,7 @@
     %button.btn.btn-default.control.pause{ ng_click: "playerPause()", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }
       = image_tag "audio_pause.png"
     %button.btn.btn-default.control.skip{ ng_click: "playerAction('skip')" } Skip
+    %button.btn.btn-default.control.skip{ ng_click: "skipSongVote(player.currentSong)" } Vote to Skip
   .progressbar-container{ ng_show: "player.currentSong && isPlayingPlaylist()" }
     .progressbar{ seek_progress_bar: "" }
       %span.bufferbar
@@ -14,3 +15,10 @@
     .time
       %span.current-time
       %span.duration
+
+.player-container{ ocarina_if: "playlist.owner_id != user.id" }
+  %button.btn.btn-default.control.skip{ ng_click: "skipSongVote(playlist.currentSong)" } Vote to Skip
+  .currently-playing.wordwrap{ ng_show: "playlist.currentSong" }
+    {{playlist.currentSong.song_name}}
+  .nothing-playing{ ng_show: "!playlist.currentSong" }
+    "tell the host to get this party started!"

@@ -1,5 +1,5 @@
-ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', 'Playlist', 'Player',
-  ($scope, $rootScope, $http, $route, Playlist, Player) ->
+ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', 'Playlist', 'Player', 'Pusher'
+  ($scope, $rootScope, $http, $route, Playlist, Player, Pusher) ->
     $scope.playlistId = $route.current.params.playlistId
 
     ##
@@ -112,4 +112,13 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       else
         s= Math.floor(seconds - (m * 60))
       m + ":" + s
+
+    setupPlaylistListener = (playlistChannel) ->
+      playlistChannel.bind 'skip-song', (data) ->
+        return unless data.song_id == $scope.playlist.currentSong.id
+        $scope.playerAction('skip')
+
+    # Subscribe to pusher channels
+    playlistChannel = Pusher.subscribe("playlist-#{$scope.playlistId}")
+    setupPlaylistListener(playlistChannel)
 ]

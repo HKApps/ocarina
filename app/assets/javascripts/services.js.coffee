@@ -42,6 +42,9 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   Playlist.songPlayed = (id, song_id) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played.json")
 
+  Playlist.skipSongVote = (id, song_id) ->
+    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/skip_song_vote.json")
+
   Playlist
 ]
 
