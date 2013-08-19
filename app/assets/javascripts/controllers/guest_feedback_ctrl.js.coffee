@@ -1,12 +1,23 @@
 ocarina.controller 'GuestFeedbackCtrl', ['$scope', '$http',
   ($scope, $http) ->
-    #TODO make api call to get current song
-    # $scope.playlist.currentSong = undefined
+    # TODO make api call to get current song
+    #   $scope.playlist.currentSong = res.data
 
-    $scope.saveSong = (song) ->
+    $scope.toggleSongSaved = (song) ->
+      if $scope.songSaved(song.id)
+        song = $scope.songSaved(song.id)
+        unsaveSong(song)
+      else
+        saveSong(song)
+
+    saveSong = (song) ->
       $http.post('/api/saved_songs.json', song).then (res) =>
-        # mark song saved
+        $scope.user.saved_songs.push res.data
 
-      # TODO send to API
-      # TODO add to user.saved_songs
+    unsaveSong = (song) ->
+      $http.delete("/api/saved_songs/#{song.id}.json").then (res) =>
+        $scope.user.saved_songs = _.without($scope.user.saved_songs, song)
+
+    $scope.songSaved = (id) ->
+      _.findWhere($scope.user.saved_songs, {playlist_song_id: id})
 ]

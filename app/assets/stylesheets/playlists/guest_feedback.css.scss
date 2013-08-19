@@ -1,0 +1,18 @@
+.save-song{
+  .glyphicon{
+    font-size: 21px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 4px;
+    color: #ADACAC;
+    &.song-saved{
+      color: #C23131;
+    }
+  }
+  .glyphicon:hover{
+    color: #C47373;
+    &.song-saved{
+      color: #C23131;
+    }
+  }
+}
