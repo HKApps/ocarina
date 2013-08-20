@@ -6,7 +6,7 @@
     %h2 {{playlist.name}}
     %h4
       by
-      %img.avatar{ src: "{{playlist.host.image}}" }
+      %img.avatar{ ng_src: "{{playlist.host.image}}" }
 
   .player{ ocarina_if: "playlist.owner_id == user.id" }
     =render 'playlists/player'
