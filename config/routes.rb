@@ -28,6 +28,8 @@ Ocarina::Application.routes.draw do
     resources :songs, only: [:index] do
       post 'dropbox_refresh', on: :collection, to: 'dropbox_songs#update'
     end
+
+    resources :saved_songs, only: [:index, :create, :destroy]
   end
 
   get '/login', to: 'sessions#new', as: 'login'
