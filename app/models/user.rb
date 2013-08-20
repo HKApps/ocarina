@@ -23,8 +23,12 @@ class User < ActiveRecord::Base
     fetch_guests.map { |guest| guest.playlist }
   end
 
-  def current_songs
-    fetch_songs.select { |s| !s.removed_at }
+  def current_dropbox_songs
+    fetch_songs.select { |s| !s.removed_at && s.provider == "dropbox" }
+  end
+
+  def current_soundcloud_songs
+    fetch_songs.select { |s| !s.removed_at && s.provider == "soundcloud" }
   end
 
   def dropbox_authenticated?
