@@ -4,7 +4,11 @@ node(:dropbox_authenticated)  { |u| u.dropbox_authenticated? }
 node(:facebook_authenticated) { |u| u.facebook_authenticated? }
 node(:defer_dropbox_connect)  { |u| defer_dropbox_connect? }
 
-child :current_songs => "dropbox_songs" do
+child :current_dropbox_songs => "dropbox_songs" do
+  attributes :id, :name, :path, :user_id, :created_at, :updated_at
+end
+
+child :current_soundcloud_songs => "soundcloud_songs" do
   attributes :id, :name, :path, :user_id, :created_at, :updated_at
 end
 
