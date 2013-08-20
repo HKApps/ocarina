@@ -4,4 +4,8 @@ class Guest < ActiveRecord::Base
 
   validates :user_id,     presence: true
   validates :playlist_id, presence: true
+
+  def as_user
+    User.where(id: self.user_id).first
+  end
 end

@@ -28,7 +28,7 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     $scope.modalOpts = { backdropFade:true, dialogFade:true }
 
-    # Realtime - for news songs, played songs, and votes
+    # Realtime updates
     setupPlaylistListener = (playlistChannel) ->
       playlistChannel.bind 'new-playlist-songs', (data) ->
         return if data.user_id == $scope.user.id
@@ -56,6 +56,11 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
       playlistChannel.bind 'skip-song', (data) ->
         $scope.$broadcast('skip-song', data)
+
+      playlistChannel.bind 'new-guest', (data) ->
+        return if data.guest.id == $scope.user.id
+        $scope.playlist.guests.push data.guest
+        $scope.$apply() unless $scope.$$phase
 
     # Subscribe to pusher channels
     playlistChannel = Pusher.subscribe("playlist-#{$scope.playlistId}")

@@ -24,10 +24,15 @@ class Api::PlaylistsController < ApiController
   def join
     if @playlist
       JoinPlaylistWorker.new.async.perform(params[:id], current_user.id)
+      push_guest(current_user, params[:id])
       render "api/playlists/join", status: 201
     else
       render json: {error: "record not found"}, status: 403
     end
+  end
+
+  def push_guest(guest, playlist_id)
+    Pusher.trigger("playlist-#{playlist_id}", "new-guest", { guest: guest } )
   end
 
   private
