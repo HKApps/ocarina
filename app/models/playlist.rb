@@ -13,4 +13,8 @@ class Playlist < ActiveRecord::Base
   def unplayed_songs
     fetch_playlist_songs.select { |ps| !ps.played_at }
   end
+
+  def played_songs
+    fetch_playlist_songs.select { |ps| ps.played_at }
+  end
 end

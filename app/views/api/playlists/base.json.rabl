@@ -7,3 +7,7 @@ child :unplayed_songs => "playlist_songs" do
     ps.fetch_votes.select { |v| v.user_id == current_user.id }.first.try(:decision) || 0
   end
 end
+
+child :played_songs => "played_playlist_songs" do
+  attributes :id, :playlist_id, :song_id, :vote_count, :path, :media_url, :song_name, :provider
+end
