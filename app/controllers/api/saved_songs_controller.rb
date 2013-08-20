@@ -15,7 +15,7 @@ class Api::SavedSongsController < ApiController
     if @saved_song
       render json: @saved_song, status: 201
     else
-      respond_with status: 404
+      render json: @saved_song.errors, status: 404
     end
   end
 
