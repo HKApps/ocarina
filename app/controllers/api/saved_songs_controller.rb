@@ -7,11 +7,13 @@ class Api::SavedSongsController < ApiController
   end
 
   def create
-    @saved_song = SavedSong.new do |ss|
-      ss.playlist_song_id = params[:id]
-      ss.user_id          = current_user.id
-      ss.name             = params[:song_name]
-    end
+    @saved_song = SavedSong.where(
+      playlist_song_id: params[:id],
+      user_id: current_user.id,
+      name: params[:song_name]
+    ).first_or_initialize
+
+    @saved_song.deleted_at = nil
 
     if @saved_song.save
       render json: @saved_song, status: 201
