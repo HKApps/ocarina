@@ -5,6 +5,7 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
       window.scrollTo(0, 1)) if $rootScope.isMobilized
 
     $scope.collapseNav = ->
+      return if $('.nav-collapse').hasClass('collapse')
       $('.nav-collapse').collapse('hide') if $(window).width() <= 768
 
     $scope.openNav = ->
