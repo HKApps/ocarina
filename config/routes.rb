@@ -9,10 +9,7 @@ Ocarina::Application.routes.draw do
     get 'current_user', to: 'users#current_user_json'
     get '/users/:id',   to: 'users#show'
 
-    # TODO resource?
-    get 'saved_songs', to: 'saved_songs#index'
-    post 'saved_songs', to: 'saved_songs#create'
-    delete 'saved_songs/:id', to: 'saved_songs#destroy'
+    resources :saved_songs, only: [:index, :destroy, :create]
 
     resources :playlists, only: [:index, :show, :create] do
       post 'add_songs', on: :member, to: "playlist_songs#create"
