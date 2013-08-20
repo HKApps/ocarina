@@ -115,7 +115,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
 
     setupPlaylistListener = (playlistChannel) ->
       playlistChannel.bind 'skip-song', (data) ->
-        return unless data.song_id == $scope.playlist.currentSong.id
+        return if data.song_id != $scope.player.currentSong.id
         $scope.playerAction('skip')
 
     # Subscribe to pusher channels

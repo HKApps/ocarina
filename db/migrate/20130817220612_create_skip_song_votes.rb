@@ -3,6 +3,8 @@ class CreateSkipSongVotes < ActiveRecord::Migration
     create_table :skip_song_votes do |t|
       t.integer :playlist_song_id
       t.integer :user_id
+
+      t.timestamps
     end
 
     add_index :skip_song_votes, [:playlist_song_id, :user_id]

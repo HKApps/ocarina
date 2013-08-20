@@ -22,6 +22,7 @@ class SkipSongVoterWorker
 
       # Skips song if skip_song_votes exceeds 50% + 1 threshold of total guests + host
       if playlist_song.skip_song_vote_count > ((guest_count + 1).to_f / 2).floor
+        Rails.logger.info "Song skipped: #{playlist_song.id}"
         playlist_song.skipped_song_at = Time.now
         push_skipped_song(playlist_id, playlist_song_id, user_id)
       end
@@ -32,8 +33,8 @@ class SkipSongVoterWorker
 
   def push_skipped_song(playlist_id, playlist_song_id, user_id)
     Pusher.trigger("playlist-#{playlist_id}", "skip-song", {
-      user_id: user_id,
-      song_id: playlist_song_id
+      user_id: user_id.to_i,
+      song_id: playlist_song_id.to_i
     })
   end
 end

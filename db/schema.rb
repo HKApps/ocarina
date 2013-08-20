@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20130818005818) do
     t.string   "song_name"
     t.datetime "played_at"
     t.string   "provider"
-    t.datetime "skipped_song_at"
     t.integer  "skip_song_vote_count", default: 0
+    t.datetime "skipped_song_at"
   end
 
   add_index "playlist_songs", ["playlist_id", "song_id"], name: "index_playlist_songs_on_playlist_id_and_song_id", unique: true, using: :btree
@@ -76,8 +76,10 @@ ActiveRecord::Schema.define(version: 20130818005818) do
   add_index "saved_songs", ["playlist_song_id", "user_id"], name: "index_saved_songs_on_playlist_song_id_and_user_id", unique: true, using: :btree
 
   create_table "skip_song_votes", force: true do |t|
-    t.integer "playlist_song_id"
-    t.integer "user_id"
+    t.integer  "playlist_song_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "skip_song_votes", ["playlist_song_id", "user_id"], name: "index_skip_song_votes_on_playlist_song_id_and_user_id", using: :btree
