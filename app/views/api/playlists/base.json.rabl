@@ -8,6 +8,6 @@ child :unplayed_songs => "playlist_songs" do
   end
 end
 
-child :played_songs => "playlist_songs_played" do
+child :played_songs => "played_playlist_songs" do
   attributes :id, :playlist_id, :song_id, :vote_count, :path, :media_url, :song_name, :provider
 end
