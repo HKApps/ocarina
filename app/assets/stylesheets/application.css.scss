@@ -68,6 +68,15 @@
   word-wrap: break-word;      /* IE */
 }
 
+.avatar {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
 .footer{
   margin-bottom: 400px;
 }

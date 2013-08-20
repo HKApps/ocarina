@@ -1,6 +1,12 @@
 .playlist-container{ ng_controller: 'PlaylistCtrl' }
+  .members
+    =render 'playlists/members'
+
   .playlist-name
     %h2 {{playlist.name}}
+    %h4
+      by
+      %img.avatar{ src: "{{playlist.host.image}}" }
 
   .player{ ocarina_if: "playlist.owner_id == user.id" }
     =render 'playlists/player'
