@@ -9,6 +9,8 @@ Ocarina::Application.routes.draw do
     get 'current_user', to: 'users#current_user_json'
     get '/users/:id',   to: 'users#show'
 
+    resources :saved_songs, only: [:index, :destroy, :create]
+
     resources :playlists, only: [:index, :show, :create] do
       post 'add_songs', on: :member, to: "playlist_songs#create"
       post 'join',      on: :member, to: "playlists#join"
@@ -26,6 +28,8 @@ Ocarina::Application.routes.draw do
     resources :songs, only: [:index] do
       post 'dropbox_refresh', on: :collection, to: 'dropbox_songs#update'
     end
+
+    resources :saved_songs, only: [:index, :create, :destroy]
   end
 
   get '/login', to: 'sessions#new', as: 'login'
