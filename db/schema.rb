@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130815060838) do
+ActiveRecord::Schema.define(version: 20130820064105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,9 +30,11 @@ ActiveRecord::Schema.define(version: 20130815060838) do
   add_index "authentications", ["user_id"], name: "index_authentications_on_user_id", using: :btree
 
   create_table "guests", force: true do |t|
-    t.integer "user_id",       null: false
-    t.integer "playlist_id",   null: false
-    t.string  "playlist_name"
+    t.integer  "user_id",       null: false
+    t.integer  "playlist_id",   null: false
+    t.string   "playlist_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "guests", ["user_id", "playlist_id"], name: "index_guests_on_user_id_and_playlist_id", using: :btree
@@ -47,6 +49,8 @@ ActiveRecord::Schema.define(version: 20130815060838) do
     t.string   "song_name"
     t.datetime "played_at"
     t.string   "provider"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "playlist_songs", ["playlist_id", "song_id"], name: "index_playlist_songs_on_playlist_id_and_song_id", unique: true, using: :btree
@@ -83,9 +87,11 @@ ActiveRecord::Schema.define(version: 20130815060838) do
   end
 
   create_table "votes", force: true do |t|
-    t.integer "playlist_song_id",             null: false
-    t.integer "user_id",                      null: false
-    t.integer "decision",         default: 0, null: false
+    t.integer  "playlist_song_id",             null: false
+    t.integer  "user_id",                      null: false
+    t.integer  "decision",         default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "votes", ["playlist_song_id", "user_id"], name: "index_votes_on_playlist_song_id_and_user_id", unique: true, using: :btree
