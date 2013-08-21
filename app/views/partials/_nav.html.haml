@@ -1,23 +1,24 @@
 .navbar.navbar-inverse.ng-cloak{ ng_controller: 'NavCtrl' }
   .container
-    %button.navbar-toggle{ "data-toggle" => "collapse", :type => "button", "data-target" => ".navbar-responsive-collapse" }
-      %span.icon-bar
-      %span.icon-bar
-      %span.icon-bar
-    %a.navbar-brand{ ng_href: "/", ng_click: "collapseNav()" } PlayedBy.me
-    .nav-collapse.collapse.navbar-responsive-collapse
+    .navbar-header
+      %button.navbar-toggle{ "data-toggle" => "collapse", :type => "button", "data-target" => ".navbar-collapse" }
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{ ng_href: "/", ng_click: "collapseNav()" } PlayedBy.me
+    .collapse.navbar-collapse
       .nav.navbar-nav{ ng_hide: "isMobilized || showSearch" }
         %li
           %a.glyphicon.glyphicon-search{ href: "", ng_click: "toggleSearch()", on_click_focus: ".nav-search" }
       %form.navbar-form{ ng_submit: "joinPlaylist(selectedPlaylist)" }
-        %input.nav-search.form-control.col-lg-8.pull-left{ on_focus: "updatePlaylists()",
+        %input.nav-search.form-control.col-lg-8.navbar-left{ on_focus: "updatePlaylists()",
           on_blur: "toggleSearch()",
           ng_show: "showSearch || isMobilized",
           placeholder: "search",
           type: "text",
           ng_model: "selectedPlaylist",
           typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
-        .nav.navbar-nav.pull-right
+        .nav.navbar-nav.navbar-right
           -# TODO directive to handle nav template
           %li.dropdown{ ocarina_if: "!isMobilized" }
             %a.dropdown-toggle{ href: "" }
