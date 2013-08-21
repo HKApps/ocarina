@@ -9,8 +9,8 @@
       $routeProvider
         .when '/playlists/:playlistId',
           templateUrl: '/partials/playlists/show.html'
-        .when '/saved-songs',
-          templateUrl: '/partials/saved_songs.html'
+        .when '/favorites',
+          templateUrl: '/partials/favorites.html'
         .when '/',
           templateUrl: '/partials/profile.html'
         .otherwise

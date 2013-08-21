@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def current_saved_songs
-    saved_songs = fetch_saved_songs.select { |s| !s.deleted_at }
+    fetch_saved_songs.select { |s| !s.deleted_at }
   end
 
   def dropbox_authenticated?

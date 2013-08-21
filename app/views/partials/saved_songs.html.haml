@@ -1,6 +1,0 @@
-%h3.saved-song-title Saved Songs
-.no-saved-songs{ ocarina_if: "!user.saved_songs.length" }
-  It looks like you haven't saved anything yet
-.saved-songs-container{ ocarina_if: "user.saved_songs.length" }
-  .saved-songs.song-list{ ng_repeat: "song in user.saved_songs" }
-    .name {{song.name}}

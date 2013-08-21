@@ -28,7 +28,7 @@
               %li
                 %a{ href: "", ng_click: "openDbSongsModal()"} My Songs
               %li
-                %a{ href: "/saved-songs", ng_click: "collapseNav()" } Saved Songs
+                %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
               %li
                 %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
               %li.divider
@@ -37,7 +37,7 @@
           %li{ ocarina_if: "isMobilized" }
             %a{ href: "", ng_click: "openDbSongsModal()" } My Songs
           %li{ ocarina_if: "isMobilized" }
-            %a{ href: "/saved-songs", ng_click: "collapseNav()" } Saved Songs
+            %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
           %li{ ocarina_if: "isMobilized" }
             %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
           %li.divider

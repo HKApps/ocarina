@@ -1,12 +1,12 @@
 .player-container{ ng_controller: "GuestFeedbackCtrl" }
-  %div{ ng_show: "playlist.currentSong" }
+  .song-playing{ ng_show: "playlist.currentSong" }
     .currently-playing.wordwrap
       {{playlist.currentSong.song_name}}
 
     .save-song
       %span.glyphicon.glyphicon-heart{ ng_click: "toggleSongSaved(playlist.currentSong)", ng_class: '{"song-saved": songSaved(playlist.currentSong.id)}' }
 
-    .feedback-actions
+    .skip-song
       .divider
         |
       %a{ ng_click: "skipSongVote(playlist.currentSong)" } Vote to Skip
