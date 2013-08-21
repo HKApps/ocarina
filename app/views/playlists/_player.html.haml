@@ -2,11 +2,11 @@
   .currently-playing.wordwrap{ ng_show: "player.currentSong && isPlayingPlaylist()" }
     {{player.currentSong.song_name}}
   .playback-controls
-    %button.btn.btn-default.control.play{ ng_click: "playerAction('play')", ng_show: "player.state != 'playing' || !isPlayingPlaylist()" }
+    %button.btn.btn-inverse.control.play{ ng_click: "playerAction('play')", ng_show: "player.state != 'playing' || !isPlayingPlaylist()" }
       = image_tag "audio_play.png"
-    %button.btn.btn-default.control.pause{ ng_click: "playerPause()", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }
+    %button.btn.btn-inverse.control.pause{ ng_click: "playerPause()", ng_show: "player.state == 'playing' && isPlayingPlaylist()" }
       = image_tag "audio_pause.png"
-    %button.btn.btn-default.control.skip{ ng_click: "playerAction('skip')" } Skip
+    %button.btn.btn-inverse.control.skip{ ng_click: "playerAction('skip')" } Skip
   .progressbar-container{ ng_show: "player.currentSong && isPlayingPlaylist()" }
     .progressbar{ seek_progress_bar: "" }
       %span.bufferbar
