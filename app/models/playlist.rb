@@ -15,9 +15,7 @@ class Playlist < ActiveRecord::Base
   end
 
   def guests_as_users
-    self.guests.map do |guest|
-      User.where(id: guest.user_id).first
-    end
+    self.guests.map(&:user)
   end
 
   def unplayed_songs
