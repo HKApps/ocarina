@@ -32,7 +32,7 @@
       .col-12.col-lg-6.shared-playlists
         .guest-parties
           %h3.playlist-title Shared Playlists
-        .alert{ ng_hide: "user.hasPlaylistsAsGuest()" }
+        .alert.alert-warning{ ng_hide: "user.hasPlaylistsAsGuest()" }
           You haven't joined any playlists!
           %a.alert-link{ ng_click: "showSearch()", on_click_focus: ".nav-search" } Search to find a playlist to join!
 
