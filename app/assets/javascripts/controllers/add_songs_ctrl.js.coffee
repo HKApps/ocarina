@@ -2,7 +2,7 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
   ($scope, Playlist) ->
     ##
     # add songs setup
-    $scope.provider = "Dropbox"
+    $scope.provider = "Soundcloud"
 
     $scope.selectedSongs =
       dropbox: []
