@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130818005818) do
+ActiveRecord::Schema.define(version: 20130820064105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 20130818005818) do
     t.string   "provider"
     t.integer  "skip_song_vote_count", default: 0
     t.datetime "skipped_song_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "playlist_songs", ["playlist_id", "song_id"], name: "index_playlist_songs_on_playlist_id_and_song_id", unique: true, using: :btree

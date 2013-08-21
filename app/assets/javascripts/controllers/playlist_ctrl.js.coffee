@@ -54,6 +54,9 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
           song.vote_count--
         $scope.$apply() unless $scope.$$phase
 
+      playlistChannel.bind 'skip-song', (data) ->
+        $scope.$broadcast('skip-song', data)
+
     # Subscribe to pusher channels
     playlistChannel = Pusher.subscribe("playlist-#{$scope.playlistId}")
     setupPlaylistListener(playlistChannel)

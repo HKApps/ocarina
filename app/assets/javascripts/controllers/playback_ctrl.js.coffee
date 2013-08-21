@@ -1,22 +1,31 @@
-ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', 'Playlist', 'Player', 'Pusher'
-  ($scope, $rootScope, $http, $route, Playlist, Player, Pusher) ->
+ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', 'Playlist', 'Player',
+  ($scope, $rootScope, $http, $route, Playlist, Player) ->
     $scope.playlistId = $route.current.params.playlistId
 
     ##
     # audo playback
     $scope.player = Player
 
-    # add event listeners
+    ##
+    # Event listeners
     $scope.$on "audioEnded", ->
       if $scope.isPlayingPlaylist()
         $scope.playerAction("play")
       else
         # TODO maybe get song from playlist_songs?
         initializePlayer()
+
     $scope.$on "audioError", ->
       # because errors typically mean bad src
       $scope.playerAction("play")
 
+    $scope.$on 'skip-song', (scope, data)->
+      return unless data.song_id == $scope.player.currentSong.id
+      return unless $scope.playlist.owner_id == $scope.user.id
+      $scope.playerAction('skip')
+
+    ##
+    # Functions
     $scope.playerPause = ->
       Player.pause()
       $scope.player.state = 'paused'
@@ -113,12 +122,4 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
         s= Math.floor(seconds - (m * 60))
       m + ":" + s
 
-    setupPlaylistListener = (playlistChannel) ->
-      playlistChannel.bind 'skip-song', (data) ->
-        return if data.song_id != $scope.player.currentSong.id
-        $scope.playerAction('skip')
-
-    # Subscribe to pusher channels
-    playlistChannel = Pusher.subscribe("playlist-#{$scope.playlistId}")
-    setupPlaylistListener(playlistChannel)
 ]
