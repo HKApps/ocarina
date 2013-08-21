@@ -20,7 +20,7 @@
                   %form.form-inline{ ng_submit: "createPlaylist()" }
                     %input.form-control{ type: "text", ng_model: "newPlaylist.name", placeholder: "Playlist Name" }
                     .modal-footer
-                      %button.btn.btn-default{ ng_click: "closeCreatePlaylistModal()" } Cancel
+                      %button.btn.btn-inverse{ ng_click: "closeCreatePlaylistModal()" } Cancel
                       %button.btn.btn-primary{ type: "submit" } Create!
 
         %ul#playlists
