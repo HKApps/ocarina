@@ -41,16 +41,10 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     getNextSong = (playlist) ->
       song = _.max playlist, (s) ->
         s.vote_count
-      $scope.player.currentSong = song
-      # TODO get rid of this when playlist_songs come with media url
-      if song.provider == "dropbox"
-        Playlist.getMediaURL($scope.playlistId, song.id).then (res) =>
-          song.media_url = res.data.url
-          playNextSong(playlist, song)
-      else if song.provider == "soundcloud"
-        playNextSong(playlist, song)
+      playNextSong(playlist, song)
 
     playNextSong = (playlist, song) ->
+      $scope.player.currentSong = song
       Player.play(song)
       $scope.player.state = 'playing'
       Playlist.songPlayed($scope.playlistId, song.id)
