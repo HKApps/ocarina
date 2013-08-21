@@ -25,7 +25,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def dropbox_client
-    @dropbox_client ||= DropboxClient.new(dropbox_auth.access_token, dropbox_auth.access_token_secret) if current_user
+    @dropbox_client ||= begin
+      if current_user && dropbox_auth
+        DropboxClient.new(dropbox_auth.access_token, dropbox_auth.access_token_secret) 
+      end
+    end
   end
   helper_method :dropbox_client
 
