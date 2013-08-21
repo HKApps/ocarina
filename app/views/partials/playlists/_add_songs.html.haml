@@ -6,12 +6,12 @@
         %h3 Select Songs to Add
       .modal-body
         .btn-group.toggle-provider
-          %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Dropbox'" }
-            = image_tag "https://dt8kf6553cww8.cloudfront.net/static/images/favicon-vflonlsct.ico"
-            Dropbox
           %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Soundcloud'" }
             = image_tag "//soundcloud.com/favicon.ico"
             Soundcloud
+          %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Dropbox'" }
+            = image_tag "https://dt8kf6553cww8.cloudfront.net/static/images/favicon-vflonlsct.ico"
+            Dropbox
         .add_songs
           .add-soundcloud{ ng_show: "provider == 'Soundcloud'" }
             .song-filter
