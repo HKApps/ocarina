@@ -115,5 +115,4 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       else
         s= Math.floor(seconds - (m * 60))
       m + ":" + s
-
 ]
