@@ -20,15 +20,20 @@
   .playlist-songs{ ng_show: "playlist.playlist_songs.length" }
     .pull-right.btn.btn-sm.add-song-btn{ ng_click: "openAddSongsModal()" }
       %i.glyphicon.glyphicon-plus
-    .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true" }
-      .song-name.wordwrap {{ song.song_name | truncate:60:true:true }}
-      .playlist-votes
-        %b.votes {{song.vote_count}} votes
-        .btn.btn-inverse.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
-          %i.glyphicon.glyphicon-arrow-up
-        .btn.btn-inverse.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
-          %i.glyphicon.glyphicon-arrow-down
-  .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
-    %h4 Your playlist is empty!
-    %button.btn.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
-      Add Songs
+    .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true",
+      ng_click: "showVoters($index)" }
+      .song-info-container
+        .song-name.wordwrap {{ song.song_name | truncate:60:true:true }}
+        .playlist-votes
+          %b.votes {{song.vote_count}} votes
+          .btn.btn-inverse.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
+            %i.glyphicon.glyphicon-arrow-up
+          .btn.btn-inverse.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
+            %i.glyphicon.glyphicon-arrow-down
+      .voters-container
+        .voters{ ng_repeat: "voter in song.voters" }
+          %img.avatar{ ng_src: "{{voter.image}}" }
+    .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
+      %h4 Your playlist is empty!
+      %button.btn.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
+        Add Songs
