@@ -10,6 +10,14 @@ class Playlist < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def host
+    User.where(id: self.owner_id).first
+  end
+
+  def guests_as_users
+    self.guests.map(&:user)
+  end
+
   def unplayed_songs
     fetch_playlist_songs.select { |ps| !ps.played_at }
   end

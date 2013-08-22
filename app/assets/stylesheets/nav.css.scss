@@ -1,0 +1,26 @@
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav li a {
+  color: #EEE;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret{
+  border-top-color: #eee;
+  border-bottom-color: #eee;
+}
+
+.navbar-brand{
+  margin-top: 6px;
+}
+
+.navbar-inverse .dropdown ul li a{
+  color: #000;
+}
+
+.nav-search{
+  margin-top: 6px;
+  width: 35%;
+  height: 36px;
+  background-color: #EEE;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+}
