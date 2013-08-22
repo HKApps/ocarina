@@ -11,9 +11,9 @@ ocarinaServices.factory 'Pusher', ->
       unbind: ->
         true
 
-  # Uncomment this during development
-  # Pusher.log = (message) ->
-  # window.console.log message if window.console and window.console.log
+# Uncomment this during development
+#Pusher.log = (message) ->
+ #window.console.log message if window.console and window.console.log
 
 ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   url = "/api/playlists"
@@ -41,6 +41,9 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
 
   Playlist.songPlayed = (id, song_id) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played.json")
+
+  Playlist.skipSongVote = (id, song_id) ->
+    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/skip_song_vote.json")
 
   Playlist
 ]

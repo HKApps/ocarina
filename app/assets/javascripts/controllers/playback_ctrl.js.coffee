@@ -6,17 +6,26 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     # audo playback
     $scope.player = Player
 
-    # add event listeners
+    ##
+    # Event listeners
     $scope.$on "audioEnded", ->
       if $scope.isPlayingPlaylist()
         $scope.playerAction("play")
       else
         # TODO maybe get song from playlist_songs?
         initializePlayer()
+
     $scope.$on "audioError", ->
       # because errors typically mean bad src
       $scope.playerAction("play")
 
+    $scope.$on 'skip-song', (scope, data)->
+      return unless data.song_id == $scope.player.currentSong.id
+      return unless $scope.playlist.owner_id == $scope.user.id
+      $scope.playerAction('skip')
+
+    ##
+    # Functions
     $scope.playerPause = ->
       Player.pause()
       $scope.player.state = 'paused'
@@ -112,4 +121,5 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       else
         s= Math.floor(seconds - (m * 60))
       m + ":" + s
+
 ]
