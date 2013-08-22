@@ -28,6 +28,9 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     $scope.modalOpts = { backdropFade:true, dialogFade:true }
 
+    $scope.showVoters = (index) =>
+      $('.voters-container').eq(index).children().toggle()
+
     # Realtime updates
     setupPlaylistListener = (playlistChannel) ->
       playlistChannel.bind 'new-playlist-songs', (data) ->
