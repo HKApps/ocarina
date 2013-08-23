@@ -23,3 +23,11 @@ end
 child :playlists_as_guest => "playlists_as_guest" do
   attributes :id, :name, :owner_id, :updated_at, :created_at
 end
+
+node(:upvoted_songs) do |u|
+  u.fetch_votes.select { |v| (v.decision == 1) }.map(&:playlist_song)
+end
+
+node(:downvoted_songs) do |u|
+  u.fetch_votes.select { |v| (v.decision == -1) }.map(&:playlist_song)
+end
