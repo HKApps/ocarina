@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   has_many :saved_songs
   cache_has_many :saved_songs, embed: true
 
+  has_many :skip_song_votes
+  cache_has_many :skip_song_votes, embed: true
+
   has_many :votes
   cache_has_many :votes, embed: true
 
