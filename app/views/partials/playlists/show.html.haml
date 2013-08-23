@@ -33,7 +33,7 @@
       .voters-container
         .voters{ ng_repeat: "voter in song.voters" }
           %img.avatar{ ng_src: "{{voter.image}}" }
-    .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
-      %h4 Your playlist is empty!
-      %button.btn.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
-        Add Songs
+  .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
+    %h4 Your playlist is empty!
+    %button.btn.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
+      Add Songs
