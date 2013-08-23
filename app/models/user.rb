@@ -44,6 +44,12 @@ class User < ActiveRecord::Base
     fetch_saved_songs.select { |s| !s.deleted_at }
   end
 
+  def playlist_songs_added
+    PlaylistSong.all do |ps|
+      ps.map(&:song).select { ps.user_id == self.id }
+    end
+  end
+
   def dropbox_authenticated?
     fetch_authentications.any? { |x| x.provider == "dropbox" }
   end

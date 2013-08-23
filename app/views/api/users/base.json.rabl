@@ -16,15 +16,15 @@ node(:skip_song_voted_songs) do |u|
   u.fetch_skip_song_votes.select { |v| v.map(&:playlist_song) }
 end
 
-child :current_dropbox_songs => "dropbox_songs" do
+child :current_dropbox_songs => :dropbox_songs do
   attributes :id, :name, :path, :user_id, :created_at, :updated_at
 end
 
-child :current_soundcloud_songs => "soundcloud_songs" do
+child :current_soundcloud_songs => :soundcloud_songs do
   attributes :id, :name, :path, :user_id, :created_at, :updated_at
 end
 
-child :current_saved_songs => "saved_songs" do
+child :current_saved_songs => :saved_songs do
   attributes :id, :playlist_song_id, :name
 end
 
@@ -36,7 +36,6 @@ child :playlists_as_guest => "playlists_as_guest" do
   attributes :id, :name, :owner_id, :updated_at, :created_at
 end
 
-child :skip_song_votes => :skipped_song_votes do
-  attributes :id, :playlist_song_id
-  node(:name) { |ssv| ssv.playlist_song.name }
+child :playlist_songs_added => :playlist_songs_added do
+  attributes :id, :song_name, :provider
 end
