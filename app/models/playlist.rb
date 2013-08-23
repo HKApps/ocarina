@@ -1,5 +1,8 @@
 class Playlist < ActiveRecord::Base
   include IdentityCache
+  include PgSearch
+
+  multisearchable against: [:name]
 
   has_many :playlist_songs
   cache_has_many :playlist_songs, embed: true

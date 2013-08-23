@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130820064105) do
+ActiveRecord::Schema.define(version: 20130823044752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "pg_trgm"
 
   create_table "authentications", force: true do |t|
     t.string   "provider",            null: false
@@ -39,6 +40,14 @@ ActiveRecord::Schema.define(version: 20130820064105) do
 
   add_index "guests", ["user_id", "playlist_id"], name: "index_guests_on_user_id_and_playlist_id", using: :btree
   add_index "guests", ["user_id"], name: "index_guests_on_user_id", using: :btree
+
+  create_table "pg_search_documents", force: true do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "playlist_songs", force: true do |t|
     t.integer  "playlist_id",                      null: false
