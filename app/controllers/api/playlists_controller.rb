@@ -14,6 +14,7 @@ class Api::PlaylistsController < ApiController
 
   def create
     @playlist = current_user.playlists.build(playlist_params)
+    @playlist.venue = params[:playlist][:venue]
     if @playlist.save
       respond_with @playlist, status: 201
     else
@@ -56,7 +57,7 @@ class Api::PlaylistsController < ApiController
   end
 
   def playlist_params
-    params.require(:playlist).permit(:name)
+    params.require(:playlist).permit(:name, :location, :private, :start_time, :facebook_id)
   end
 
   def add_song_params

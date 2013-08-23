@@ -1,7 +1,42 @@
-input#create-playlist-input {
-  width: 80%;
+// Create playlist
+.fb-event{
+  margin-bottom: 60px;
 }
 
+.create-playlist-modal{
+  margin-bottom: 40px;
+}
+
+.new-event-name, .new-event-location, .new-event-date, .new-event-privacy{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.new-event-name, .new-event-location{
+  width: 100%;
+  .form-control{
+    width: 80%;
+    display: inline-block;
+  }
+}
+
+.fb-events-container{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.form-title{
+  width: 10%;
+  display: inline-block;
+}
+.new-event-date{
+  width: 100%;
+  .form-control{
+    width: 40%;
+    display: inline-block;
+  }
+}
+
+// Profile
 .user-parties, .guest-parties {
   display: inline-block;
   width: 100%;

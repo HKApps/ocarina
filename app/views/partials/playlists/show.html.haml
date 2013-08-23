@@ -14,7 +14,7 @@
   .guest-feedback{ ocarina_if: "playlist.owner_id != user.id" }
     =render 'playlists/guest_feedback'
 
-  .add-dropbox-songs
+  .add-songs
     =render '/partials/playlists/add_songs'
 
   .playlist-songs{ ng_show: "playlist.playlist_songs.length" }
