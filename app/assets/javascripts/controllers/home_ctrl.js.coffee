@@ -1,4 +1,4 @@
-ocarina.controller 'ProfileCtrl', ['$rootScope', '$scope',
+ocarina.controller 'HomeCtrl', ['$rootScope', '$scope',
   ($rootScope, $scope) ->
     $scope.showSearch = ->
       $rootScope.$broadcast("showSearch")
