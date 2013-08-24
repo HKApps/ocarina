@@ -62,6 +62,11 @@ ocarinaDirectives.directive "ocarinaIf", ->
             childElement = clone
             element.after clone
 
+ocarinaDirectives.directive 'ocarinaPrevious', ->
+  (scope, $elm, attr) ->
+    $elm.on 'click', ->
+      window.history.back()
+
 ocarinaDirectives.directive 'seekProgressBar', ->
   (scope, $elm, attr) ->
     $elm.on 'mousedown', (e) ->

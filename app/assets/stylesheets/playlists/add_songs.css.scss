@@ -1,19 +1,4 @@
-.songs-to-add{
-  text-align: left;
-  .glyphicon-ok{
-    margin-left: 10px;
-    display: none;
-    float: right;
-  }
-  &.selected{
-    background-color: #d9edf7;
-
-    .glyphicon-ok{
-      display: inline-block;
-    }
-  }
-}
-.modal-body{
+.add-songs-modal{
   text-align: center;
   .toggle-provider{
     margin-bottom: 5px;

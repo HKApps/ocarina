@@ -59,10 +59,16 @@ ActiveRecord::Schema.define(version: 20130824192110) do
   add_index "playlist_songs", ["playlist_id", "song_id"], name: "index_playlist_songs_on_playlist_id_and_song_id", unique: true, using: :btree
 
   create_table "playlists", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "owner_id",   null: false
+    t.string   "name",                        null: false
+    t.integer  "owner_id",                    null: false
     t.datetime "updated_at"
     t.datetime "created_at"
+    t.string   "location"
+    t.hstore   "venue"
+    t.datetime "start_time"
+    t.boolean  "private",     default: false
+    t.string   "facebook_id"
+    t.string   "password"
   end
 
   add_index "playlists", ["owner_id"], name: "index_playlists_on_owner_id", using: :btree

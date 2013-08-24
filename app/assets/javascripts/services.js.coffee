@@ -25,8 +25,7 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
       new Playlist(res.data)
 
   Playlist.prototype.create = ->
-    playlist = this
-    $http.post("#{url}.json", playlist)
+    $http.post("#{url}.json", { playlist: this } )
 
   Playlist.addSongs = (id, songs) ->
     $http.post "#{url}/#{id}/add_songs.json",

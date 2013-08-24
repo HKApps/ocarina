@@ -9,19 +9,9 @@
         .user-parties
           %h3.playlist-title My Playlists
 
-          -# Button to launch create playlist modal
-          .btn.create-playlist-btn{ ng_click: "openCreatePlaylistModal()" }= image_tag "glyphicons_432_plus.png"
-          %div{ modal: "shouldBeOpen", close: "closeCreatePlaylistModal()", options:"modalOpts"}
-            .modal-dialog
-              .modal-content
-                .modal-header
-                  %h3 Create Playlist
-                .modal-body
-                  %form.form-inline{ ng_submit: "createPlaylist()" }
-                    %input.form-control{ type: "text", ng_model: "newPlaylist.name", placeholder: "Playlist Name" }
-                    .modal-footer
-                      %button.btn.btn-default{ ng_click: "closeCreatePlaylistModal()" } Cancel
-                      %button.btn.btn-primary{ type: "submit" } Create!
+          -# Create playlist
+          %a.btn.create-playlist-btn{ ng_href: "/playlists/new" }
+            .glyphicon.glyphicon-plus
 
         %ul#playlists
           %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:"created_at":true' }
