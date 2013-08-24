@@ -15,6 +15,8 @@
           templateUrl: '/partials/playlists/show.html'
         .when '/favorites',
           templateUrl: '/partials/favorites.html'
+        .when '/:userId',
+          templateUrl: '/partials/profile.html'
         .otherwise
           redirectTo: '/'
   ])
