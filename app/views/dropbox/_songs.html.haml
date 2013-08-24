@@ -11,6 +11,6 @@
           .song-list{ ng_repeat: 'song in user.dropbox_songs | filter: songFilter' }
             %span.name.wordwrap {{song.name}}
         .modal-footer
-          %button.btn.btn-inverse{ ng_click: "closeDbSongsModal()" } Close
+          %button.btn.btn-default{ ng_click: "closeDbSongsModal()" } Close
           %button.btn.btn-success{ ng_click: "refreshDropboxSongs()" }
             %i.glyphicon.glyphicon-refresh
