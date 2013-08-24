@@ -3,7 +3,7 @@ attributes :id, :email, :first_name, :last_name, :image, :created_at, :updated_a
 node(:dropbox_authenticated)  { |u| u.dropbox_authenticated? }
 node(:facebook_authenticated) { |u| u.facebook_authenticated? }
 node(:defer_dropbox_connect)  { |u| defer_dropbox_connect? }
-node (:facebook_token) { |u| u.authentications.where(provider: "facebook").first.access_token }
+node (:facebook_token)        { |u| u.fetch_authentications.where(provider: "facebook").first.access_token }
 
 node(:upvoted_songs) do |u|
   u.fetch_votes.select { |v| v.decision == 1 }.map(&:fetch_playlist_song)
