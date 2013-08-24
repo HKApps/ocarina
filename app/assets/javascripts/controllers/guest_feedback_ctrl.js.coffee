@@ -1,8 +1,5 @@
 ocarina.controller 'GuestFeedbackCtrl', ['$scope', '$http',
   ($scope, $http) ->
-    # TODO make api call to get current song
-    #   $scope.playlist.currentSong = res.data
-
     $scope.toggleSongSaved = (song) ->
       if $scope.songSaved(song.id)
         song = $scope.songSaved(song.id)

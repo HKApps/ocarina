@@ -39,6 +39,12 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   Playlist.getMediaURL = (id, song_id) ->
     $http.get("#{url}/#{id}/playlist_songs/#{song_id}/media_url.json")
 
+  Playlist.getCurrentSong = (id) ->
+    $http.get("#{url}/#{id}/current_song_request.json")
+
+  Playlist.respondCurrentSong = (id, song) ->
+    $http.post("#{url}/#{id}/current_song_response.json", {song: song} )
+
   Playlist.songPlayed = (id, song_id) ->
     $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played.json")
 
