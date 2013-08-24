@@ -3,7 +3,7 @@
     %h4 For FB Event
     %button.btn.btn-primary.btn-sm{ ng_hide: "fbEvents",
       ng_click: "getFbEvents()" } show my FB events
-    %button.btn.btn-inverse.btn-sm{ ng_show: "fbEvents",
+    %button.btn.btn-default.btn-sm{ ng_show: "fbEvents",
       ng_click: "hideFbEvents()" } hide my FB events
     .fb-events-container
       .fb-event-list{ ng_repeat: "event in fbEvents",
@@ -13,7 +13,7 @@
         %i.glyphicon.glyphicon-ok
       %button.pull-right.btn.btn-primary{ ng_show: "fbEvents",
         ng_click: "createPlaylistFromFbEvent()" } Create
-      %button.pull-right.btn.btn-inverse{ ng_show: "fbEvents",
+      %button.pull-right.btn.btn-default{ ng_show: "fbEvents",
         ocarina_previous: "" } Cancel
 
   .new-event{ on_return: "CreatePlaylistst()" }
@@ -45,4 +45,4 @@
           placeholder: "password",
           ng_disabled: "!newPlaylist.private" }
     %button.pull-right.btn.btn-primary{ ng_click: "createPlaylist()" } Create
-    %button.pull-right.btn.btn-inverse{ ocarina_previous: "" } Cancel
+    %button.pull-right.btn.btn-default{ ocarina_previous: "" } Cancel
