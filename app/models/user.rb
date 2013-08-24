@@ -45,9 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def playlist_songs_added
-    PlaylistSong.all do |ps|
-      ps.map(&:song).select { ps.user_id == self.id }
-    end
+    PlaylistSong.where(song_id: fetch_songs.map(&:id))
   end
 
   def dropbox_authenticated?

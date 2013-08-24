@@ -5,15 +5,15 @@ node(:facebook_authenticated) { |u| u.facebook_authenticated? }
 node(:defer_dropbox_connect)  { |u| defer_dropbox_connect? }
 
 node(:upvoted_songs) do |u|
-  u.fetch_votes.select { |v| (v.decision == 1) }.map(&:playlist_song)
+  u.fetch_votes.select { |v| v.decision == 1 }.map(&:fetch_playlist_song)
 end
 
 node(:downvoted_songs) do |u|
-  u.fetch_votes.select { |v| (v.decision == -1) }.map(&:playlist_song)
+  u.fetch_votes.select { |v| v.decision == -1 }.map(&:fetch_playlist_song)
 end
 
 node(:skip_song_voted_songs) do |u|
-  u.fetch_skip_song_votes.map(&:playlist_song)
+  u.fetch_skip_song_votes.map(&:fetch_playlist_song)
 end
 
 child :current_dropbox_songs => :dropbox_songs do
