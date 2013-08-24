@@ -12,8 +12,12 @@ Ocarina::Application.routes.draw do
     resources :saved_songs, only: [:index, :destroy, :create]
 
     resources :playlists, only: [:index, :show, :create] do
-      post 'add_songs', on: :member, to: "playlist_songs#create"
-      post 'join',      on: :member, to: "playlists#join"
+      member do
+        post 'add_songs', to: "playlist_songs#create"
+        post 'join', to: "playlists#join"
+        get 'current_song_request', to: "playlists#current_song_request"
+        post 'current_song_response', to: "playlists#current_song_response"
+      end
 
       resources :playlist_songs, only: [:create] do
         member do

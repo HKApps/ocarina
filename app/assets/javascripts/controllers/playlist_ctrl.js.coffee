@@ -4,6 +4,8 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     Playlist.get($scope.playlistId).then (p) =>
       $scope.playlist = p
+      Playlist.getCurrentSong(p.id) unless $scope.playlist.owner_id == $scope.user.id
+
 
     $scope.upvoteSong = (song) ->
       return if song.current_user_vote_decision == 1
@@ -58,11 +60,21 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'skip-song', (data) ->
+        return unless $scope.playlist.owner_id == $scope.user.id
         $scope.$broadcast('skip-song', data)
 
       playlistChannel.bind 'new-guest', (data) ->
         return if data.guest.id == $scope.user.id
         $scope.playlist.guests.push data.guest
+        $scope.$apply() unless $scope.$$phase
+
+      playlistChannel.bind 'current-song-request', (data) ->
+        return unless $scope.playlist.owner_id == $scope.user.id
+        Playlist.respondCurrentSong(data.playlist_id, $scope.playlist.currentSong)
+
+      playlistChannel.bind 'current-song-response', (data) ->
+        return if $scope.playlist.owner_id == $scope.user.id
+        $scope.playlist.currentSong = data.song
         $scope.$apply() unless $scope.$$phase
 
     # Subscribe to pusher channels

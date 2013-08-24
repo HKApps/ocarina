@@ -20,8 +20,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       $scope.playerAction("play")
 
     $scope.$on 'skip-song', (scope, data)->
-      return unless data.song_id == $scope.player.currentSong.id
-      return unless $scope.playlist.owner_id == $scope.user.id
+      return unless data.song_id == $scope.playlist.currentSong.id
       $scope.playerAction('skip')
 
     ##
@@ -53,7 +52,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       playNextSong(playlist, song)
 
     playNextSong = (playlist, song) ->
-      $scope.player.currentSong = song
+      $scope.playlist.currentSong = song
       Player.play(song)
       $scope.player.state = 'playing'
       Playlist.songPlayed($scope.playlistId, song.id)
@@ -61,7 +60,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
 
     initializePlayer = ->
       Player.stop()
-      $scope.player.currentSong = undefined
+      $scope.playlist.currentSong = undefined
       $scope.player.state = undefined
       Player.playlistId = $scope.playlistId
       $scope.$apply() unless $scope.$$phase

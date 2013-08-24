@@ -31,6 +31,20 @@ class Api::PlaylistsController < ApiController
     end
   end
 
+  def current_song_request
+    Pusher.trigger("playlist-#{params[:id]}", "current-song-request", { playlist_id: params[:id] } )
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
+  def current_song_response
+    Pusher.trigger("playlist-#{params[:id]}", "current-song-response", { song: params[:song] })
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
   def push_guest(guest, playlist_id)
     Pusher.trigger("playlist-#{playlist_id}", "new-guest", { guest: guest } )
   end
