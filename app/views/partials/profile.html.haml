@@ -14,7 +14,7 @@
             .glyphicon.glyphicon-plus
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:created_at:true' }
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:"created_at":true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
 
