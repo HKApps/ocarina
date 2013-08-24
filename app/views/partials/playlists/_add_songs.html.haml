@@ -4,7 +4,7 @@
       .modal-header
         %button.close{ ng_click: "closeAddSongsModal()" } &times;
         %h3 Select Songs to Add
-      .modal-body
+      .modal-body.add-songs-modal
         .btn-group.toggle-provider
           %button.btn.btn-default{ ng_model: "provider", "btn-radio" => "'Soundcloud'" }
             = image_tag "//soundcloud.com/favicon.ico"

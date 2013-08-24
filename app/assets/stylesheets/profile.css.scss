@@ -1,7 +1,3 @@
-input#create-playlist-input {
-  width: 80%;
-}
-
 .user-parties, .guest-parties {
   display: inline-block;
   width: 100%;
@@ -19,8 +15,9 @@ input#create-playlist-input {
     margin-top: -13px;
     margin-left: 7px;
 
-    img {
+    .glyphicon {
       padding: 2px;
+      color: #000000;
     }
   }
 }

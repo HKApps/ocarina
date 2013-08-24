@@ -32,10 +32,13 @@ class AuthenticationService
       user.image      = @omniauth["info"]["image"].gsub("=square", "=large")
       user.save!
 
-      user.authentications.where(
+      authentication = user.authentications.where(
         provider: @provider,
         uid:      @omniauth["uid"].to_s
       ).first_or_create
+
+      authentication.access_token = @omniauth["credentials"].token
+      authentication.save!
 
       update_dropbox_songs(user.id) if user.authentications.any? { |auth| auth.provider == "dropbox" }
     end

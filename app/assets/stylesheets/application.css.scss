@@ -23,7 +23,7 @@
   display: none !important;
 }
 
-.song-list{
+.song-list, .fb-event-list{
   background-color: #EEE;
   padding: 8px;
   display: inline-block;
@@ -31,6 +31,18 @@
   width: 100%;
   margin-bottom: 5px;
   text-align: left;
+  .glyphicon-ok{
+    margin-left: 10px;
+    display: none;
+    float: right;
+  }
+  &.selected{
+    background-color: #d9edf7;
+
+    .glyphicon-ok{
+      display: inline-block;
+    }
+  }
 }
 
 .wordwrap{

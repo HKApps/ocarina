@@ -1,0 +1,48 @@
+.create-playlist-container{ ng_controller: "PlaylistNewCtrl" }
+  .fb-event
+    %h4 For FB Event
+    %button.btn.btn-primary.btn-sm{ ng_hide: "fbEvents",
+      ng_click: "getFbEvents()" } show my FB events
+    %button.btn.btn-default.btn-sm{ ng_show: "fbEvents",
+      ng_click: "hideFbEvents()" } hide my FB events
+    .fb-events-container
+      .fb-event-list{ ng_repeat: "event in fbEvents",
+        ng_click: "selectFbEvent(event)",
+        ng_class: '{"selected": event == selectedFbEvent}' }
+        {{event.name}} {{"- " + event.location}}
+        %i.glyphicon.glyphicon-ok
+      %button.pull-right.btn.btn-primary{ ng_show: "fbEvents",
+        ng_click: "createPlaylistFromFbEvent()" } Create
+      %button.pull-right.btn.btn-default{ ng_show: "fbEvents",
+        ocarina_previous: "" } Cancel
+
+  .new-event{ on_return: "CreatePlaylistst()" }
+    %h4 New Event
+    %form.form-inline
+      .new-event-name
+        .form-title Name:
+        %input.form-control{ type: "text",
+          ng_model: "newPlaylist.name",
+          placeholder: "ex: Matt's Birthday" }
+      .new-event-location
+        .form-title Where:
+        %input.form-control{ type: "text",
+          ng_model: "newPlaylist.location" }
+      .new-event-date
+        .form-title When:
+        -# TODO add datepicker
+        %input.form-control{ type: "text",
+          ng_model: "newPlaylist.startTime",
+          placeholder: "mm/dd/yyy" }
+        -# TODO wire up
+        %input.form-control{ type: "text", placeholder: "Add a time?" }
+      .new-event-private
+        .form-title Private:
+        %label.checkbox
+          %input{ type: "checkbox", ng_model: "newPlaylist.private" }
+        %input.form-control{ type: "text",
+          ng_model: "newPlaylist.password",
+          placeholder: "password",
+          ng_disabled: "!newPlaylist.private" }
+    %button.pull-right.btn.btn-primary{ ng_click: "createPlaylist()" } Create
+    %button.pull-right.btn.btn-default{ ocarina_previous: "" } Cancel
