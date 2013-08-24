@@ -10,61 +10,8 @@
           %h3.playlist-title My Playlists
 
           -# Button to launch create playlist modal
-          .btn.create-playlist-btn{ ng_click: "openCreatePlaylistModal()" }= image_tag "glyphicons_432_plus.png"
-          %div{ modal: "shouldBeOpen", close: "closeCreatePlaylistModal()", options:"modalOpts"}
-            .modal-dialog
-              .modal-content
-                .modal-header
-                  %button.close{ ng_click: "closeCreatePlaylistModal()" } &times;
-                  %h3 Create Playlist
-                .modal-body.create-playlist-modal
-                  .fb-event
-                    %h4 For FB Event
-                    %button.btn.btn-primary.btn-sm{ ng_hide: "fbEvents",
-                      ng_click: "getFbEvents()" } show my FB events
-                    %button.btn.btn-inverse.btn-sm{ ng_show: "fbEvents",
-                      ng_click: "hideFbEvents()" } hide my FB events
-                    .fb-events-container
-                      .fb-event-list{ ng_repeat: "event in fbEvents",
-                        ng_click: "selectFbEvent(event)",
-                        ng_class: '{"selected": event == selectedFbEvent}' }
-                        {{event.name}} {{"- " + event.location}}
-                        %i.glyphicon.glyphicon-ok
-                      %button.pull-right.btn.btn-primary{ ng_show: "fbEvents",
-                        ng_click: "createPlaylistFromFbEvent()" } Create
-                      %button.pull-right.btn.btn-inverse{ ng_show: "fbEvents",
-                        ng_click: "closeCreatePlaylistModal()" } Cancel
-
-                  .new-event{ on_return: "CreatePlaylistst()" }
-                    %h4 New Event
-                    %form.form-inline
-                      .new-event-name
-                        .form-title Name:
-                        %input.form-control{ type: "text",
-                          ng_model: "newPlaylist.name",
-                          placeholder: "ex: Matt's Birthday" }
-                      .new-event-location
-                        .form-title Where:
-                        %input.form-control{ type: "text",
-                          ng_model: "newPlaylist.location" }
-                      .new-event-date
-                        .form-title When:
-                        -# TODO add datepicker
-                        %input.form-control{ type: "text",
-                          ng_model: "newPlaylist.startTime",
-                          placeholder: "mm/dd/yyy" }
-                        -# TODO wire up
-                        %input.form-control{ type: "text", placeholder: "Add a time?" }
-                      .new-event-private
-                        .form-title Private:
-                        %label.checkbox
-                          %input{ type: "checkbox", ng_model: "newPlaylist.private" }
-                        %input.form-control{ type: "text",
-                          ng_model: "newPlaylist.password",
-                          placeholder: "password",
-                          ng_disabled: "!newPlaylist.private" }
-                    %button.pull-right.btn.btn-primary{ ng_click: "createPlaylist()" } Create
-                    %button.pull-right.btn.btn-inverse{ ng_click: "closeCreatePlaylistModal()" } Cancel
+          %a.btn.create-playlist-btn{ ng_href: "/playlists/new" }
+            .glyphicon.glyphicon-plus
 
         %ul#playlists
           %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:created_at:true' }
