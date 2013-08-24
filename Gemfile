@@ -30,6 +30,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'sucker_punch'
+gem 'textacular', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'zurb-foundation'
 
