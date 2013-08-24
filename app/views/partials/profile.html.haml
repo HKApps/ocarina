@@ -24,7 +24,7 @@
                       %button.btn.btn-primary{ type: "submit" } Create!
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:created_at:true' }
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:"created_at":true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
 
@@ -37,6 +37,6 @@
           %a.alert-link{ ng_click: "showSearch()", on_click_focus: ".nav-search" } Search to find a playlist to join!
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest | orderBy:created_at:true' }
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest | orderBy:"created_at":true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
