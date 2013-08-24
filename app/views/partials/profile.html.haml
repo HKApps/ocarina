@@ -1,6 +1,43 @@
 .user-profile-container{ ng_controller: "ProfileCtrl" }
   .user-info
     %img.avatar{ ng_src: "{{user.image}}" }
-    .name {{user.first_name + user.last_name}}
-    hhhhiii
+    %h4.name {{user.first_name + " " + user.last_name}}
+  .user-activity
+    .favorites
+      %h4 favorites
+      .activity-list{ ng_repeat: "favorite in user.favorites | orderBy:'created_at':true" }
+        %i.glyphicon.glyphicon-heart
+        {{favorite.name}}
+    .votes
+      %h4 votes
+      .activity-list{ ng_repeat: "vote in user.votes | orderBy:'created_at':true" }
+        %i.glyphicon.glyphicon-arrow-up{ ocarina_if: "vote.decision == 1" }
+        %i.glyphicon.glyphicon-arrow-down{ ocarina_if: "vote.decision == -1" }
+        {{vote.song_name}} in
+        %a{ ng_href: "/playlists/{{vote.playlist.id}}" }
+          {{vote.playlist.name}}
+    .songs-added
+      %h4 songs added
+      .activity-list{ ng_repeat: "song in user.playlist_songs_added | orderBy:'created_at':true" }
+        %img{ ocarina_if: "song.provider == 'soundcloud'",
+          ng_src: "//soundcloud.com/favicon.ico" }
+        %img{ ocarina_if: "song.provider == 'dropbox'",
+          ng_src: "https://dt8kf6553cww8.cloudfront.net/static/images/favicon-vflonlsct.ico" }
+        {{song.song_name}}
+    .playlists-created
+      %h4 playlists created
+      .activity-list{ ng_repeat: "playlist in user.playlists | orderBy:'created_at':true" }
+        %a{ ng_href: "/playlists/{{playlist.id}}" }
+          .name {{playlist.name}}
+          .location{ ocarina_if: "playlist.location" }
+            at
+            {{playlist.location}}
 
+    .playlists-joined
+      %h4 playlists joined
+      .activity-list{ ng_repeat: "playlist in user.playlists_as_guest | orderBy:'created_at':true" }
+        %a{ ng_href: "/playlists/{{playlist.id}}" }
+          .name {{playlist.name}}
+          .location{ ocarina_if: "playlist.location" }
+            at
+            {{playlist.location}}
