@@ -66,10 +66,10 @@
                     %button.pull-right.btn.btn-primary{ ng_click: "createPlaylist()" } Create
                     %button.pull-right.btn.btn-inverse{ ng_click: "closeCreatePlaylistModal()" } Cancel
 
-          %ul#playlists
-            %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:created_at:true' }
-              %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
-                {{playlist.name}}
+        %ul#playlists
+          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:created_at:true' }
+            %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
+              {{playlist.name}}
 
       -# List of participating playlists
       .col-12.col-lg-6.shared-playlists
