@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   has_many :saved_songs
   cache_has_many :saved_songs, embed: true
 
+  has_many :skip_song_votes
+  cache_has_many :skip_song_votes, embed: true
+
   has_many :votes
   cache_has_many :votes, embed: true
 
@@ -39,6 +42,10 @@ class User < ActiveRecord::Base
 
   def current_saved_songs
     fetch_saved_songs.select { |s| !s.deleted_at }
+  end
+
+  def playlist_songs_added
+    PlaylistSong.where(song_id: fetch_songs.map(&:id))
   end
 
   def dropbox_authenticated?
