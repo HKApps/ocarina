@@ -9,12 +9,12 @@ ocarina.controller 'GuestFeedbackCtrl', ['$scope', '$http',
 
     saveSong = (song) ->
       $http.post('/api/saved_songs.json', song).then (res) =>
-        $scope.user.saved_songs.push res.data
+        $scope.currentUser.saved_songs.push res.data
 
     unsaveSong = (song) ->
       $http.delete("/api/saved_songs/#{song.id}.json")
-      $scope.user.saved_songs = _.without($scope.user.saved_songs, song)
+      $scope.currentUser.saved_songs = _.without($scope.currentUser.saved_songs, song)
 
     $scope.songSaved = (id) ->
-      _.findWhere($scope.user.saved_songs, {playlist_song_id: id})
+      _.findWhere($scope.currentUser.saved_songs, {playlist_song_id: id})
 ]

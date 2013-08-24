@@ -1,5 +1,5 @@
-.jumbotron{ ng_hide: "user.dropbox_authenticated || user.defer_dropbox_connect" }
-  %h1#header Welcome to PlayedBy.me, {{user.first_name}}!
+.jumbotron{ ng_hide: "currentUser.dropbox_authenticated || currentUser.defer_dropbox_connect" }
+  %h1#header Welcome to PlayedBy.me, {{currentUser.first_name}}!
   %p#sub-header.lead Connect with Dropbox now to create playlists and enjoy music with the people around you.
 
   .row#connect-area

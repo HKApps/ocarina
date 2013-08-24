@@ -30,7 +30,7 @@
               %li
                 %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
               %li
-                %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+                %a{ href: "", dropbox_auth: "", ng_hide: "currentUser.dropbox_authenticated" } Connect Dropbox
               %li.divider
               %li
                 %a{ href:  "", ng_click: "logout()" } Logout
@@ -39,7 +39,7 @@
           %li{ ocarina_if: "isMobilized" }
             %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
           %li{ ocarina_if: "isMobilized" }
-            %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+            %a{ href: "", dropbox_auth: "", ng_hide: "currentUser.dropbox_authenticated" } Connect Dropbox
           %li.divider
           %li{ ocarina_if: "isMobilized" }
             %a{ href:  "", ng_click: "logout()" } Logout

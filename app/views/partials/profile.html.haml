@@ -14,7 +14,7 @@
             .glyphicon.glyphicon-plus
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists | orderBy:"created_at":true' }
+          %li.parties-list{ ng_repeat: 'playlist in currentUser.playlists | orderBy:"created_at":true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
 
@@ -22,11 +22,11 @@
       .col-12.col-lg-6.shared-playlists
         .guest-parties
           %h3.playlist-title Shared Playlists
-        .alert.alert-warning{ ng_hide: "user.hasPlaylistsAsGuest()" }
+        .alert.alert-warning{ ng_hide: "currentUser.hasPlaylistsAsGuest()" }
           You haven't joined any playlists!
           %a.alert-link{ ng_click: "showSearch()", on_click_focus: ".nav-search" } Search to find a playlist to join!
 
         %ul#playlists
-          %li.parties-list{ ng_repeat: 'playlist in user.playlists_as_guest | orderBy:"created_at":true' }
+          %li.parties-list{ ng_repeat: 'playlist in currentUser.playlists_as_guest | orderBy:"created_at":true' }
             %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
               {{playlist.name}}
