@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   include IdentityCache
+  include PgSearch
+
+  multisearchable against: [:first_name, :last_name]
 
   has_many :authentications
   cache_has_many :authentications, embed: true

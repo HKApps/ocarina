@@ -35,6 +35,8 @@ Ocarina::Application.routes.draw do
     end
 
     resources :saved_songs, only: [:index, :create, :destroy]
+
+    resources :search, only: [:index]
   end
 
   get '/login', to: 'sessions#new', as: 'login'
