@@ -55,11 +55,14 @@
                           placeholder: "mm/dd/yyy" }
                         -# TODO wire up
                         %input.form-control{ type: "text", placeholder: "Add a time?" }
-                      .new-event-privacy
-                        .form-title Privacy:
-                        %select{ ng_model: "newPlaylist.private" }
-                          %option{ value: "false" } Public
-                          %option{ value: "true" } Invite Only
+                      .new-event-private
+                        .form-title Private:
+                        %label.checkbox
+                          %input{ type: "checkbox", ng_model: "newPlaylist.private" }
+                        %input.form-control{ type: "text",
+                          ng_model: "newPlaylist.password",
+                          placeholder: "password",
+                          ng_disabled: "!newPlaylist.private" }
                     %button.pull-right.btn.btn-primary{ ng_click: "createPlaylist()" } Create
                     %button.pull-right.btn.btn-inverse{ ng_click: "closeCreatePlaylistModal()" } Cancel
 

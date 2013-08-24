@@ -6,6 +6,7 @@ ocarina.controller 'ProfileCtrl', ['$rootScope', '$scope', '$http', '$location',
       playlist.name = $scope.newPlaylist.name
       playlist.location = $scope.newPlaylist.location
       playlist.private = $scope.newPlaylist.private
+      playlist.password = $scope.newPlaylist.password if playlist.private
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.user.playlists.push(res.data)

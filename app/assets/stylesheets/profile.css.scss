@@ -7,7 +7,7 @@
   margin-bottom: 40px;
 }
 
-.new-event-name, .new-event-location, .new-event-date, .new-event-privacy{
+.new-event-name, .new-event-location, .new-event-date, .new-event-private{
   padding-top: 2px;
   padding-bottom: 2px;
 }
@@ -24,14 +24,26 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
 .form-title{
   width: 10%;
   display: inline-block;
 }
+
 .new-event-date{
   width: 100%;
   .form-control{
     width: 40%;
+    display: inline-block;
+  }
+}
+
+.new-event-private{
+  .checkbox{
+    display: inline-block;
+  }
+  .form-control{
+    width: 77%;
     display: inline-block;
   }
 }

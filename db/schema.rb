@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20130824192110) do
     t.datetime "start_time"
     t.boolean  "private",     default: false
     t.string   "facebook_id"
+    t.string   "password"
   end
 
   add_index "playlists", ["owner_id"], name: "index_playlists_on_owner_id", using: :btree

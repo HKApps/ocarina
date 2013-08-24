@@ -57,7 +57,7 @@ class Api::PlaylistsController < ApiController
   end
 
   def playlist_params
-    params.require(:playlist).permit(:name, :location, :private, :start_time, :facebook_id)
+    params.require(:playlist).permit(:name, :location, :private, :start_time, :facebook_id, :password)
   end
 
   def add_song_params
