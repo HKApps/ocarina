@@ -13,7 +13,7 @@ node(:downvoted_songs) do |u|
 end
 
 node(:skip_song_voted_songs) do |u|
-  u.fetch_skip_song_votes.select { |v| v.map(&:playlist_song) }
+  u.fetch_skip_song_votes.map(&:playlist_song)
 end
 
 child :current_dropbox_songs => :dropbox_songs do
