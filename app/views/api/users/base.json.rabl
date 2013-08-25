@@ -28,7 +28,7 @@ child :current_soundcloud_songs => :soundcloud_songs do
 end
 
 child :current_saved_songs => :favorites do
-  attributes :id, :playlist_song_id, :name
+  attributes :id, :playlist_song_id, :name, :created_at
 end
 
 child :playlists_as_owner => :playlists do
