@@ -10,7 +10,7 @@
       .nav.navbar-nav{ ng_hide: "isMobilized || showSearch" }
         %li
           %a.glyphicon.glyphicon-search{ href: "", ng_click: "toggleSearch()", on_click_focus: ".nav-search" }
-      %form.navbar-form{ ng_submit: "joinPlaylist(selectedPlaylist)" }
+      %form.navbar-form{ ng_submit: "goToPlaylist(selectedPlaylist)" }
         %input.nav-search.form-control.col-lg-8.navbar-left{ on_focus: "updatePlaylists()",
           on_blur: "toggleSearch()",
           ng_show: "showSearch || isMobilized",
