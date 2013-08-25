@@ -29,7 +29,7 @@ class Api::PlaylistsController < ApiController
         push_guest(current_user, params[:id])
         render "api/playlists/join", status: 201
       else
-        render "api/playlists/join", status: 401
+        render "api/playlists/join", json: {error: "wrong password", status: 401 }
       end
     else
       render json: {error: "record not found"}, status: 403

@@ -12,6 +12,10 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         if res.status == 201
           $scope.currentUser.playlists_as_guest.push(res.data)
           $scope.playlist.guests.push($scope.currentUser)
+        else
+          $scope.alert =
+            type: "danger"
+            msg: "Oh snap... wrong password! Try again."
 
     $scope.isMember = (id) ->
       return unless $scope.playlist

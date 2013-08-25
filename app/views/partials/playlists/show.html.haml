@@ -1,6 +1,7 @@
 .playlist-container{ ng_show: "playlist",  ng_controller: 'PlaylistCtrl' }
-  -# TODO change to currentUser
-  .password-protected{ ocarina_if: "playlist.private && !isMember(user.id)" }
+  .password-protected{ ocarina_if: "playlist.private && !isMember(currentUser.id)" }
+    %alert{ type: "alert.type" }
+      {{alert.msg}}
     It looks like this playlist is private, please enter a password to continue
     .input-group
       %span.input-group-addon
@@ -10,8 +11,7 @@
         %button.btn.btn-default{ ng_click: "joinPlaylist(playlist.id, password)" }
           unlock
 
-  -# TODO change to currentUser
-  .members-only{ ocarina_if: "isMember(user.id)" }
+  .members-only{ ocarina_if: "isMember(currentUser.id)" }
     .members
       =render 'playlists/members'
 
