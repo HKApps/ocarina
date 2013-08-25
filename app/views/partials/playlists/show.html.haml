@@ -6,7 +6,10 @@
     .input-group
       %span.input-group-addon
         %i.glyphicon.glyphicon-lock
-      %input.form-control{ type: "text", ng_model: "password", placeholder: "password" }
+      %input.form-control{ type: "text",
+        ng_model: "password",
+        placeholder: "password",
+        on_return: "joinPlaylist(playlist.id, password)" }
       %span.input-group-btn
         %button.btn.btn-default{ ng_click: "joinPlaylist(playlist.id, password)" }
           unlock
