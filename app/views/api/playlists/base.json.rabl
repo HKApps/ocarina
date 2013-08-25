@@ -1,4 +1,4 @@
-attributes :id, :name, :owner_id, :updated_at, :created_at
+attributes :id, :name, :owner_id, :private, :created_at
 
 child :host => "host" do
   attributes :id, :first_name, :last_name, :image
