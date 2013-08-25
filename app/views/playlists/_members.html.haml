@@ -1,5 +1,7 @@
 %ul.member-container
   %li.host
-    %img.avatar{ ng_src: "{{playlist.host.image}}" }
+    %a{ ng_href: "/{{playlist.host.id}}" }
+      %img.avatar{ ng_src: "{{playlist.host.image}}" }
   %li.guests{ ng_repeat: "guest in playlist.guests" }
-    %img.avatar{ ng_src: "{{guest.image}}" }
+    %a{ ng_href: "/{{guest.id}}" }
+      %img.avatar{ ng_src: "{{guest.image}}" }
