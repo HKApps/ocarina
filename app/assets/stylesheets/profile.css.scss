@@ -1,38 +1,21 @@
-.user-parties, .guest-parties {
-  display: inline-block;
-  width: 100%;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #aaa;
-
-  h3.playlist-title {
-    display: inline;
-    width: 100%;
-  }
-
-  .create-playlist-btn {
-    padding: 0px;
-    margin-top: -13px;
-    margin-left: 7px;
-
-    .glyphicon {
-      padding: 2px;
-      color: #000000;
-    }
+.user-info {
+  .avatar {
+    height: 80px;
+    width: 80px;
+    margin: 5px;
   }
 }
-
-ul#playlists {
-  list-style: none;
-  padding-left: 10px;
-  padding-right: 10px;
-
-  li {
-    padding: 8px 35px 10px 15px;
-    border-radius: 5px;
+.user-activity {
+  .playlists-created, .playlists-joined {
+    .activity-list {
+      .name, .location {
+        display: inline-block;
+      }
+    }
   }
-
-  li:hover {
-    background: #eee;
+  .favorites {
+    .glyphicon-heart {
+      color: #C23131;
+    }
   }
 }

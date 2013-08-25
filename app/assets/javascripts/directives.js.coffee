@@ -78,3 +78,11 @@ ocarinaDirectives.directive 'seekProgressBar', ->
         scope.updatebar e.pageX
     $elm.on 'mousemove', (e) ->
       scope.updatebar e.pageX if scope.timeDrag
+
+ocarinaDirectives.directive 'timeAgo', ['$rootScope', '$timeout',
+  ($rootScope, $timeout) ->
+    (scope, $elm, attr) ->
+      $timeout ->
+        $elm.timeago()
+      , 0
+]

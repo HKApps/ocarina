@@ -1,6 +1,6 @@
 %h3.favorites-title Favorites
-.no-favorites{ ocarina_if: "!user.saved_songs.length" }
+.no-favorites{ ocarina_if: "!currentUser.saved_songs.length" }
   It looks like you haven't saved anything yet
-.favorites-container{ ocarina_if: "user.saved_songs.length" }
-  .favorites.song-list{ ng_repeat: "song in user.saved_songs" }
+.favorites-container{ ocarina_if: "currentUser.saved_songs.length" }
+  .favorites.song-list{ ng_repeat: "song in currentUser.saved_songs" }
     .name {{song.name}}

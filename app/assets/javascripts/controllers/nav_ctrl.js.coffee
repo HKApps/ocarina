@@ -34,10 +34,10 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
 
     $scope.joinPlaylist = (playlist) ->
       return unless playlist.id
-      unless playlist.owner_id == $scope.user.id or _.findWhere($scope.user.playlists_as_guest, { id: playlist.id })
+      unless playlist.owner_id == $scope.currentUser.id or _.findWhere($scope.currentUser.playlists_as_guest, { id: playlist.id })
         $http.post("/api/playlists/#{playlist.id}/join").then (res) =>
           if res.status == 201
-            $scope.user.playlists_as_guest.push(res.data)
+            $scope.currentUser.playlists_as_guest.push(res.data)
       $scope.collapseNav()
       $location.path("/playlists/#{playlist.id}")
       $scope.selectedPlaylist = undefined

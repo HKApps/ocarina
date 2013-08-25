@@ -24,11 +24,11 @@
               %span.name.wordwrap {{song.title}}
               %i.glyphicon.glyphicon-ok
 
-          .add-dropbox{ ng_show: "provider == 'Dropbox' && user.dropbox_songs" }
+          .add-dropbox{ ng_show: "provider == 'Dropbox' && currentUser.dropbox_songs" }
             .song-filter
               %input{ ng_model: "dbFilter",
                 :placeholder => "search your songs" }
-            .songs-to-add.song-list{ ng_repeat: "song in user.dropbox_songs | filter: dbFilter",
+            .songs-to-add.song-list{ ng_repeat: "song in currentUser.dropbox_songs | filter: dbFilter",
                 ng_click: "toggleSongSelected('dropbox', song.id)",
                 ng_class: '{"song-in-playlist": songInPlaylist(song.id), "selected": isSongSelected("dropbox", song.id)}' }
               %span.name.wordwrap {{song.name}}

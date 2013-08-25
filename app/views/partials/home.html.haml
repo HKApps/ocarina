@@ -1,0 +1,32 @@
+.profile-container.ng-cloak{ ng_controller: 'HomeCtrl' }
+  .dropbox-auth
+    =render 'dropbox/authenticate'
+
+  .playlists
+    .row
+      -# List of user's playlists
+      .col-12.col-lg-6.my-playlists
+        .user-parties
+          %h3.playlist-title My Playlists
+
+          -# Create playlist
+          %a.btn.create-playlist-btn{ ng_href: "/playlists/new" }
+            .glyphicon.glyphicon-plus
+
+        %ul#playlists
+          %li.parties-list{ ng_repeat: 'playlist in currentUser.playlists | orderBy:"created_at":true' }
+            %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
+              {{playlist.name}}
+
+      -# List of participating playlists
+      .col-12.col-lg-6.shared-playlists
+        .guest-parties
+          %h3.playlist-title Shared Playlists
+        .alert.alert-warning{ ng_hide: "currentUser.hasPlaylistsAsGuest()" }
+          You haven't joined any playlists!
+          %a.alert-link{ ng_click: "showSearch()", on_click_focus: ".nav-search" } Search to find a playlist to join!
+
+        %ul#playlists
+          %li.parties-list{ ng_repeat: 'playlist in currentUser.playlists_as_guest | orderBy:"created_at":true' }
+            %a.playlist{ ng_href: "/playlists/{{playlist.id}}" }
+              {{playlist.name}}
