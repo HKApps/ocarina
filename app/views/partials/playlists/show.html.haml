@@ -6,12 +6,13 @@
     %h2 {{playlist.name}}
     %h4
       by
-      %img.avatar{ ng_src: "{{playlist.host.image}}" }
+      %a{ng_href: "/{{playlist.host.id}}" }
+        %img.avatar{ ng_src: "{{playlist.host.image}}" }
 
-  .player{ ocarina_if: "playlist.owner_id == user.id" }
+  .player{ ocarina_if: "playlist.owner_id == currentUser.id" }
     =render 'playlists/player'
 
-  .guest-feedback{ ocarina_if: "playlist.owner_id != user.id" }
+  .guest-feedback{ ocarina_if: "playlist.owner_id != currentUser.id" }
     =render 'playlists/guest_feedback'
 
   .add-songs

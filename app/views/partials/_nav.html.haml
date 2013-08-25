@@ -29,8 +29,8 @@
                 %a{ href: "", ng_click: "openDbSongsModal()"} My Songs
               %li
                 %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
-              %li
-                %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+              %li{ ocarina_if: "!currentUser.dropbox_authenticated" }
+                %a{ href: "", dropbox_auth: "" } Connect Dropbox
               %li.divider
               %li
                 %a{ href:  "", ng_click: "logout()" } Logout
@@ -38,8 +38,8 @@
             %a{ href: "", ng_click: "openDbSongsModal()" } My Songs
           %li{ ocarina_if: "isMobilized" }
             %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
-          %li{ ocarina_if: "isMobilized" }
-            %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+          %li{ ocarina_if: "isMobilized && !currentUser.dropbox_authenticated" }
+            %a{ href: "", dropbox_auth: "" } Connect Dropbox
           %li.divider
           %li{ ocarina_if: "isMobilized" }
             %a{ href:  "", ng_click: "logout()" } Logout

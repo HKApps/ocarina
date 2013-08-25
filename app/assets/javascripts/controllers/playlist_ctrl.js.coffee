@@ -4,7 +4,7 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     Playlist.get($scope.playlistId).then (p) =>
       $scope.playlist = p
-      Playlist.getCurrentSong(p.id) unless $scope.playlist.owner_id == $scope.user.id
+      Playlist.getCurrentSong(p.id) unless $scope.playlist.owner_id == $scope.currentUser.id
 
 
     $scope.upvoteSong = (song) ->
@@ -36,14 +36,14 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
     # Realtime updates
     setupPlaylistListener = (playlistChannel) ->
       playlistChannel.bind 'new-playlist-songs', (data) ->
-        return if data.user_id == $scope.user.id
+        return if data.user_id == $scope.currentUser.id
         _.each data.playlist_songs, (song) ->
           song.current_user_vote_decision = 0
           $scope.playlist.playlist_songs.push(song)
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'song-played', (data) ->
-        return if data.user_id == $scope.user.id
+        return if data.user_id == $scope.currentUser.id
         playlist = $scope.playlist.playlist_songs
         song = _.findWhere(playlist, {id: data.song_id})
         $scope.playlist.playlist_songs = _.without(playlist, song)
@@ -51,7 +51,7 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'new-vote', (data) ->
-        return if data.user_id == $scope.user.id
+        return if data.user_id == $scope.currentUser.id
         song = _.findWhere($scope.playlist.playlist_songs, {id: data.song_id})
         if data.action == "upvote"
           song.vote_count++
@@ -60,20 +60,20 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'skip-song', (data) ->
-        return unless $scope.playlist.owner_id == $scope.user.id
+        return unless $scope.playlist.owner_id == $scope.currentUser.id
         $scope.$broadcast('skip-song', data)
 
       playlistChannel.bind 'new-guest', (data) ->
-        return if data.guest.id == $scope.user.id
+        return if data.guest.id == $scope.currentUser.id
         $scope.playlist.guests.push data.guest
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'current-song-request', (data) ->
-        return unless $scope.playlist.owner_id == $scope.user.id
+        return unless $scope.playlist.owner_id == $scope.currentUser.id
         Playlist.respondCurrentSong(data.playlist_id, $scope.playlist.currentSong)
 
       playlistChannel.bind 'current-song-response', (data) ->
-        return if $scope.playlist.owner_id == $scope.user.id
+        return if $scope.playlist.owner_id == $scope.currentUser.id
         $scope.playlist.currentSong = data.song
         $scope.$apply() unless $scope.$$phase
 

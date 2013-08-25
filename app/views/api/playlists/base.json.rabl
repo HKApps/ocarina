@@ -1,11 +1,11 @@
 attributes :id, :name, :owner_id, :updated_at, :created_at
 
 child :host => "host" do
-  attributes :first_name, :last_name, :image
+  attributes :id, :first_name, :last_name, :image
 end
 
 child :guests_as_users => "guests" do
-  attributes :first_name, :last_name, :image
+  attributes :id, :first_name, :last_name, :image
 end
 
 child :unplayed_songs => "playlist_songs" do

@@ -7,13 +7,15 @@
       $locationProvider.html5Mode(true)
 
       $routeProvider
+        .when '/',
+          templateUrl: '/partials/home.html'
         .when '/playlists/new',
           templateUrl: '/partials/playlists/new.html'
         .when '/playlists/:playlistId',
           templateUrl: '/partials/playlists/show.html'
         .when '/favorites',
           templateUrl: '/partials/favorites.html'
-        .when '/',
+        .when '/:userId',
           templateUrl: '/partials/profile.html'
         .otherwise
           redirectTo: '/'

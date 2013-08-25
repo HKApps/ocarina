@@ -9,11 +9,11 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$locati
       playlist.password = $scope.newPlaylist.password if playlist.private
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
-        $scope.user.playlists.push(res.data)
+        $scope.currentUser.playlists.push(res.data)
       resetPlaylistForm()
 
     $scope.getFbEvents = ->
-      $http.get("https://graph.facebook.com/me/events?fields=name,location,venue,privacy&type=attending&access_token=#{$scope.user.facebook_token}").then (res) =>
+      $http.get("https://graph.facebook.com/me/events?fields=name,location,venue,privacy&type=attending&access_token=#{$scope.currentUser.facebook_token}").then (res) =>
         $scope.fbEvents = res.data.data
 
     $scope.hideFbEvents = ->
@@ -33,7 +33,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$locati
       playlist.private = if fbEvent.privacy == "OPEN" then false else true
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
-        $scope.user.playlists.push(res.data)
+        $scope.currentUser.playlists.push(res.data)
       resetPlaylistForm()
 
     resetPlaylistForm = ->
