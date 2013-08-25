@@ -12,10 +12,10 @@ end
 child :votes => :votes do
   attributes :decision, :created_at
   node(:song_name) do |v|
-    v.playlist_song.song_name
+    v.fetch_playlist_song.song_name
   end
   node(:playlist) do |v|
-    v.playlist_song.playlist
+    v.fetch_playlist_song.playlist
   end
 end
 
