@@ -1,43 +1,52 @@
 .user-profile-container{ ng_controller: "ProfileCtrl" }
-  .user-info
+  .user-info.col-md-3
     %img.avatar{ ng_src: "{{user.image}}" }
     %h4.name {{user.first_name + " " + user.last_name}}
-  .user-activity
-    .favorites
+
+  .user-activity.col-md-8
+    .favorites{ ng_show: "user.favorites" }
       %h4 favorites
-      .activity-list{ ng_repeat: "favorite in user.favorites | orderBy:'created_at':true" }
+      .activity-list{ ng_repeat: "favorite in user.favorites | orderBy:'created_at':true | limitTo:10" }
         %i.glyphicon.glyphicon-heart
         {{favorite.name}}
-    .votes
+        %time.timeago{ time_ago: "", datetime: "{{favorite.created_at}}" }
+
+    .votes{ ng_show: "user.votes" }
       %h4 votes
-      .activity-list{ ng_repeat: "vote in user.votes | orderBy:'created_at':true" }
+      .activity-list{ ng_repeat: "vote in user.votes | orderBy:'created_at':true | limitTo:10" }
         %i.glyphicon.glyphicon-arrow-up{ ocarina_if: "vote.decision == 1" }
         %i.glyphicon.glyphicon-arrow-down{ ocarina_if: "vote.decision == -1" }
         {{vote.song_name}} in
         %a{ ng_href: "/playlists/{{vote.playlist.id}}" }
           {{vote.playlist.name}}
-    .songs-added
+        %time.timeago{ time_ago: "", datetime: "{{vote.created_at}}" }
+
+    .songs-added{ ng_show: "user.playlist_songs_added" }
       %h4 songs added
-      .activity-list{ ng_repeat: "song in user.playlist_songs_added | orderBy:'created_at':true" }
+      .activity-list{ ng_repeat: "song in user.playlist_songs_added | orderBy:'created_at':true | limitTo:10" }
         %img{ ocarina_if: "song.provider == 'soundcloud'",
           ng_src: "//soundcloud.com/favicon.ico" }
         %img{ ocarina_if: "song.provider == 'dropbox'",
           ng_src: "https://dt8kf6553cww8.cloudfront.net/static/images/favicon-vflonlsct.ico" }
         {{song.song_name}}
-    .playlists-created
-      %h4 playlists created
-      .activity-list{ ng_repeat: "playlist in user.playlists | orderBy:'created_at':true" }
-        %a{ ng_href: "/playlists/{{playlist.id}}" }
-          .name {{playlist.name}}
-          .location{ ocarina_if: "playlist.location" }
-            at
-            {{playlist.location}}
+        %time.timeago{ time_ago: "", datetime: "{{song.created_at}}" }
 
-    .playlists-joined
+    .playlists-created{ ng_show: "user.playlists" }
+      %h4 playlists created
+      .activity-list{ ng_repeat: "playlist in user.playlists | orderBy:'created_at':true | limitTo:10" }
+        %a.name{ ng_href: "/playlists/{{playlist.id}}" }
+          {{playlist.name}}
+        .location{ ocarina_if: "playlist.location" }
+          at
+          {{playlist.location}}
+        %time.timeago{ time_ago: "", datetime: "{{playlist.created_at}}" }
+
+    .playlists-joined{ ng_show: "user.playlists_as_guest" }
       %h4 playlists joined
-      .activity-list{ ng_repeat: "playlist in user.playlists_as_guest | orderBy:'created_at':true" }
-        %a{ ng_href: "/playlists/{{playlist.id}}" }
-          .name {{playlist.name}}
-          .location{ ocarina_if: "playlist.location" }
-            at
-            {{playlist.location}}
+      .activity-list{ ng_repeat: "playlist in user.playlists_as_guest | orderBy:'created_at':true | limitTo:10" }
+        %a.name{ ng_href: "/playlists/{{playlist.id}}" }
+          {{playlist.name}}
+        .location{ ocarina_if: "playlist.location" }
+          at
+          {{playlist.location}}
+        %time.timeago{ time_ago: "", datetime: "{{playlist.created_at}}" }

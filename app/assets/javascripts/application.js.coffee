@@ -12,4 +12,5 @@
 #= require services
 #= require directives
 #= require filters
+#= require timeago
 #= require_self
