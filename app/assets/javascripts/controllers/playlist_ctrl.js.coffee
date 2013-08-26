@@ -34,9 +34,8 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
       song.vote_count--
       song.current_user_vote_decision--
 
-    $scope.skipSongVote = (song) ->
-      Playlist.skipSongVote($scope.playlistId, song.id)
-
+    ##
+    # add songs modal
     $scope.openAddSongsModal = ->
       $scope.shouldBeOpen = true
 
