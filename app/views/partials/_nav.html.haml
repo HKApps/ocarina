@@ -6,54 +6,35 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{ ng_href: "/", ng_click: "collapseNav()" } PlayedBy.me
+
     .collapse.navbar-collapse
-      .nav.navbar-nav{ ng_hide: "isMobilized || showSearch" }
-        %li
-          %a.glyphicon.glyphicon-search{ href: "", ng_click: "toggleSearch()", on_click_focus: ".nav-search" }
+      .nav.navbar-nav.navbar-right
+        -# TODO directive to handle nav template
+        %li.dropdown{ ocarina_if: "!isMobilized" }
+          %a.dropdown-toggle{ href: "" }
+            = "#{current_user.first_name} #{current_user.last_name}"
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              %a{ href: "/search", ng_click: "collapseNav()" } Search
+            %li
+              %a{ href: "", ng_click: "openDbSongsModal()"} My Songs
+            %li
+              %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
+            %li
+              %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+            %li.divider
+            %li
+              %a{ href:  "", ng_click: "logout()" } Logout
 
-      .search-bar{ ng_controller: 'SearchCtrl' }
-        %typeahead{ items:'searchResults', term: 'term', search: 'search(term)', select: 'select(item)', show: 'showSearch || isMobilized' }
-          .menu{ ng_cloak: '' }
-            %h3{ ng_show: 'hasPlaylists()' } Playlists
-            %ul
-              %li.results{ typeahead_item: 'playlist', ng_repeat: 'playlist in playlists'}
-                {{playlist.name}}
-
-            %h3{ ng_show: 'hasUsers()' } Users
-            %ul
-              %li.results{ typeahead_item: 'user', ng_repeat: 'user in users'}
-                {{user.name}}
-
-        .nav.navbar-nav.navbar-right
-          -# TODO directive to handle nav template
-          %li.dropdown{ ocarina_if: "!isMobilized" }
-            %a.dropdown-toggle{ href: "" }
-              = "#{current_user.first_name} #{current_user.last_name}"
-              %b.caret
-            %ul.dropdown-menu
-              %li
-                %a{ href: "", ng_click: "openDbSongsModal()"} My Songs
-              %li
-                %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
-              %li{ ocarina_if: "!currentUser.dropbox_authenticated" }
-                %a{ href: "", dropbox_auth: "" } Connect Dropbox
-              %li.divider
-              %li
-                %a{ href:  "", ng_click: "logout()" } Logout
-          %li{ ocarina_if: "isMobilized" }
-            %a{ href: "", ng_click: "openDbSongsModal()" } My Songs
-          %li{ ocarina_if: "isMobilized" }
-            %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
-          %li{ ocarina_if: "isMobilized && !currentUser.dropbox_authenticated" }
-            %a{ href: "", dropbox_auth: "" } Connect Dropbox
-          %li.divider
-          %li{ ocarina_if: "isMobilized" }
-            %a{ href:  "", ng_click: "logout()" } Logout
-      -#%form.navbar-form{ ng_submit: "joinPlaylist(selectedPlaylist)" }
-        -#%input.nav-search.form-control.col-lg-8.navbar-left{ on_focus: "updatePlaylists()",
-          -#on_blur: "toggleSearch()",
-          -#ng_show: "showSearch || isMobilized",
-          -#placeholder: "search",
-          -#type: "text",
-          -#ng_model: "selectedPlaylist",
-          -#typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href: "/search", ng_click: "collapseNav()" } Search
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href: "", ng_click: "openDbSongsModal()" } My Songs
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href: "", dropbox_auth: "", ng_hide: "user.dropbox_authenticated" } Connect Dropbox
+        %li.divider
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href:  "", ng_click: "logout()" } Logout
