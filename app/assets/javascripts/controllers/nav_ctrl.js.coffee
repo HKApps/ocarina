@@ -1,5 +1,5 @@
-ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
-  ($rootScope, $scope, $http, $location) ->
+ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$location', 'Playlist',
+  ($rootScope, $scope, $location, Playlist) ->
 
     $scope.$on('$routeChangeStart', (next, current) ->
       window.scrollTo(0, 1)) if $rootScope.isMobilized
@@ -29,15 +29,11 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$http', '$location',
     $scope.selectedPlaylist = undefined
 
     $scope.updatePlaylists = ->
-      $http.get("/api/playlists.json").then (res) =>
+      Playlist.getIndex().then (res) =>
         $scope.playlists = res.data
 
-    $scope.joinPlaylist = (playlist) ->
+    $scope.goToPlaylist = (playlist) ->
       return unless playlist.id
-      unless playlist.owner_id == $scope.currentUser.id or _.findWhere($scope.currentUser.playlists_as_guest, { id: playlist.id })
-        $http.post("/api/playlists/#{playlist.id}/join").then (res) =>
-          if res.status == 201
-            $scope.currentUser.playlists_as_guest.push(res.data)
       $scope.collapseNav()
       $location.path("/playlists/#{playlist.id}")
       $scope.selectedPlaylist = undefined

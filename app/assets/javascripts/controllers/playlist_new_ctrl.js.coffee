@@ -30,7 +30,9 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$locati
       playlist.start_time = fbEvent.start_time
       playlist.venue = fbEvent.venue
       playlist.facebook_id = fbEvent.id
-      playlist.private = if fbEvent.privacy == "OPEN" then false else true
+      # TODO change this once we have a way of setting passwords for fb events
+      playlist.private = false
+      # playlist.private = if fbEvent.privacy == "OPEN" then false else true
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
