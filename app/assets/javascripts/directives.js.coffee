@@ -92,16 +92,16 @@ ocarinaDirectives.directive "typeahead", ["$timeout", ($timeout) ->
   transclude: true
   replace: true
   template: """
-    <div>
-      <form class='navbar-form'>
-        <input class='nav-search form-control col-lg-8 navbar-left' ng-model='term' ng-change='query()' type='text' autocomplete='off' on-focus='updatePlaylists()' on-blur='toggleSearch' ng-show='show' placeholder='search'/>
+    <div class='col-md-6 col-md-offset-3'>
+      <form class='form'>
+        <input class='form-control input-lg col-lg-8' ng-model='term'
+        ng-change='query()' type='text' autocomplete='off' placeholder='Search'/>
       </form>
-      <div ng-transclude>
+      <div ng-transclude class='typeahead-menu'>
       </div>
     </div>
     """
   scope:
-    show: '='
     search: "&"
     select: "&"
     items: "="

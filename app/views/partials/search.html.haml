@@ -1,0 +1,17 @@
+.search.text-center{ ng_controller: 'SearchCtrl' }
+  %typeahead{ items:  'searchResults',
+              term:   'term',
+              search: 'search(term)',
+              select: 'select(item)' }
+    .menu{ ng_cloak: '' }
+      .glyphicon.glyphicon-music{ ng_show: 'hasPlaylists()' }
+      %ul
+        %li.results{ typeahead_item: 'playlist', ng_repeat: 'playlist in playlists'}
+          %p.name {{playlist.name}}
+
+      .glyphicon.glyphicon-user{ ng_show: 'hasUsers()' }
+      %ul
+        %li.results{ typeahead_item: 'user', ng_repeat: 'user in users'}
+          %img.avatar{ ng_src: "{{user.image}}" }
+            %p.name {{user.first_name}} {{user.last_name}}
+

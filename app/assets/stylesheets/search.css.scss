@@ -1,0 +1,71 @@
+.typeahead-menu {
+  width: 95%;
+  height:100%;
+  @media screen and (max-width: 767px) {
+    width: 92%;
+  }
+}
+
+.search .menu {
+  -webkit-box-shadow: #666 2px 2px 10px;
+  -moz-box-shadow: #666 2px 2px 10px;
+  box-shadow: #666 2px 2px 10px;
+  background-color: rgb(45, 45, 45);
+  width: 100%;
+}
+
+.search .glyphicon {
+  width: 70px;
+  margin-top: 13px;
+  font-size: 16px;
+  font-weight: 300;
+  color: #fff;
+  float: left;
+}
+
+.search ul {
+  background-color: #FFF;
+  margin: 0;
+  margin-left: 70px;
+  padding: 0;
+  list-style: none;
+}
+
+.search .results {
+  width: 100%;
+  margin: auto;
+  text-align: left;
+  min-height: 64px;
+  padding: 5px;
+}
+
+.search .results.active {
+  background-color: rgb(46, 79, 156);
+}
+
+.search .results.active .name {
+  color: #FFF;
+}
+
+.search .results.active {
+  background-color: rgb(46, 79, 156);
+}
+
+.search .results .name {
+  font-size: 14px;
+  line-height: 30px;
+}
+
+.search .results p {
+  margin-top: 7px;
+  margin-bottom: 5px;
+  margin-left: 54px;
+}
+
+.search .results img {
+  margin-top: 7px;
+  margin-left: 5px;
+  width: 32px;
+  height: 32px;
+  float: left;
+}
