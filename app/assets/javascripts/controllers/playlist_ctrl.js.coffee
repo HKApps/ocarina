@@ -22,6 +22,9 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
       return true if id == $scope.playlist.owner_id
       _.findWhere $scope.playlist.guests, { id: id }
 
+    $scope.showVoters = (index) =>
+      $('.voters-container').eq(index).children().toggle()
+
     $scope.upvoteSong = (song) ->
       return if song.current_user_vote_decision == 1
       Playlist.vote($scope.playlistId, song.id, "upvote")
@@ -34,21 +37,23 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
       song.vote_count--
       song.current_user_vote_decision--
 
-    $scope.skipSongVote = (song) ->
-      Playlist.skipSongVote($scope.playlistId, song.id)
-
+    ##
+    # add songs modal
     $scope.openAddSongsModal = ->
       $scope.shouldBeOpen = true
-
     $scope.closeAddSongsModal = ->
       $scope.shouldBeOpen = false
-
     $scope.modalOpts = { backdropFade:true, dialogFade:true }
 
-    $scope.showVoters = (index) =>
-      $('.voters-container').eq(index).children().toggle()
+    ##
+    # loading spinner
+    $scope.$on 'addingSongs', ->
+      $scope.inProgress = true
+    $scope.$on 'addedSongs', ->
+      $scope.inProgress = false
 
-    # Realtime updates
+    ##
+    # realtime updates
     setupPlaylistListener = (playlistChannel) ->
       playlistChannel.bind 'new-playlist-songs', (data) ->
         return if data.user_id == $scope.currentUser.id
@@ -92,7 +97,8 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         $scope.playlist.currentSong = data.song
         $scope.$apply() unless $scope.$$phase
 
-    # Subscribe to pusher channels
+    ##
+    # subscribe to pusher channels
     playlistChannel = Pusher.subscribe("playlist-#{$scope.playlistId}")
     setupPlaylistListener(playlistChannel)
 ]

@@ -34,6 +34,9 @@
     .add-songs
       =render '/partials/playlists/add_songs'
 
+    .lookup-progress{ ng_show: 'inProgress' }
+      .spinner
+
     .playlist-songs{ ng_show: "playlist.playlist_songs.length" }
       .pull-right.btn.btn-sm.add-song-btn{ ng_click: "openAddSongsModal()" }
         %i.glyphicon.glyphicon-plus
