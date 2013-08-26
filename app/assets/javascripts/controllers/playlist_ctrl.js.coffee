@@ -83,6 +83,11 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
         $scope.playlist.guests.push data.guest
         $scope.$apply() unless $scope.$$phase
 
+      playlistChannel.bind 'playback-ended', (data) ->
+        return if $scope.playlist.owner_id == $scope.currentUser.id
+        $scope.playlist.currentSong = undefined
+        $scope.$apply() unless $scope.$$phase
+
       playlistChannel.bind 'current-song-request', (data) ->
         return unless $scope.playlist.owner_id == $scope.currentUser.id
         Playlist.respondCurrentSong(data.playlist_id, $scope.playlist.currentSong)
