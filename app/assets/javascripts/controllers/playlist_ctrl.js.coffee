@@ -4,8 +4,23 @@ ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location',
 
     Playlist.get($scope.playlistId).then (p) =>
       $scope.playlist = p
-      Playlist.getCurrentSong(p.id) unless $scope.playlist.owner_id == $scope.currentUser.id
+      $scope.joinPlaylist(p.id) unless p.private || $scope.isMember($scope.currentUser.id)
+      Playlist.getCurrentSong(p.id) unless p.owner_id == $scope.currentUser.id
 
+    $scope.joinPlaylist = (id, password) ->
+      Playlist.join(id, password).then (res) =>
+        if res.status == 201
+          $scope.currentUser.playlists_as_guest.push(res.data)
+          $scope.playlist.guests.push($scope.currentUser)
+        else
+          $scope.alert =
+            type: "danger"
+            msg: "Oh snap... wrong password! Try again."
+
+    $scope.isMember = (id) ->
+      return unless $scope.playlist
+      return true if id == $scope.playlist.owner_id
+      _.findWhere $scope.playlist.guests, { id: id }
 
     $scope.upvoteSong = (song) ->
       return if song.current_user_vote_decision == 1

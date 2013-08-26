@@ -22,10 +22,15 @@ class Api::PlaylistsController < ApiController
   end
 
   def join
+    @playlist = Playlist.where(id: params[:id]).first
     if @playlist
-      JoinPlaylistWorker.new.async.perform(params[:id], current_user.id)
-      push_guest(current_user, params[:id])
-      render "api/playlists/join", status: 201
+      if @playlist.password == params[:password]
+        JoinPlaylistWorker.new.async.perform(@playlist.id, current_user.id)
+        push_guest(current_user, params[:id])
+        render "api/playlists/join", status: 201
+      else
+        render "api/playlists/join", json: {error: "wrong password", status: 401 }
+      end
     else
       render json: {error: "record not found"}, status: 403
     end

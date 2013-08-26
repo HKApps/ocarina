@@ -20,12 +20,18 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   Playlist = (data) ->
     angular.extend(this, data)
 
+  Playlist.getIndex = (id) ->
+    $http.get("#{url}.json")
+
   Playlist.get = (id) ->
     $http.get("#{url}/#{id}.json").then (res) =>
       new Playlist(res.data)
 
   Playlist.prototype.create = ->
     $http.post("#{url}.json", { playlist: this } )
+
+  Playlist.join = (id, password) ->
+    $http.post("#{url}/#{id}/join", { password: password} )
 
   Playlist.addSongs = (id, songs) ->
     $http.post "#{url}/#{id}/add_songs.json",
