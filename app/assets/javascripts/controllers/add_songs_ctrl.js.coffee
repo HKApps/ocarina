@@ -27,7 +27,9 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
 
     $scope.addSelectedSongs = ->
       $scope.closeAddSongsModal()
+      $scope.$emit("addingSongs")
       Playlist.addSongs($scope.playlistId, $scope.selectedSongs).then (res) =>
+        $scope.$emit("addedSongs")
         _.each res.data, (song) ->
           song.current_user_vote_decision = 0
           $scope.playlist.playlist_songs.push(song)
