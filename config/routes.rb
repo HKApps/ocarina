@@ -15,6 +15,7 @@ Ocarina::Application.routes.draw do
       member do
         post 'add_songs', to: "playlist_songs#create"
         post 'join', to: "playlists#join"
+        post 'playback_ended', to: 'playlists#playback_ended'
         get 'current_song_request', to: "playlists#current_song_request"
         post 'current_song_response', to: "playlists#current_song_response"
       end
