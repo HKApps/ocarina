@@ -1,5 +1,5 @@
-ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$location', 'Playlist',
-  ($rootScope, $scope, $http, $location, Playlist) ->
+ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$location', 'Playlist',
+  ($rootScope, $scope, Facebook, $location, Playlist) ->
 
     $scope.createPlaylist = () ->
       playlist = new Playlist()
@@ -13,7 +13,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$locati
       resetPlaylistForm()
 
     $scope.getFbEvents = ->
-      $http.get("https://graph.facebook.com/me/events?fields=name,location,venue,privacy&type=attending&access_token=#{$scope.currentUser.facebook_token}").then (res) =>
+      Facebook.getEvents($scope.currentUser.facebook_token).then (res) =>
         $scope.fbEvents = res.data.data
 
     $scope.hideFbEvents = ->
@@ -36,6 +36,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$locati
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
+        Facebook.postOnEvent($scope.currentUser.facebook_token, fbEvent.id, "test")
       resetPlaylistForm()
 
     resetPlaylistForm = ->
