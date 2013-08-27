@@ -36,6 +36,13 @@ class Api::PlaylistsController < ApiController
     end
   end
 
+  def playback_ended
+    Pusher.trigger("playlist-#{params[:id]}", "playback-ended", { playlist_id: params[:id] } )
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
   def current_song_request
     Pusher.trigger("playlist-#{params[:id]}", "current-song-request", { playlist_id: params[:id] } )
     respond_to do |format|

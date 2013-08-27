@@ -12,7 +12,6 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       if $scope.isPlayingPlaylist()
         $scope.playerAction("play")
       else
-        # TODO maybe get song from playlist_songs?
         initializePlayer()
 
     $scope.$on "audioError", ->
@@ -42,6 +41,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       # if play or skip and empty playlist
       else if !playlist.length
         initializePlayer()
+        Playlist.playbackEnded($scope.playlistId)
       # if play or skip and non-empty playlist
       else
         getNextSong(playlist)
@@ -56,6 +56,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       Player.play(song)
       $scope.player.state = 'playing'
       Playlist.songPlayed($scope.playlistId, song.id)
+      $scope.playlist.played_playlist_songs.push(song)
       $scope.playlist.playlist_songs = _.without(playlist, song)
 
     initializePlayer = ->
