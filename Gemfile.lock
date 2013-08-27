@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/anjlab/bootstrap-rails.git
+  revision: 289c7aeda53396d7b831a16ae5711a401bfbb480
+  specs:
+    anjlab-bootstrap-rails (3.0.0.2)
+      railties (>= 3.0)
+      sass (>= 3.2)
+
+GIT
   remote: git://github.com/jodosha/redis-store.git
   revision: 309425a66cb2435478583a17a3073a9c94f32142
   specs:
@@ -261,6 +269,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  anjlab-bootstrap-rails!
   coffee-rails (~> 4.0.0)
   dropbox-api
   figaro
