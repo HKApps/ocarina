@@ -2,21 +2,27 @@
   color: #EEE;
 }
 
-.navbar-inverse .navbar-nav > .dropdown > a .caret{
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
   border-top-color: #eee;
   border-bottom-color: #eee;
 }
 
-.navbar-inverse .dropdown ul li a{
+.navbar-inverse .dropdown ul li a {
   color: #000;
 }
 
-.nav-search{
-  margin-top: 6px;
+form.navbar-form {
   width: 35%;
-  height: 36px;
-  background-color: #EEE;
   @media screen and (max-width: 767px) {
+    width: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: none;
+  }
+
+  .nav-search{
+    background-color: #EEE;
     width: 100%;
   }
 }
+
