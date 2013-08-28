@@ -16,7 +16,7 @@ child :unplayed_songs => "playlist_songs" do
   end
 
   node :voters do |ps|
-    ps.votes.map(&:user)
+    ps.fetch_votes.map(&:user)
   end
 end
 

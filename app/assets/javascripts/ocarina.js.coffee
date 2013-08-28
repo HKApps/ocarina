@@ -15,6 +15,8 @@
           templateUrl: '/partials/playlists/show.html'
         .when '/favorites',
           templateUrl: '/partials/favorites.html'
+        .when '/search',
+          templateUrl: '/partials/search.html'
         .when '/:userId',
           templateUrl: '/partials/profile.html'
         .otherwise
