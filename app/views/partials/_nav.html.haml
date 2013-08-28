@@ -1,4 +1,4 @@
-.navbar.navbar-inverse.ng-cloak{ ng_controller: 'NavCtrl' }
+%nav.navbar.navbar-inverse.ng-cloak{ ng_controller: 'NavCtrl', role: "navigation" }
   .container
     .navbar-header
       %button.navbar-toggle{ "data-toggle" => "collapse", :type => "button", "data-target" => ".navbar-collapse" }
@@ -6,40 +6,42 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{ ng_href: "/", ng_click: "collapseNav()" } PlayedBy.me
+
     .collapse.navbar-collapse
-      .nav.navbar-nav{ ng_hide: "isMobilized || showSearch" }
+      %ul.nav.navbar-nav{ ng_hide: "isMobilized || showSearch" }
         %li
           %a.glyphicon.glyphicon-search{ href: "", ng_click: "toggleSearch()", on_click_focus: ".nav-search" }
-      %form.navbar-form{ ng_submit: "goToPlaylist(selectedPlaylist)" }
-        %input.nav-search.form-control.col-lg-8.navbar-left{ on_focus: "updatePlaylists()",
+
+      %form.navbar-form.navbar-left{ ng_submit: "goToPlaylist(selectedPlaylist)", role: "search" }
+        %input.nav-search.form-control{ on_focus: "updatePlaylists()",
           on_blur: "toggleSearch()",
           ng_show: "showSearch || isMobilized",
           placeholder: "search",
           type: "text",
           ng_model: "selectedPlaylist",
           typeahead: "playlist as playlist.name for playlist in playlists | filter:{name: $viewValue}" }
-        .nav.navbar-nav.navbar-right
-          -# TODO directive to handle nav template
-          %li.dropdown{ ocarina_if: "!isMobilized" }
-            %a.dropdown-toggle{ href: "" }
-              = "#{current_user.first_name} #{current_user.last_name}"
-              %b.caret
-            %ul.dropdown-menu
-              %li
-                %a{ href: "", ng_click: "openDbSongsModal()"} My Songs
-              %li
-                %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
-              %li{ ocarina_if: "!currentUser.dropbox_authenticated" }
-                %a{ href: "", dropbox_auth: "" } Connect Dropbox
-              %li.divider
-              %li
-                %a{ href:  "", ng_click: "logout()" } Logout
-          %li{ ocarina_if: "isMobilized" }
-            %a{ href: "", ng_click: "openDbSongsModal()" } My Songs
-          %li{ ocarina_if: "isMobilized" }
-            %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
-          %li{ ocarina_if: "isMobilized && !currentUser.dropbox_authenticated" }
-            %a{ href: "", dropbox_auth: "" } Connect Dropbox
-          %li.divider
-          %li{ ocarina_if: "isMobilized" }
-            %a{ href:  "", ng_click: "logout()" } Logout
+
+      %ul.nav.navbar-nav.navbar-right
+        -# TODO directive to handle nav template
+        %li.dropdown{ ocarina_if: "!isMobilized" }
+          %a.dropdown-toggle{ href: "" }
+            = "#{current_user.first_name} #{current_user.last_name}"
+            %b.caret
+          %ul.dropdown-menu
+            %li
+              %a{ href: "", ng_click: "openDbSongsModal()"} My Songs
+            %li
+              %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
+            %li{ ocarina_if: "!currentUser.dropbox_authenticated" }
+              %a{ href: "", dropbox_auth: "" } Connect Dropbox
+            %li
+              %a{ href:  "", ng_click: "logout()" } Logout
+
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href: "", ng_click: "openDbSongsModal()" } My Songs
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
+        %li{ ocarina_if: "isMobilized && !currentUser.dropbox_authenticated" }
+          %a{ href: "", dropbox_auth: "" } Connect Dropbox
+        %li{ ocarina_if: "isMobilized" }
+          %a{ href:  "", ng_click: "logout()" } Logout

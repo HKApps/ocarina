@@ -17,7 +17,7 @@
             .song-filter
               %input{ ng_model: "scFilter",
                 :placeholder => "search soundcloud",
-                on_debounced_keyup: "searchSc(scFilter)"  }
+                on_debounced_keyup: "searchSc(scFilter)" }
             .songs-to-add.song-list{ ng_repeat: "song in scResults",
                 ng_click: "toggleSongSelected('soundcloud', song)",
                 ng_class: '{"song-in-playlist": songInPlaylist(song), "selected": isSongSelected("soundcloud", song)}' }
