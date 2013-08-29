@@ -36,7 +36,12 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$loc
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
-        Facebook.postOnEvent($scope.currentUser.facebook_token, fbEvent.id, "test")
+        token = $scope.currentUser.facebook_token
+        message = "I just created a playlist for this event on PlayedBy.me. Go to the site now or at the party to add songs you want to hear!"
+        link = "http://localhost:4400/playlists/#{res.data.id}"
+        name = "#{fbEvent.name}'s playlist"
+
+        Facebook.postOnEvent(token, fbEvent.id, message, link, name)
       resetPlaylistForm()
 
     resetPlaylistForm = ->
