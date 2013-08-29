@@ -3,10 +3,10 @@
   %p#sub-header.lead Connect with Dropbox now to create playlists and enjoy music with the people around you.
 
   .row#connect-area
-    .col-lg-3.col-offset-4.dropbox-connect
+    .col-md-3.col-md-offset-3.dropbox-connect
       %button.btn.btn-primary{ dropbox_auth: '' }
         #dropbox-logo= image_tag "dropbox-logos_dropbox-glyph-white.png"
         Connect with Dropbox
-    .col-lg-2.connect-later
+    .col-md-2.connect-later
       %a{ href: "#", ng_click: "deferDropboxConnect()" }
         I'll do it later
