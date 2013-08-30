@@ -129,7 +129,7 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
 
   Facebook.postOnEvent = (token, id, message, link, name) ->
     caption = "www.playedby.me"
-    description = "Share. Vote. Discover"
+    description = "Share. Vote. Discover."
     $http.post "#{url}/#{id}/feed?access_token=#{token}&message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
 
   Facebook
