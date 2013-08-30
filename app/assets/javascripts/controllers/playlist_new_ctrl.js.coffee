@@ -1,5 +1,5 @@
-ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$location', 'Playlist',
-  ($rootScope, $scope, $http, $location, Playlist) ->
+ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$location', 'Playlist',
+  ($rootScope, $scope, Facebook, $location, Playlist) ->
 
     $scope.createPlaylist = () ->
       playlist = new Playlist()
@@ -13,7 +13,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$locati
       resetPlaylistForm()
 
     $scope.getFbEvents = ->
-      $http.get("https://graph.facebook.com/me/events?fields=name,location,venue,privacy&type=attending&access_token=#{$scope.currentUser.facebook_token}").then (res) =>
+      Facebook.getEvents($scope.currentUser.facebook_token).then (res) =>
         $scope.fbEvents = res.data.data
 
     $scope.hideFbEvents = ->
@@ -36,6 +36,12 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$http', '$locati
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
+        token = $scope.currentUser.facebook_token
+        message = "I just created a playlist for this event on PlayedBy.me. Go to the site now or at the party to add songs you want to hear!"
+        link = "http://localhost:4400/playlists/#{res.data.id}"
+        name = "#{fbEvent.name}'s playlist"
+
+        Facebook.postOnEvent(token, fbEvent.id, message, link, name)
       resetPlaylistForm()
 
     resetPlaylistForm = ->

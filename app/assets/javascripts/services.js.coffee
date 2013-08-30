@@ -121,3 +121,19 @@ ocarinaServices.factory 'Player', ['Audio', (Audio) ->
 
   Player
 ]
+
+ocarinaServices.factory 'Facebook', ['$http', ($http) ->
+  url = "https://graph.facebook.com"
+  Facebook = (data) ->
+    angular.extend(this, data)
+
+  Facebook.getEvents = (token) ->
+    $http.get("#{url}/me/events?fields=name,location,venue,privacy&type=attending&access_token=#{token}")
+
+  Facebook.postOnEvent = (token, id, message, link, name) ->
+    caption = "www.playedby.me"
+    description = "Share. Vote. Discover."
+    $http.post "#{url}/#{id}/feed?access_token=#{token}&message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
+
+  Facebook
+]
