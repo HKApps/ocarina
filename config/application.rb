@@ -35,5 +35,17 @@ module Ocarina
     config.cache_store          = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
     config.identity_cache_store = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
 
+    # Mailer options
+    config.action_mailer.delivery_method     = :smtp
+    config.action_mailer.default_url_options = { :host => ENV['HOST'] }
+    config.action_mailer.smtp_settings = {
+      address:              'smtp.gmail.com',
+      port:                 587,
+      domain:               'gmail.com',
+      user_name:            ENV['SMTP_USER_NAME'],
+      password:             ENV['SMTP_PASSWORD'],
+      authentication:       'plain',
+      enable_starttls_auto: true  }
+
   end
 end
