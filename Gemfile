@@ -39,6 +39,8 @@ group :development do
   gem 'pry-rails'
   gem 'pry-nav'
   gem 'guard-livereload'
+  gem 'jasmine'
+  gem 'jasminerice', github: 'bradphelan/jasminerice'
 end
 
 group :doc do
