@@ -1,4 +1,4 @@
-.playlist-container{ ng_show: "playlist",  ng_controller: 'PlaylistCtrl' }
+.playlist-container{ ng_show: "playlist",  ng_controller: 'PlaylistShowCtrl' }
   .password-protected{ ocarina_if: "playlist.private && !isMember(currentUser.id)" }
     %alert{ type: "alert.type" }
       {{alert.msg}}

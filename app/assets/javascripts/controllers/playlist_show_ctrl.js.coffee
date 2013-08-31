@@ -1,4 +1,4 @@
-ocarina.controller 'PlaylistCtrl', ['Playlist', '$scope', '$route', '$location', 'Pusher',
+ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', '$location', 'Pusher',
   (Playlist, $scope, $route, $location, Pusher) ->
     $scope.playlistId = $route.current.params.playlistId
 
