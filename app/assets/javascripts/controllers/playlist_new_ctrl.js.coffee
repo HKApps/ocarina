@@ -41,7 +41,8 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$loc
         link = "http://localhost:4400/playlists/#{res.data.id}"
         name = "#{fbEvent.name}'s playlist"
 
-        Facebook.postOnEvent(token, fbEvent.id, message, link, name)
+        # TODO uncomment this when we can prompt user to post
+        # Facebook.postOnEvent(token, fbEvent.id, message, link, name)
       resetPlaylistForm()
 
     resetPlaylistForm = ->
