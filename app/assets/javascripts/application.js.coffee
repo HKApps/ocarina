@@ -1,6 +1,5 @@
 #= require jquery
 #= require twitter/bootstrap
-#= require soundcloud
 #= require angular
 #= require angular-resource
 #= require angular-sanitize
