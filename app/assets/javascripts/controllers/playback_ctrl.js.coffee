@@ -75,10 +75,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     # progress bar
     audio = $scope.player.audio
 
-    $scope.$on "audioDurationchange", ->
+    $scope.$on "audioTimeupdate", ->
       # set the duration
       $('.duration').text(" / " + timeFormat(audio.duration))
-    $scope.$on "audioTimeupdate", ->
       # set the current time
       $('.current-time').text(timeFormat(audio.currentTime))
       # update progress
