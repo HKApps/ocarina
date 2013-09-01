@@ -53,6 +53,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
 
     playNextSong = (playlist, song) ->
       $scope.playlist.currentSong = song
+      Player.currentSong = song
       Player.play(song)
       $scope.player.state = 'playing'
       Playlist.songPlayed($scope.playlistId, song.id)
@@ -62,6 +63,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     initializePlayer = ->
       Player.stop()
       $scope.playlist.currentSong = undefined
+      Player.currentSong = undefined
       $scope.player.state = undefined
       Player.playlistId = $scope.playlistId
       $scope.$apply() unless $scope.$$phase
@@ -115,4 +117,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       else
         s= Math.floor(seconds - (m * 60))
       m + ":" + s
+
+    ##
+    # set current song if owner returning to playlist
+    if $scope.isPlayingPlaylist() && $scope.playlist.owner_id == $scope.currentUser.id
+      $scope.playlist.currentSong = Player.currentSong
 ]
