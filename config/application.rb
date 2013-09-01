@@ -35,5 +35,8 @@ module Ocarina
     config.cache_store          = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
     config.identity_cache_store = :redis_store, ENV["REDISCLOUD_URL"] || "redis://127.0.0.1:6379/0/ocarina"
 
+    # Email Options
+    config.action_mailer.delivery_method       = :smtp
+    config.action_mailer.raise_delivery_errors = true
   end
 end
