@@ -27,5 +27,10 @@ Ocarina::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.action_mailer.raise_delivery_errors = true
+  # Email Options
+  config.smtp_user_name = ENV['SMTP_USER_NAME'] || 'matt@simpler.io'
+  config.smtp_password  = ENV['SMTP_PASSWORD'] || 'jarpadarp'
+
+  # API URLs
+  config.web_url = ENV['WEB_URL'] || 'http://localhost:4400'
 end
