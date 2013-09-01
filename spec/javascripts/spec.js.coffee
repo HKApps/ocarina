@@ -8,8 +8,6 @@
 #=require angular-mocks
 #=require_self
 #=require_tree ./unit/
-#=require_tree ./e2e/
-
 
 beforeEach ->
   window.env = 'test'
