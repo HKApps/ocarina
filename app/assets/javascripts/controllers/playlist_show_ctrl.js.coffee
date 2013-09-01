@@ -1,5 +1,5 @@
-ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher',
-  (Playlist, $scope, $route, Pusher) ->
+ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher', 'Facebook',
+  (Playlist, $scope, $route, Pusher, Facebook) ->
     $scope.playlistId = $route.current.params.playlistId
 
     Playlist.get($scope.playlistId).then (p) =>
@@ -37,6 +37,8 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
       Playlist.vote($scope.playlistId, song.id, "downvote")
       song.vote_count--
       song.current_user_vote_decision--
+
+    $scope.fbSendDialogURL = Facebook.openMessageDialog($scope.playlistId)
 
     ##
     # add songs modal

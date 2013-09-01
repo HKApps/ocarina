@@ -5,3 +5,7 @@
   %li.guests{ ng_repeat: "guest in playlist.guests" }
     %a{ ng_href: "/{{guest.id}}" }
       %img.avatar{ ng_src: "{{guest.image}}" }
+  %li.add_guest
+    %a.btn{ ng_href: '{{fbSendDialogURL}}' }
+      .glyphicon.glyphicon-plus
+      Add User
