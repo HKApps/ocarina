@@ -77,4 +77,15 @@ Ocarina::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  #
+  # Email Options
+  config.smtp_user_name = ENV['SMTP_USER_NAME'] || raise_for('SMTP_USER_NAME')
+  config.smtp_password  = ENV['SMTP_PASSWORD'] || raise_for('SMTP_PASSWORD')
+
+  # API URLs
+  config.web_url = ENV['WEB_URL'] || raise_for('WEB_URL')
+end
+
+def raise_for(str)
+  raise "Please set the following environment variable: '#{str}'"
 end

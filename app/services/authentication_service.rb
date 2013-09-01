@@ -30,7 +30,12 @@ class AuthenticationService
       user.first_name = @omniauth["info"]["first_name"]
       user.last_name  = @omniauth["info"]["last_name"]
       user.image      = @omniauth["info"]["image"].gsub("=square", "=large")
-      user.save!
+      if user.new_record?
+        user.save!
+        WelcomeMailerWorker.new.async.perform(user.id)
+      else
+        user.touch
+      end
 
       authentication = user.authentications.where(
         provider: @provider,
