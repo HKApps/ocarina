@@ -5,7 +5,8 @@ class JoinPlaylistWorker
                   #backtrace: true,
                   #retry:     true
 
-  def perform(playlist, user_id)
+  def perform(playlist_id, user_id)
+    playlist = Playlist.fetch playlist_id
     Guest.create! do |g|
       g.playlist_id   = playlist.id
       g.playlist_name = playlist.name
