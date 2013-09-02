@@ -29,16 +29,12 @@
             %b.caret
           %ul.dropdown-menu
             %li
-              %a{ href: "", ng_click: "openDbSongsModal()"} My Songs
-            %li
               %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
             %li{ ocarina_if: "!currentUser.dropbox_authenticated" }
               %a{ href: "", dropbox_auth: "" } Connect Dropbox
             %li
               %a{ href:  "", ng_click: "logout()" } Logout
 
-        %li{ ocarina_if: "isMobilized" }
-          %a{ href: "", ng_click: "openDbSongsModal()" } My Songs
         %li{ ocarina_if: "isMobilized" }
           %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
         %li{ ocarina_if: "isMobilized && !currentUser.dropbox_authenticated" }
