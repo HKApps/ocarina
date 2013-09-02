@@ -15,7 +15,7 @@
           unlock
 
   .members-only{ ocarina_if: "isMember(currentUser.id)" }
-    .settings.pull-left{ ocarina_if: "playlist.owner_id != currentUser.id" }
+    .settings.pull-left{ ocarina_if: "playlist.owner_id == currentUser.id" }
       %button.btn.btn-sm{ type: "button",
         ng_model: "randomShuffle",
         btn_checkbox: "",
