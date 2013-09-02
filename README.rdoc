@@ -1,9 +1,3 @@
-API:
-user info
-/users/:id.json
+See wiki for env setup
 
-show dropbox songs
-/dropbox.json
-
-show parties
-/parties/:id.json
+Run frontend tests by visiting /jasmine
