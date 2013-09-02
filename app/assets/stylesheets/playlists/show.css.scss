@@ -1,34 +1,34 @@
-.playlist-votes{
+.playlist-votes {
   float: right;
-  .btn, .votes{
+  .btn, .votes {
     vertical-align: middle;
   }
 }
 
-.song-info-container{
+.song-info-container {
   display: inline-block;
   width: 100%;
 }
 
-.song-name{
+.song-name {
   float: left;
   margin-right: 8px;
   width: 49%;
 }
 
-.playlist-name{
+.playlist-name {
   text-align: center;
 }
 
-.playlist-songs{
+.playlist-songs {
   margin-top: 20px;
 }
 
-.my-playlists{
+.my-playlists {
   margin-bottom: 20px;
 }
 
-.add-song-btn, .add-song-btn:hover{
+.add-song-btn, .add-song-btn:hover {
   border: none;
   background-color: #EEE;
   color: #000;
@@ -36,17 +36,22 @@
   margin-bottom: 9px;
 }
 
-.add-song-zero-state-btn{
+.add-song-zero-state-btn {
   width: 160px;
 }
 
-.zero-state{
+.zero-state {
   text-align: center;
 }
 
-.song-list{
-  .voters{
+.song-list {
+  .voters {
     display: none;
     float: left;
   }
+}
+
+.settings {
+  width: 100%;
+  margin-bottom: 5px;
 }
