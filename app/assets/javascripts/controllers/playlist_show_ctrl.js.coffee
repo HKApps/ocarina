@@ -1,18 +1,19 @@
-ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', '$location', 'Pusher',
-  (Playlist, $scope, $route, $location, Pusher) ->
+ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher',
+  (Playlist, $scope, $route, Pusher) ->
     $scope.playlistId = $route.current.params.playlistId
 
     Playlist.get($scope.playlistId).then (p) =>
       $scope.playlist = p
-      $scope.joinPlaylist(p.id) unless p.private || $scope.isMember($scope.currentUser.id)
+      $scope.joinPlaylist(p.id) unless p.private
       Playlist.getCurrentSong(p.id) unless p.owner_id == $scope.currentUser.id
 
     $scope.joinPlaylist = (id, password) ->
+      return if $scope.isMember($scope.currentUser.id)
       Playlist.join(id, password).then (res) =>
         if res.status == 201
           $scope.currentUser.playlists_as_guest.push(res.data)
           $scope.playlist.guests.push($scope.currentUser)
-        else
+        else if $scope.playlist.private
           $scope.alert =
             type: "danger"
             msg: "Oh snap... wrong password! Try again."
