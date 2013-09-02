@@ -11,9 +11,6 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$location', 'Playlist',
     $scope.openNav = ->
       $('.navbar-collapse').collapse('show')
 
-    $scope.openDbSongsModal = ->
-      $rootScope.$broadcast("openDbSongsModal")
-
     $scope.toggleSearch = ->
       $scope.showSearch = !$scope.showSearch
 
