@@ -30,7 +30,7 @@ describe Playlist do
     it { should_not be_valid }
   end
 
-  context 'when name is not present' do
+  context 'when owner_id is not present' do
     before(:each) do
       subject.owner_id = nil
     end
