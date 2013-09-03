@@ -42,11 +42,14 @@ group :development do
 end
 
 group :test do
-  gem 'factory_girl'
   gem 'jasmine'
   gem 'jasminerice', github: 'bradphelan/jasminerice'
   gem 'rspec-rails'
   gem 'spork-rails', github: 'sporkrb/spork-rails'
+end
+
+group :test, :development do
+  gem 'factory_girl_rails'
 end
 
 group :doc do
