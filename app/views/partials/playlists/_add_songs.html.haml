@@ -24,15 +24,20 @@
               %span.name.wordwrap {{song.title}}
               %i.glyphicon.glyphicon-ok
 
-          .add-dropbox{ ng_show: "provider == 'Dropbox' && currentUser.dropbox_songs" }
-            .song-filter
-              %input{ ng_model: "dbFilter",
-                :placeholder => "search your songs" }
-            .songs-to-add.song-list{ ng_repeat: "song in currentUser.dropbox_songs | filter: dbFilter",
-                ng_click: "toggleSongSelected('dropbox', song.id)",
-                ng_class: '{"song-in-playlist": songInPlaylist(song.id), "selected": isSongSelected("dropbox", song.id)}' }
-              %span.name.wordwrap {{song.name}}
-              %i.glyphicon.glyphicon-ok
+          .add-dropbox{ ng_show: "provider == 'Dropbox'" }
+            .dropbox-connect{ ng_hide: "currentUser.dropbox_authenticated" }
+              %button.btn.btn-primary{ dropbox_auth: '' }
+                #dropbox-logo= image_tag "dropbox-logos_dropbox-glyph-white.png"
+                Connect with Dropbox
+            .dropbox-connected{ ng_show: "currentUser.dropbox_authenticated" }
+              .song-filter
+                %input{ ng_model: "dbFilter",
+                  :placeholder => "search your songs" }
+              .songs-to-add.song-list{ ng_repeat: "song in currentUser.dropbox_songs | filter: dbFilter",
+                  ng_click: "toggleSongSelected('dropbox', song.id)",
+                  ng_class: '{"song-in-playlist": songInPlaylist(song.id), "selected": isSongSelected("dropbox", song.id)}' }
+                %span.name.wordwrap {{song.name}}
+                %i.glyphicon.glyphicon-ok
       .modal-footer
         %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
         %button.btn{ ng_click: "clearSelectedSongs()" } Clear
