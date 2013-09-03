@@ -5,6 +5,7 @@ describe Playlist do
 
   subject { playlist }
 
+  # Attributes
   it { should respond_to :name }
   it { should respond_to :owner_id }
   it { should respond_to :location }
@@ -13,6 +14,12 @@ describe Playlist do
   it { should respond_to :private }
   it { should respond_to :facebook_id }
   it { should respond_to :password }
+
+  # Associations
+  it { should respond_to :user }
+  it { should respond_to :host }
+
+  # Sanity Check
   it { should be_valid }
 
   context 'when name is not present' do
@@ -29,6 +36,14 @@ describe Playlist do
     end
 
     it { should_not be_valid }
+  end
+
+  describe "#host" do
+    let(:playlist) { FactoryGirl.build(:playlist) }
+
+    it "returns the user" do
+      playlist.host.should == playlist.user
+    end
   end
 
 end

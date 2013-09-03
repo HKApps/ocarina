@@ -5,10 +5,16 @@ describe User do
 
   subject { user }
 
+  # Attributes
   it { should respond_to :email }
   it { should respond_to :first_name }
   it { should respond_to :last_name }
   it { should respond_to :image }
+
+  # Associations
+  it { should respond_to :playlists }
+
+  # Sanity Check
   it { should be_valid }
 
   context "when email is not present" do
