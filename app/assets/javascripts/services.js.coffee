@@ -109,6 +109,7 @@ ocarinaServices.factory 'Audio', ['$document', '$rootScope',
 ocarinaServices.factory 'Player', ['Audio', (Audio) ->
   Player =
     playlistId: undefined
+    currentSong: undefined
     audio: Audio
     play: (song) ->
       if angular.isDefined(song)
