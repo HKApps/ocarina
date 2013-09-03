@@ -75,7 +75,9 @@ class Api::PlaylistsController < ApiController
       :start_time,
       :facebook_id,
       :password,
-      venue: [:id, :street, :city, :state, :zip, :country, :latitude, :longitude])
+      venue: [:id, :street, :city, :state, :zip, :country, :latitude, :longitude],
+      settings: [:continuous_play]
+    )
   end
 
   def add_song_params

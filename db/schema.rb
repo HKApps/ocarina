@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130824192110) do
+ActiveRecord::Schema.define(version: 20130903005307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20130824192110) do
     t.boolean  "private",     default: false
     t.string   "facebook_id"
     t.string   "password"
+    t.hstore   "settings"
   end
 
   add_index "playlists", ["owner_id"], name: "index_playlists_on_owner_id", using: :btree
