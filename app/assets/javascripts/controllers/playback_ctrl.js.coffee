@@ -40,7 +40,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
         $scope.player.state = 'playing'
       # if play or skip and empty playlist
       else if !playlist.length
-        if $scope.randomShuffle
+        if $scope.playlist.settings.continuous_play
           getRandomPlayedSong(playlist)
         else
           playbackEnded()

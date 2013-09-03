@@ -7,6 +7,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$loc
       playlist.location = $scope.newPlaylist.location
       playlist.private = $scope.newPlaylist.private
       playlist.password = $scope.newPlaylist.password if playlist.private
+      playlist.settings = $scope.newPlaylist.settings
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
