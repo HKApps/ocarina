@@ -7,12 +7,10 @@ class Playlist < ActiveRecord::Base
   has_many :guests
 
   belongs_to :user, class_name: 'User', foreign_key: 'owner_id'
+  alias_method :host, :user
 
-  validates :name, presence: true
-
-  def host
-    User.where(id: self.owner_id).first
-  end
+  validates :name,     presence: true
+  validates :owner_id, presence: true
 
   def guests_as_users
     self.guests.map(&:user)

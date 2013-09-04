@@ -1,3 +1,0 @@
-See wiki for env setup
-
-Run frontend tests by visiting /jasmine
