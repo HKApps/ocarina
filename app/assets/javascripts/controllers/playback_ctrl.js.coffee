@@ -40,15 +40,29 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
         $scope.player.state = 'playing'
       # if play or skip and empty playlist
       else if !playlist.length
-        initializePlayer()
-        Playlist.playbackEnded($scope.playlistId)
+        if $scope.playlist.settings.continuous_play && $scope.playlist.played_playlist_songs.length
+          getRandomPlayedSong(playlist)
+        else
+          playbackEnded()
       # if play or skip and non-empty playlist
       else
         getNextSong(playlist)
 
+    playbackEnded = ->
+      initializePlayer()
+      Playlist.playbackEnded($scope.playlistId)
+
     getNextSong = (playlist) ->
       song = _.max playlist, (s) ->
         s.vote_count
+      playNextSong(playlist, song)
+
+    getRandomPlayedSong = (playlist) ->
+      random = _.random($scope.playlist.played_playlist_songs.length-1)
+      song = $scope.playlist.played_playlist_songs[random]
+      try if song.media_url == $scope.playlist.currentSong.media_url && !$scope.playlist.played_playlist_songs.length == 1
+        random = if random >= 0 then random-1 else random+1
+        song = $scope.playlist.played_playlist_songs[random]
       playNextSong(playlist, song)
 
     playNextSong = (playlist, song) ->
@@ -56,8 +70,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       Player.currentSong = song
       Player.play(song)
       $scope.player.state = 'playing'
-      Playlist.songPlayed($scope.playlistId, song.id)
-      $scope.playlist.played_playlist_songs.push(song)
+      unless _.findWhere($scope.playlist.played_playlist_songs, { media_url: song.media_url })
+        Playlist.songPlayed($scope.playlistId, song.id)
+        $scope.playlist.played_playlist_songs.push(song)
       $scope.playlist.playlist_songs = _.without(playlist, song)
 
     initializePlayer = ->
