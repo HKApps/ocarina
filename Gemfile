@@ -36,14 +36,20 @@ gem 'uglifier', '>= 1.3.0'
 gem 'zurb-foundation'
 
 group :development do
+  gem 'guard-livereload'
   gem 'pry-rails'
   gem 'pry-nav'
-  gem 'guard-livereload'
 end
 
 group :test do
   gem 'jasmine'
   gem 'jasminerice', github: 'bradphelan/jasminerice'
+  gem 'rspec-rails'
+  gem 'spork-rails', github: 'sporkrb/spork-rails'
+end
+
+group :test, :development do
+  gem 'factory_girl_rails'
 end
 
 group :doc do
