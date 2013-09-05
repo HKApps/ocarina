@@ -1,5 +1,5 @@
-ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$location', 'Playlist',
-  ($rootScope, $scope, Facebook, $location, Playlist) ->
+ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Facebook', 'Playlist',
+  ($rootScope, $scope, $location, Facebook, Playlist) ->
 
     $scope.createPlaylist = () ->
       playlist = new Playlist()
