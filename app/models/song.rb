@@ -3,8 +3,9 @@ class Song < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :path, presence: true
-  validates :name, presence: true
+  validates :path,    presence: true
+  validates :name,    presence: true
+  validates :user_id, presence: true
 
   def self.find_or_initialize_from_soundcloud(sc, user_id)
     Song.where(user_id: user_id, provider: 'soundcloud', path: sc['uri']).first_or_initialize.tap do |s|

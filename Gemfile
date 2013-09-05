@@ -45,6 +45,7 @@ group :test do
   gem 'jasmine'
   gem 'jasminerice', github: 'bradphelan/jasminerice'
   gem 'rspec-rails'
+  gem 'simplecov', require: false
   gem 'spork-rails', github: 'sporkrb/spork-rails'
 end
 
