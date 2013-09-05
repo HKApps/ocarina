@@ -1,5 +1,5 @@
-ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist', 'Soundcloud',
-  ($scope, Playlist, Soundcloud) ->
+ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
+  ($scope, Playlist) ->
     ##
     # add songs setup
     $scope.provider = "Soundcloud"
