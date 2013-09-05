@@ -26,31 +26,4 @@ FactoryGirl.define do
       end
     end
   end
-
-  factory :playlist do
-    sequence :name do |n|
-      "playlist_#{n}"
-    end
-    association :user, strategy: :build
-  end
-
-  factory :song do
-    sequence :name do |n|
-      "song_#{n}"
-    end
-    provider "some_provider"
-    path     "/path/to/song"
-    user
-
-    trait :from_dropbox do
-      provider "dropbox"
-      path     "/path/to/dropbox/song"
-    end
-
-    trait :from_soundcloud do
-      provider "soundcloud"
-      path     "/path/to/soundcloud/song"
-    end
-  end
-
 end
