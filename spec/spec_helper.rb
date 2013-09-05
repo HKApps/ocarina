@@ -10,6 +10,8 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'factory_girl_rails'
+  require 'pry'
+  require 'pry-nav'
   unless ENV['DRB']
     require 'simplecov'
     SimpleCov.start 'rails'

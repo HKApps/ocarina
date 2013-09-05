@@ -12,7 +12,17 @@ FactoryGirl.define do
       end
 
       after(:create) do |user, evaluator|
-        FactoryGirl.create_list(:playlist, evaluator.palylist_count, user: user)
+        FactoryGirl.create_list(:playlist, evaluator.playlist_count, user: user)
+      end
+    end
+
+    factory :user_with_sc_songs do
+      ignore do
+        song_count 5
+      end
+
+      after(:create) do |user, evaluator|
+        FactoryGirl.create_list(:song, evaluator.song_count, user: user)
       end
     end
   end
@@ -26,18 +36,18 @@ FactoryGirl.define do
 
   factory :song do
     sequence :name do |n|
-      "playlist_#{n}"
+      "song_#{n}"
     end
     provider "some_provider"
     path     "/path/to/song"
-    association :user
+    user
 
-    trait :song_from_dropbox do
+    trait :from_dropbox do
       provider "dropbox"
       path     "/path/to/dropbox/song"
     end
 
-    trait :song_from_soundcloud do
+    trait :from_soundcloud do
       provider "soundcloud"
       path     "/path/to/soundcloud/song"
     end
