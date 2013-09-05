@@ -10,6 +10,10 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'factory_girl_rails'
+  unless ENV['DRB']
+    require 'simplecov'
+    SimpleCov.start 'rails'
+  end
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -44,4 +48,8 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
+  if ENV['DRB']
+    require 'simplecov'
+    SimpleCov.start 'rails'
+  end
 end
