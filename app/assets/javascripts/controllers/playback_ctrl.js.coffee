@@ -7,7 +7,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     $scope.player = Player
 
     ##
-    # Event listeners
+    # event listeners
     $scope.$on "audioEnded", ->
       if $scope.isPlayingPlaylist()
         $scope.playerAction("play")
@@ -26,21 +26,21 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     # Functions
     $scope.playerPause = ->
       Player.pause()
-      $scope.player.state = 'paused'
 
     $scope.playerAction = (action) ->
       playlist = $scope.playlist.playlist_songs
       initializePlayer() unless $scope.isPlayingPlaylist()
       # makes playback work in safari mobile
-      if $rootScope.isiOS && $scope.player.state == undefined
+      if $rootScope.isiOS && Player.state == undefined
+        # TODO check what happens if first action is pause on mobile
         Player.play()
       # if paused and pressing play
-      if $scope.player.state == 'paused' && action == "play"
+      if Player.state == 'paused' && action == "play"
         Player.play()
-        $scope.player.state = 'playing'
       # if play or skip and empty playlist
       else if !playlist.length
-        if $scope.playlist.settings.continuous_play && $scope.playlist.played_playlist_songs.length
+        # TODO make bool so we don't have to use string true
+        if $scope.playlist.settings.continuous_play == "true"  && $scope.playlist.played_playlist_songs.length
           getRandomPlayedSong(playlist)
         else
           playbackEnded()
@@ -69,18 +69,14 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
       $scope.playlist.currentSong = song
       Player.currentSong = song
       Player.play(song)
-      $scope.player.state = 'playing'
       unless _.findWhere($scope.playlist.played_playlist_songs, { media_url: song.media_url })
         Playlist.songPlayed($scope.playlistId, song.id)
         $scope.playlist.played_playlist_songs.push(song)
       $scope.playlist.playlist_songs = _.without(playlist, song)
 
     initializePlayer = ->
-      Player.stop()
+      Player.stop($scope.playlistId)
       $scope.playlist.currentSong = undefined
-      Player.currentSong = undefined
-      $scope.player.state = undefined
-      Player.playlistId = $scope.playlistId
       $scope.$apply() unless $scope.$$phase
 
     $scope.isPlayingPlaylist = ->
@@ -90,9 +86,12 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     # progress bar
     audio = $scope.player.audio
 
-    $scope.$on "audioTimeupdate", ->
+    $scope.$on "audioDurationchange", ->
       # set the duration
       $('.duration').text(" / " + timeFormat(audio.duration))
+    $scope.$on "audioTimeupdate", ->
+      # in-case leaving and coming back to playlist
+      $('.duration').text(" / " + timeFormat(audio.duration)) if audio.duration
       # set the current time
       $('.current-time').text(timeFormat(audio.currentTime))
       # update progress

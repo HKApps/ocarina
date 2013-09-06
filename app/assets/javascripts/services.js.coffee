@@ -111,14 +111,20 @@ ocarinaServices.factory 'Player', ['Audio', (Audio) ->
     playlistId: undefined
     currentSong: undefined
     audio: Audio
+    state: undefined
     play: (song) ->
       if angular.isDefined(song)
         Audio.src = song.media_url
       Audio.play()
+      Player.state = 'playing'
     pause: ->
       Audio.pause()
-    stop: ->
+      Player.state = 'paused'
+    stop: (playlistId) ->
       Audio.pause()
+      Player.currentSong = undefined
+      Player.state = undefined
+      Player.playlistId = playlistId
 
   Player
 ]
