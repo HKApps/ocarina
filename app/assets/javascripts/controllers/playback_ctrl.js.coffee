@@ -7,7 +7,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     $scope.player = Player
 
     ##
-    # Event listeners
+    # event listeners
     $scope.$on "audioEnded", ->
       if $scope.isPlayingPlaylist()
         $scope.playerAction("play")
@@ -26,61 +26,56 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     # Functions
     $scope.playerPause = ->
       Player.pause()
-      $scope.player.state = 'paused'
 
     $scope.playerAction = (action) ->
-      playlist = $scope.playlist.playlist_songs
       initializePlayer() unless $scope.isPlayingPlaylist()
       # makes playback work in safari mobile
-      if $rootScope.isiOS && $scope.player.state == undefined
+      if $rootScope.isiOS && Player.state == undefined
+        # TODO check what happens if first action is pause on mobile
         Player.play()
       # if paused and pressing play
-      if $scope.player.state == 'paused' && action == "play"
+      if Player.state == 'paused' && action == "play"
         Player.play()
-        $scope.player.state = 'playing'
       # if play or skip and empty playlist
-      else if !playlist.length
-        if $scope.playlist.settings.continuous_play && $scope.playlist.played_playlist_songs.length
-          getRandomPlayedSong(playlist)
+      else if !$scope.playlist.playlist_songs.length
+        # TODO make bool so we don't have to use string true
+        if $scope.playlist.settings.continuous_play == "true"  && $scope.playlist.played_playlist_songs.length
+          playNextSong($scope.playlist, true)
         else
           playbackEnded()
       # if play or skip and non-empty playlist
       else
-        getNextSong(playlist)
+        playNextSong($scope.playlist)
 
     playbackEnded = ->
       initializePlayer()
       Playlist.playbackEnded($scope.playlistId)
 
-    getNextSong = (playlist) ->
-      song = _.max playlist, (s) ->
+    $scope.getNextSong = (songs) ->
+      song = _.max songs, (s) ->
         s.vote_count
-      playNextSong(playlist, song)
 
-    getRandomPlayedSong = (playlist) ->
-      random = _.random($scope.playlist.played_playlist_songs.length-1)
-      song = $scope.playlist.played_playlist_songs[random]
-      try if song.media_url == $scope.playlist.currentSong.media_url && !$scope.playlist.played_playlist_songs.length == 1
+    $scope.getRandomPlayedSong = (songs) ->
+      random = _.random(songs.length-1)
+      song = songs[random]
+      try if song.media_url == $scope.playlist.currentSong.media_url && songs.length != 1
         random = if random >= 0 then random-1 else random+1
-        song = $scope.playlist.played_playlist_songs[random]
-      playNextSong(playlist, song)
+        song = songs[random]
+      song
 
-    playNextSong = (playlist, song) ->
-      $scope.playlist.currentSong = song
+    playNextSong = (playlist, random) ->
+      song = if random then $scope.getRandomPlayedSong(playlist.played_playlist_songs) else $scope.getNextSong(playlist.playlist_songs)
+      playlist.currentSong = song
       Player.currentSong = song
       Player.play(song)
-      $scope.player.state = 'playing'
-      unless _.findWhere($scope.playlist.played_playlist_songs, { media_url: song.media_url })
+      unless _.findWhere(playlist.played_playlist_songs, { media_url: song.media_url })
         Playlist.songPlayed($scope.playlistId, song.id)
-        $scope.playlist.played_playlist_songs.push(song)
-      $scope.playlist.playlist_songs = _.without(playlist, song)
+        playlist.played_playlist_songs.push(song)
+      $scope.playlist.playlist_songs = _.without(playlist.playlist_songs, song)
 
     initializePlayer = ->
-      Player.stop()
+      Player.stop($scope.playlistId)
       $scope.playlist.currentSong = undefined
-      Player.currentSong = undefined
-      $scope.player.state = undefined
-      Player.playlistId = $scope.playlistId
       $scope.$apply() unless $scope.$$phase
 
     $scope.isPlayingPlaylist = ->
@@ -90,9 +85,12 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
     # progress bar
     audio = $scope.player.audio
 
-    $scope.$on "audioTimeupdate", ->
+    $scope.$on "audioDurationchange", ->
       # set the duration
       $('.duration').text(" / " + timeFormat(audio.duration))
+    $scope.$on "audioTimeupdate", ->
+      # in-case leaving and coming back to playlist
+      $('.duration').text(" / " + timeFormat(audio.duration)) if audio.duration
       # set the current time
       $('.current-time').text(timeFormat(audio.currentTime))
       # update progress

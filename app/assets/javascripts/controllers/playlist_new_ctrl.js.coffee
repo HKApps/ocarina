@@ -1,5 +1,9 @@
-ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$location', 'Playlist',
-  ($rootScope, $scope, Facebook, $location, Playlist) ->
+ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Facebook', 'Playlist',
+  ($rootScope, $scope, $location, Facebook, Playlist) ->
+    # TODO server should do this
+    $scope.newPlaylist=
+      settings:
+        continuous_play: false
 
     $scope.createPlaylist = () ->
       playlist = new Playlist()
@@ -34,6 +38,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', 'Facebook', '$loc
       # TODO change this once we have a way of setting passwords for fb events
       playlist.private = false
       # playlist.private = if fbEvent.privacy == "OPEN" then false else true
+      playlist.settings = $scope.newPlaylist.settings
       playlist.create().then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)

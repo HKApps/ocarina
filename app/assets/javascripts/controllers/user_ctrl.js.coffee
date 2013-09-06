@@ -12,5 +12,4 @@ ocarina.controller 'UserCtrl', ['User', '$http', '$scope',
       $scope.deferDropboxConnect = ->
         $http.post("/defer_dropbox_connect").then () =>
           $scope.currentUser.defer_dropbox_connect = true
-
 ]
