@@ -2,7 +2,7 @@ ocarinaServices = angular.module('ocarinaServices', ['ngResource'])
 
 ocarinaServices.factory 'Pusher', ->
   if Pusher?
-    pusher = new Pusher("28d86c309600f754848f")
+    pusher = new Pusher("e9eb3f912d37215f7804")
   else
     # if pusher doesn't load
     subscribe: ->
@@ -111,14 +111,20 @@ ocarinaServices.factory 'Player', ['Audio', (Audio) ->
     playlistId: undefined
     currentSong: undefined
     audio: Audio
+    state: undefined
     play: (song) ->
       if angular.isDefined(song)
         Audio.src = song.media_url
       Audio.play()
+      Player.state = 'playing'
     pause: ->
       Audio.pause()
-    stop: ->
+      Player.state = 'paused'
+    stop: (playlistId) ->
       Audio.pause()
+      Player.currentSong = undefined
+      Player.state = undefined
+      Player.playlistId = playlistId
 
   Player
 ]
@@ -145,7 +151,3 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
 
   Facebook
 ]
-
-ocarinaServices.factory 'Soundcloud', ->
-  SC.initialize
-    client_id: "3d6e76640c62f42c02cb78d2c53d0db9"
