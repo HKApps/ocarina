@@ -2,7 +2,7 @@ ocarinaServices = angular.module('ocarinaServices', ['ngResource'])
 
 ocarinaServices.factory 'Pusher', ->
   if Pusher?
-    pusher = new Pusher("28d86c309600f754848f")
+    pusher = new Pusher("e9eb3f912d37215f7804")
   else
     # if pusher doesn't load
     subscribe: ->
