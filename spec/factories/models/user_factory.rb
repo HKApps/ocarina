@@ -12,16 +12,18 @@ FactoryGirl.define do
       end
 
       after(:create) do |user, evaluator|
-        FactoryGirl.create_list(:playlist, evaluator.palylist_count, user: user)
+        FactoryGirl.create_list(:playlist, evaluator.playlist_count, user: user)
+      end
+    end
+
+    factory :user_with_sc_songs do
+      ignore do
+        song_count 5
+      end
+
+      after(:create) do |user, evaluator|
+        FactoryGirl.create_list(:song, evaluator.song_count, user: user)
       end
     end
   end
-
-  factory :playlist do
-    sequence :name do |n|
-      "playlist_#{n}"
-    end
-    association :user, strategy: :build
-  end
-
 end

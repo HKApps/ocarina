@@ -33,3 +33,6 @@ Thumbs.db
 
 #redis
 dump.rdb
+
+# SimpleCOV
+coverage
