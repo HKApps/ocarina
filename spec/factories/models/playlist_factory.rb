@@ -5,6 +5,6 @@ FactoryGirl.define do
     sequence :name do |n|
       "playlist_#{n}"
     end
-    association :user, strategy: :build
+    association :user
   end
 end
