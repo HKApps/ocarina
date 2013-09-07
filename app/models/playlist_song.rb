@@ -8,6 +8,9 @@ class PlaylistSong < ActiveRecord::Base
   belongs_to :song
 
   validates :playlist_id, presence: true, uniqueness: { scope: :song_id }
+  validates :song_id,     presence: true
+  validates :vote_count,  presence: true
+  validates :path,        presence: true
 
   def played!
     self.played_at = Time.now
