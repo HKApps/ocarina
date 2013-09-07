@@ -1,0 +1,16 @@
+.shelf-left {
+  width: 235px;
+  padding: 0 10px;
+}
+
+.shelf-left {
+  .user {
+    .avatar, .name {
+      display: inline-block;
+    }
+    .avatar {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

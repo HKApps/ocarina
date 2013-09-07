@@ -1,0 +1,16 @@
+#= require jquery
+#= require ratchet
+#= require snap
+#= require angular
+#= require angular-resource
+#= require angular-sanitize
+#= require angular-bootstrap-prettify
+#= require angular-snap
+#= require ui-bootstrap
+#= require lodash
+#= require ocarinaMobile
+#= require_tree ./controllersMobile/
+#= require services
+#= require directives
+#= require filters
+#= require_self

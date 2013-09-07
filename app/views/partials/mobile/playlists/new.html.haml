@@ -1,0 +1,21 @@
+.create-playlist-container{ ng_controller: "PlaylistNewCtrl" }
+  .new-event{ on_return: "CreatePlaylistst()" }
+    %form.form-inline
+      .new-event-name
+        .form-title Name:
+        %input.form-control{ type: "text",
+          ng_model: "newPlaylist.name",
+          placeholder: "ex: Matt's Birthday" }
+      .new-event-location
+        .form-title Where:
+        %input.form-control{ type: "text",
+          ng_model: "newPlaylist.location" }
+      .new-event-private
+        .form-title Private:
+        %label.checkbox
+          %input{ type: "checkbox", ng_model: "newPlaylist.private" }
+        %input.form-control{ type: "text",
+          ng_model: "newPlaylist.password",
+          placeholder: "password",
+          ng_disabled: "!newPlaylist.private" }
+    %button.pull-right.btn.btn-primary{ ng_click: "createPlaylist()" } Create

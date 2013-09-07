@@ -1,0 +1,37 @@
+!!! 5
+%html{ 'ng-app' => "ocarinaMobile" }
+  %head
+    %meta(http-equiv="Content-type" content="text/html;charset=UTF-8")
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"}
+    -# Makes your prototype chrome-less once bookmarked to your phone's home screen
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
+    %meta{:content => "black", :name => "apple-mobile-web-app-status-bar-style"}/
+    -# Set Apple icons for when prototype is saved to home screen
+    -# %link{:href => "touch-icons/apple-touch-icon-114x114.png", :rel => "apple-touch-icon-precomposed", :sizes => "114x114"}/
+    -# %link{:href => "touch-icons/apple-touch-icon-72x72.png", :rel => "apple-touch-icon-precomposed", :sizes => "72x72"}/
+    -# %link{:href => "touch-icons/apple-touch-icon-57x57.png", :rel => "apple-touch-icon-precomposed", :sizes => "57x57"}/
+
+    %title= content_for?(:title) ? yield(:title) : "Playedby.me"
+    = stylesheet_link_tag "mobile/application", media: "all"
+    = csrf_meta_tags
+
+    :javascript
+      if (window.location.hash == '#_=_'){
+        window.location.hash = '';
+      }
+
+  %body{ ng_controller: "UserCtrl" }
+    = render 'partials/mobile/nav'
+
+    .container
+      = yield
+
+    = javascript_include_tag "vendor/custom.modernizr"
+    = javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
+    = javascript_include_tag "http://connect.soundcloud.com/sdk.js"
+    = javascript_include_tag "applicationMobile.m"
+    :javascript
+      SC.initialize({
+        client_id: "3d6e76640c62f42c02cb78d2c53d0db9"
+      });
+

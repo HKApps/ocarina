@@ -1,0 +1,59 @@
+.playlist-container{ ng_show: "playlist",  ng_controller: 'PlaylistShowCtrl' }
+  .password-protected{ ocarina_if: "playlist.private && !isMember(currentUser.id)" }
+    %alert{ type: "alert.type" }
+      {{alert.msg}}
+    It looks like this playlist is private, please enter a password to continue
+    .input-group
+      %span.input-group-addon
+        %i.glyphicon.glyphicon-lock
+      %input.form-control{ type: "text",
+        ng_model: "password",
+        placeholder: "password",
+        on_return: "joinPlaylist(playlist.id, password)" }
+      %span.input-group-btn
+        %button.btn.btn-default{ ng_click: "joinPlaylist(playlist.id, password)" }
+          unlock
+
+  .members-only{ ocarina_if: "isMember(currentUser.id)" }
+    .members
+      =render 'playlists/members'
+
+    .playlist-name
+      %h2 {{playlist.name}}
+      %h4
+        by
+        %a{ng_href: "/{{playlist.host.id}}" }
+          %img.avatar{ ng_src: "{{playlist.host.image}}" }
+
+    .player{ ocarina_if: "playlist.owner_id == currentUser.id" }
+      =render 'playlists/player'
+
+    .guest-feedback{ ocarina_if: "playlist.owner_id != currentUser.id" }
+      =render 'playlists/guest_feedback'
+
+    .add-songs
+      =render '/partials/playlists/add_songs'
+
+    .lookup-progress{ ng_show: 'inProgress' }
+      .spinner
+
+    .playlist-songs{ ng_show: "playlist.playlist_songs.length" }
+      .pull-right.btn.btn-sm.add-song-btn{ ng_click: "openAddSongsModal()" }
+        %i.glyphicon.glyphicon-plus
+      .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true",
+        ng_click: "showVoters($index)" }
+        .song-info-container
+          .song-name.wordwrap {{ song.song_name | truncate:60:true:true }}
+          .playlist-votes
+            %b.votes {{song.vote_count}} votes
+            .btn.btn-default.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
+              %i.glyphicon.glyphicon-arrow-up
+            .btn.btn-default.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
+              %i.glyphicon.glyphicon-arrow-down
+        .voters-container
+          .voters{ ng_repeat: "voter in song.voters" }
+            %img.avatar{ ng_src: "{{voter.image}}" }
+    .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
+      %h4 Your playlist is empty!
+      %button.btn.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
+        Add Songs

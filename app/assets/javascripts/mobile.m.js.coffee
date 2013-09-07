@@ -1,0 +1,15 @@
+#= require jquery
+#= require twitter/bootstrap
+#= require angular
+#= require angular-resource
+#= require angular-sanitize
+#= require angular-bootstrap-prettify
+#= require ui-bootstrap
+#= require lodash
+#= require ocarinaMobile
+#= require_tree ./controllersMobile/
+#= require services
+#= require directives
+#= require filters
+#= require timeago
+#= require_self
