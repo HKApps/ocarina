@@ -1,6 +1,6 @@
 .home-container
   .create-party
-    %a.button-block.button-main Create a Party
+    %a.button-block.button-main{ ng_href: "/playlists/new" } Create a Party
   .event-search
-    Search Events
-    %input
+    %h2 Search Events
+    %input{ type: "search", placeholder: "search events..." }
