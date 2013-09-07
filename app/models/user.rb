@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   cache_has_many :songs, embed: true
 
   has_many :playlists, foreign_key: :owner_id
-  cache_has_many :playlists, embed: true
+  cache_has_many :playlists, embed: true, inverse_name: :owner
 
   has_many :guests
   cache_has_many :guests, embed: true

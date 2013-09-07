@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Playlist do
-  let(:playlist) { Playlist.new(name: 'user', owner_id: 1) }
+  let(:playlist) { FactoryGirl.build(:playlist) }
 
   subject { playlist }
 
@@ -16,7 +16,7 @@ describe Playlist do
   it { should respond_to :password }
 
   # Associations
-  it { should respond_to :user }
+  it { should respond_to :owner }
   it { should respond_to :host }
 
   # Sanity Check
@@ -41,8 +41,8 @@ describe Playlist do
   describe "#host" do
     let(:playlist) { FactoryGirl.build(:playlist) }
 
-    it "returns the user" do
-      playlist.host.should == playlist.user
+    it "returns the owner" do
+      playlist.host.should == playlist.owner
     end
   end
 

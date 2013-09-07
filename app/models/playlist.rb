@@ -6,8 +6,8 @@ class Playlist < ActiveRecord::Base
 
   has_many :guests
 
-  belongs_to :user, class_name: 'User', foreign_key: 'owner_id'
-  alias_method :host, :user
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+  alias_method :host, :owner
 
   validates :name,     presence: true
   validates :owner_id, presence: true
