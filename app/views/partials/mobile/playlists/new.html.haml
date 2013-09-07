@@ -1,5 +1,5 @@
 .create-playlist-container{ ng_controller: "PlaylistNewCtrl" }
-  .new-event{ on_return: "CreatePlaylistst()" }
+  .new-event
     %h2 Create a Playlist
     %form
       .input-group
@@ -18,3 +18,4 @@
           %input.form-control{ type: "text",
             ng_model: "newPlaylist.password",
             placeholder: "enter password to make private" }
+    %a.button-block.button-main{ ng_click: "createPlaylist()" } Create a Party
