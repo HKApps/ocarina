@@ -19,6 +19,28 @@ class Api::PlaylistsController < ApiController
     end
   end
 
+  def near_me
+    proxim = []
+    playlists = Playlist.all
+    playlists.each do |playlist|
+      next if !playlist.venue
+      h_distance = Haversine.distance(
+        48.8582, 
+        2.2945,
+        playlist.venue["latitude"].to_i, 
+        playlist.venue["longitude"].to_i
+      ).to_miles
+
+      proxim << {
+          playlist_id: playlist.id, 
+          distance: h_distance
+      }
+    end
+    
+    proxim = proxim.sort_by{|k, v| v}
+    respond_with proxim, status: 201
+  end
+
   def join
     @playlist = Playlist.where(id: params[:id]).first
     if @playlist

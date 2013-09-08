@@ -132,6 +132,7 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     hashie (2.0.5)
+    haversine (0.3.0)
     hike (1.2.3)
     http_parser.rb (0.5.3)
     httpauth (0.2.0)
@@ -333,6 +334,7 @@ DEPENDENCIES
   foreman
   guard-livereload
   haml-rails
+  haversine
   identity_cache
   jasmine
   jasminerice!
