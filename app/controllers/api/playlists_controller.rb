@@ -12,10 +12,12 @@ class Api::PlaylistsController < ApiController
 
   def create
     @playlist = current_user.playlists.build(playlist_params)
-    if !@playlist.venue.latitude && @playlist.location
+    if !@playlist.venue && @playlist.location
         coords = convert_location_to_coords(@playlist.location)
-        @playlist.venue.latitude = coords["latitude"]
-        @playlist.venue.longitude = coords["longitude"]
+        @playlist.venue = {
+          latitude: coords[0],
+          longitude: coords[1],
+        }
     end
 
     if @playlist.save
@@ -86,10 +88,9 @@ class Api::PlaylistsController < ApiController
   def convert_location_to_coords(location)
     geocoder_object = Geocoder.search(location)
     # next if !geocoder_object
-    latitude = geocoder_object[0].lat.to_f
-    longitude = geocoder_object[0].lng.to_f
-
-    respond_with [latitude, longitude], status: 201
+    latitude = geocoder_object[0].geometry["location"]["lat"].to_f
+    longitude = geocoder_object[0].geometry["location"]["lng"].to_f
+    coords = [latitude, longitude]
   end
 
   def push_guest(guest, playlist_id)
