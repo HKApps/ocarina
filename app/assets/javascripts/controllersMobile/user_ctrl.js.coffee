@@ -1,5 +1,18 @@
-ocarina.controller 'UserCtrl', ['User', '$http', '$scope',
-  (User, $http, $scope) ->
+ocarina.controller 'UserCtrl', ['User', 'Playlist', '$http', '$scope',
+  (User, Playlist, $http, $scope) ->
+    $scope.snapOpts =
+      disable: 'right'
+
+    $scope.updatePlaylists = ->
+      Playlist.getIndex().then (res) =>
+        $scope.playlists = res.data
+
+    $scope.updatePlaylists()
+
+    $scope.goToPlaylist = (playlist) ->
+      return unless playlist.id
+      $location.path("/playlists/#{playlist.id}")
+
     User.getCurrentUser().then (u) =>
       $scope.currentUser = u
 

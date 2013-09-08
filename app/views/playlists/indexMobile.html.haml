@@ -1,8 +1,8 @@
 .container.main-container.ng-cloak
-  .index.snap-content.scrollable{ snap_content: "" }
+  .index.snap-content.scrollable{ snap_content: "", snap_options: "snapOpts" }
     %header.bar-title
       %button.button{ snap_toggle: "left" }
         = image_tag "open.png"
-      %h1.title PlayedBy.me
+      %a.title{ ng_href: "/" } PlayedBy.me
     .content
       %div.ng-view{ ng_view: '' }

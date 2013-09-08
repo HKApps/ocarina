@@ -11,6 +11,8 @@
           templateUrl: '/partials/mobile/home.html'
         .when '/playlists/new',
           templateUrl: '/partials/mobile/playlists/new.html'
+        .when '/playlists/:playlistId/add_songs',
+          templateUrl: '/partials/mobile/playlists/add_songs.html'
         .when '/playlists/:playlistId',
           templateUrl: '/partials/mobile/playlists/show.html'
         # .when '/favorites',

@@ -7,9 +7,7 @@ class Api::PlaylistsController < ApiController
 
   def index
     @playlists = Playlist.all
-    respond_to do |format|
-      format.json { render :json => @playlists }
-    end
+    respond_with @playlists
   end
 
   def create
