@@ -1,0 +1,163 @@
+{
+  "provider": "facebook",
+  "uid": "581302060",
+  "info": {
+    "nickname": "mr.matt.nguyen",
+    "email": "mr.matt@berkeley.edu",
+    "name": "Matt Nguyen",
+    "first_name": "Matt",
+    "last_name": "Nguyen",
+    "image": "http://graph.facebook.com/581302060/picture?type=square",
+    "urls": {
+      "Facebook": "https://www.facebook.com/mr.matt.nguyen"
+    },
+    "verified": true
+  },
+  "credentials": {
+    "token": "CAACSWlleqMgBALpHc2VMjZAivVl1yDXszODxZCep0oewVABiQJdAsz8yU9cbdpmBYzUPAvfpFa3XfojS6mtsC3qxEA5ScjnT6FCxvbzzXqcGN09uYDG18WUmUSYasZA88gjD9SE0LsOZCs535ErFMF7p5PFtL2k8noEdp0Ab9qruDEjp3t7Jm3MNZBAGHqCcZD",
+    "expires_at": 1383712276,
+    "expires": true
+  },
+  "extra": {
+    "raw_info": {
+      "id": "581302060",
+      "name": "Matt Nguyen",
+      "first_name": "Matt",
+      "last_name": "Nguyen",
+      "link": "https://www.facebook.com/mr.matt.nguyen",
+      "username": "mr.matt.nguyen",
+      "work": [
+        {
+          "employer": {
+            "id": "200425390001211",
+            "name": "Tapjoy"
+          },
+          "location": {
+            "id": "114952118516947",
+            "name": "San Francisco, California"
+          },
+          "position": {
+            "id": "109542932398298",
+            "name": "Software Engineer"
+          },
+          "start_date": "2012-10-01"
+        },
+        {
+          "employer": {
+            "id": "174436039407124",
+            "name": "Global Electronic Technology, Inc."
+          },
+          "location": {
+            "id": "106224666074625",
+            "name": "Austin, Texas"
+          },
+          "position": {
+            "id": "109439219074169",
+            "name": "Project Manager"
+          },
+          "start_date": "2011-01-01",
+          "end_date": "2012-05-01"
+        },
+        {
+          "employer": {
+            "id": "122298207810993",
+            "name": "United Kingdom Parliament"
+          },
+          "position": {
+            "id": "111738455511298",
+            "name": "Research Analyst"
+          },
+          "start_date": "2010-06-01",
+          "end_date": "2010-07-01"
+        },
+        {
+          "employer": {
+            "id": "105587496145335",
+            "name": "Law Offices of Emilio N. Francisco & Associates"
+          },
+          "location": {
+            "id": "108363292521622",
+            "name": "Oakland, California"
+          },
+          "position": {
+            "id": "176215039090632",
+            "name": "Credit Analyst/Litigation Consultant"
+          },
+          "start_date": "2009-05-01",
+          "end_date": "2010-01-01"
+        },
+        {
+          "employer": {
+            "id": "103758653013479",
+            "name": "Bay Area Urban Debate League"
+          },
+          "location": {
+            "id": "113857331958379",
+            "name": "Berkeley, California"
+          },
+          "position": {
+            "id": "146003498763010",
+            "name": "Mentor Coordinator"
+          },
+          "start_date": "2008-09-01",
+          "end_date": "2009-09-01"
+        },
+        {
+          "employer": {
+            "id": "112226068789821",
+            "name": "Theta Delta Chi"
+          }
+        }
+      ],
+      "education": [
+        {
+          "school": {
+            "id": "107913502575647",
+            "name": "Los Rios Colleges"
+          },
+          "type": "College"
+        },
+        {
+          "school": {
+            "id": "10111634660",
+            "name": "UC Berkeley"
+          },
+          "year": {
+            "id": "142963519060927",
+            "name": "2010"
+          },
+          "concentration": [
+            {
+              "id": "140887845975751",
+              "name": "Rhetoric"
+            },
+            {
+              "id": "202301876451813",
+              "name": "Public Discourse"
+            }
+          ],
+          "type": "College"
+        },
+        {
+          "school": {
+            "id": "112353452115554",
+            "name": "London School of Economics"
+          },
+          "concentration": [
+            {
+              "id": "190168167673196",
+              "name": "Politics and Public Policy"
+            }
+          ],
+          "type": "College"
+        }
+      ],
+      "gender": "male",
+      "email": "mr.matt@berkeley.edu",
+      "timezone": -7,
+      "locale": "en_US",
+      "verified": true,
+      "updated_time": "2013-09-05T06:56:32+0000"
+    }
+  }
+}

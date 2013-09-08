@@ -42,7 +42,7 @@ class AuthenticationService
         uid:      @omniauth["uid"].to_s
       ).first_or_create
 
-      authentication.access_token = @omniauth["credentials"].token
+      authentication.access_token = @omniauth["credentials"]["token"]
       authentication.save!
 
       update_dropbox_songs(user.id) if user.authentications.any? { |auth| auth.provider == "dropbox" }
