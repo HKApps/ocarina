@@ -26,6 +26,7 @@ gem 'rails_12factor'
 gem 'redis-rails', git: 'git://github.com/jodosha/redis-store.git'
 gem 'redis-store'
 gem 'rabl'
+gem 'rack-cors'
 gem 'sass-rails', '~> 4.0.0.rc2'
 gem 'sidekiq'
 gem 'sinatra', require: false
