@@ -26,10 +26,16 @@ class AuthenticationService
 
   def user_from_facebook
     (@current_consumer || find_user_by_omniauth_email).first_or_initialize.tap do |user|
-      user.email      = @omniauth["info"]["email"]
-      user.first_name = @omniauth["info"]["first_name"]
-      user.last_name  = @omniauth["info"]["last_name"]
-      user.image      = @omniauth["info"]["image"].gsub("=square", "=large")
+      # Assign attributes to user
+      %w( email first_name last_name ).each do |attr|
+        user.send("#{attr}=", @omniauth['info'][attr]) if @omniauth['info'][attr]
+      end
+
+      # Assign large image URL to user
+      if @omniauth["info"]["image"].gsub("=square", "=large")
+        user.image = @omniauth["info"]["image"].gsub("=square", "=large")
+      end
+
       if user.new_record?
         user.save!
         WelcomeMailerWorker.new.async.perform(user.id)
