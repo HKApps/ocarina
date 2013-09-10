@@ -39,6 +39,14 @@ ocarinaDirectives.directive 'onClickFocus', ->
     $elm.on 'click', ->
       $(attr.onClickFocus).focus()
 
+ocarinaDirectives.directive 'scrollToOnLoad', ['$timeout'
+  ($timeout) ->
+    (scope, $elm, attr) ->
+      $timeout ->
+        $elm[0].scrollIntoView()
+      , 0
+]
+
 # will end up removing this when upgrading angular
 ocarinaDirectives.directive "ocarinaIf", ->
   transclude: "element"
@@ -82,6 +90,7 @@ ocarinaDirectives.directive 'seekProgressBar', ->
 ocarinaDirectives.directive 'timeAgo', ['$rootScope', '$timeout',
   ($rootScope, $timeout) ->
     (scope, $elm, attr) ->
+      # TODO remove rootscope?
       $timeout ->
         $elm.timeago()
       , 0

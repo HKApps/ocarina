@@ -1,10 +1,11 @@
-ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher', 'Facebook',
-  (Playlist, $scope, $route, Pusher, Facebook) ->
+ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$timeout', '$route', 'Pusher', 'Facebook',
+  (Playlist, $scope, $timeout, $route, Pusher, Facebook) ->
     $scope.playlistId = $route.current.params.playlistId
 
     Playlist.get($scope.playlistId).then (p) =>
       $scope.playlist = p
       # $scope.joinPlaylist(p.id) unless p.private
+      # TODO fix this error... currentUser hasn't loaded yet
       Playlist.getCurrentSong(p.id) unless p.owner_id == $scope.currentUser.id
 
     $scope.joinPlaylist = (id, password) ->

@@ -1,5 +1,5 @@
-ocarina.controller 'AddSongsCtrl', ['$scope', '$route', 'Playlist',
-  ($scope, $route, Playlist) ->
+ocarina.controller 'AddSongsCtrl', ['$scope', '$location', '$route', 'Playlist',
+  ($scope, $location, $route, Playlist) ->
     $scope.playlistId = $route.current.params.playlistId
 
     Playlist.get($scope.playlistId).then (p) =>
@@ -37,6 +37,7 @@ ocarina.controller 'AddSongsCtrl', ['$scope', '$route', 'Playlist',
           _.each res.data, (song) ->
             song.current_user_vote_decision = 0
             $scope.playlist.playlist_songs.push(song)
+          $location.path("/playlists/#{$scope.playlistId}")
 
       $scope.clearSelectedSongs = ->
         $scope.scFilter = undefined

@@ -18,7 +18,7 @@
           %b.votes {{song.vote_count}} votes
           .song-name.wordwrap {{ song.song_name | truncate:60:true:true }}
 
-    .player{ ocarina_if: "playlist.owner_id == currentUser.id" }
+    .player{ ocarina_if: "playlist.owner_id == currentUser.id", scroll_to_on_load: "" }
       =render 'partials/mobile/playlists/player'
 
     -# .guest-feedback{ ocarina_if: "playlist.owner_id != currentUser.id" }
