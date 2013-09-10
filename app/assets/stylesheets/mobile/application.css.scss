@@ -8,10 +8,10 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require ratchet
  *= require_self
  *= require_tree .
  *= require angular-snap
- *= require ratchet
  */
 
 html, body, .snap-content {
@@ -20,7 +20,7 @@ html, body, .snap-content {
 }
 
 .ng-view {
-  margin-top: 80px;
+  margin-top: 10px;
 }
 
 .snap-content {
