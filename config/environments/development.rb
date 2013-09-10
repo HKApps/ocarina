@@ -32,5 +32,19 @@ Ocarina::Application.configure do
   config.smtp_password  = ENV['SMTP_PASSWORD'] || 'jarpadarp'
 
   # API URLs
-  config.web_url = ENV['WEB_URL'] || 'http://localhost:4400'
+  config.web_url        = ENV['WEB_URL'] || 'http://localhost:4400'
+  config.mobile_web_url = ENV['MOBILE_WEB_URL'] || 'http://localhost:8000'
+
+  ##
+  # CORS support
+  config.middleware.insert_before "ActionDispatch::Static", "Rack::Cors", :debug => true, :logger => Rails.logger do
+    allow do
+      origins Rails.configuration.mobile_web_url
+
+      resource '/api/*', 
+        headers: :any,
+        methods: [:get, :post]
+    end
+  end
+
 end
