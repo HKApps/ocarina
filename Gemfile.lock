@@ -114,6 +114,7 @@ GEM
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     formatador (0.2.4)
+    geocoder (1.1.8)
     guard (1.8.1)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -332,6 +333,7 @@ DEPENDENCIES
   factory_girl_rails
   figaro
   foreman
+  geocoder
   guard-livereload
   haml-rails
   haversine

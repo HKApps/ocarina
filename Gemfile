@@ -35,6 +35,7 @@ gem 'textacular', '~> 3.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'zurb-foundation'
 gem 'haversine'
+gem 'geocoder'
 
 group :development do
   gem 'guard-livereload'
