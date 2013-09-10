@@ -83,7 +83,20 @@ Ocarina::Application.configure do
   config.smtp_password  = ENV['SMTP_PASSWORD'] || raise_for('SMTP_PASSWORD')
 
   # API URLs
-  config.web_url = ENV['WEB_URL'] || raise_for('WEB_URL')
+  config.web_url        = ENV['WEB_URL'] || raise_for('WEB_URL')
+  config.mobile_web_url = ENV['MOBILE_WEB_URL'] || raise_for('MOBILE_WEB_URL')
+
+  ##
+  # CORS support
+  config.middleware.insert_before "ActionDispatch::Static", "Rack::Cors" do
+    allow do
+      origins Rails.configuration.mobile_web_url
+
+      resource '/api/*', 
+        headers: :any,
+        methods: [:get, :post]
+    end
+  end
 end
 
 def raise_for(str)
