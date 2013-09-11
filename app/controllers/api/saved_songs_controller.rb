@@ -2,14 +2,14 @@ class Api::SavedSongsController < ApiController
   respond_to :json
 
   def index
-    @saved_songs = current_user.saved_songs
+    @saved_songs = user.saved_songs
     respond_with @saved_songs, status: 201
   end
 
   def create
     @saved_song = SavedSong.where(
       playlist_song_id: params[:id],
-      user_id: current_user.id,
+      user_id: params[:user_id],
       name: params[:song_name]
     ).first_or_initialize
 
