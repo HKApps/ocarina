@@ -11,7 +11,7 @@ class Api::PlaylistsController < ApiController
   end
 
   def create
-    @playlist = current_user.playlists.build(playlist_params)
+    @playlist = user.playlists.build(playlist_params)
 
     if !@playlist.venue['latitude'] && !@playlist.venue['longitude'] && @playlist.location
       @playlist.venue = {
@@ -31,8 +31,8 @@ class Api::PlaylistsController < ApiController
     @playlist = Playlist.where(id: params[:id]).first
     if @playlist
       if @playlist.password == params[:password]
-        JoinPlaylistWorker.new.async.perform(@playlist.id, current_user.id)
-        push_guest(current_user, params[:id])
+        JoinPlaylistWorker.new.async.perform(@playlist.id, params[:user_id])
+        push_guest(params[:user_id], params[:id])
         render "api/playlists/join", status: 201
       else
         render "api/playlists/join", json: {error: "wrong password", status: 401 }
