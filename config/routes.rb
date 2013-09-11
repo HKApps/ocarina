@@ -7,6 +7,7 @@ Ocarina::Application.routes.draw do
 
   namespace :api do
     resources :users, only: [:show, :create]
+    get 'current_user', to: 'users#current_user_json'
 
     resources :saved_songs, only: [:index, :destroy, :create]
 
