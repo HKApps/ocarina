@@ -2,16 +2,15 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
   ($scope, Playlist) ->
     ##
     # add songs setup
-    $scope.provider = "Soundcloud"
-
     $scope.selectedSongs =
       dropbox: []
       soundcloud: []
 
-    $scope.songInPlaylist = (song) ->
-      if $scope.provider == "Dropbox"
+    $scope.songInPlaylist = (provider, song) ->
+      false
+      if provider == "dropbox"
         _.findWhere($scope.playlist.playlist_songs, {song_id: song}) || _.findWhere($scope.playlist.played_playlist_songs, {song_id: song})
-      else if $scope.provider == "Soundcloud"
+      else if provider == "soundcloud"
         _.findWhere($scope.playlist.playlist_songs, {path: song.uri}) || _.findWhere($scope.playlist.played_playlist_songs, {path: song.uri})
 
     $scope.isSongSelected = (provider, song) ->
@@ -48,6 +47,7 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
     $scope.scResults = []
     $scope.searchSc = (query) ->
       if query
+        $scope.inProgress = true
         SC.get '/tracks',
           q: query
           order: "hotness"
@@ -59,6 +59,7 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
             $scope.searchSc(query)
           else
             $scope.scResults = tracks
+            $scope.inProgress = false
             $scope.$apply()
       else
         $scope.scResults = []
