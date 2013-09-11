@@ -11,8 +11,10 @@ class Api::UsersController < ApiController
 
   def create
     @user = User.new(user_params)
-    unless @user.save
-      respond_with user.errors, status: :unauthorized
+    if @user.save
+      respond_with @user, status: 201
+    else
+      respond_with @user.errors, status: :unauthorized
     end
   end
 
