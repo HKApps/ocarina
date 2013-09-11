@@ -13,7 +13,7 @@ class Api::PlaylistsController < ApiController
   end
 
   def create
-    @playlist = user.playlists.build(playlist_params)
+    @playlist = current_user.playlists.build(playlist_params)
     if @playlist.save
       respond_with @playlist, status: 201
     else

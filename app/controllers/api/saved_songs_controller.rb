@@ -2,7 +2,7 @@ class Api::SavedSongsController < ApiController
   respond_to :json
 
   def index
-    @saved_songs = user.saved_songs
+    @saved_songs = current_user.saved_songs
     respond_with @saved_songs, status: 201
   end
 
