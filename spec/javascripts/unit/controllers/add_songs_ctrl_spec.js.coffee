@@ -27,8 +27,6 @@ describe 'AddSongsCtrl', ->
     httpBackend.verifyNoOutstandingExpectation()
 
   it 'can tell if soundcloud song is in the playlist', ->
-    scope.provider = 'Soundcloud'
-
     inPlaylist =
       id: 2
       song_id: 2
@@ -44,22 +42,20 @@ describe 'AddSongsCtrl', ->
       song_id: 5
       uri: "path5"
 
-    expect(scope.songInPlaylist(notInPlaylist)).toEqual undefined
-    expect(scope.songInPlaylist(inPlaylist)).toEqual scope.playlist.playlist_songs[1]
-    expect(scope.songInPlaylist(playedInPlaylist)).toEqual scope.playlist.played_playlist_songs[1]
+    expect(scope.songInPlaylist("soundcloud", notInPlaylist)).toEqual undefined
+    expect(scope.songInPlaylist("soundcloud", inPlaylist)).toEqual scope.playlist.playlist_songs[1]
+    expect(scope.songInPlaylist("soundcloud", playedInPlaylist)).toEqual scope.playlist.played_playlist_songs[1]
 
   it 'can tell if dropbox song is in the playlist', ->
-    scope.provider = 'Dropbox'
-
     inPlaylist = 1
 
     playedInPlaylist = 3
 
     notInPlaylist = 5
 
-    expect(scope.songInPlaylist(notInPlaylist)).toEqual undefined
-    expect(scope.songInPlaylist(inPlaylist)).toEqual scope.playlist.playlist_songs[0]
-    expect(scope.songInPlaylist(playedInPlaylist)).toEqual scope.playlist.played_playlist_songs[0]
+    expect(scope.songInPlaylist("dropbox", notInPlaylist)).toEqual undefined
+    expect(scope.songInPlaylist("dropbox", inPlaylist)).toEqual scope.playlist.playlist_songs[0]
+    expect(scope.songInPlaylist("dropbox", playedInPlaylist)).toEqual scope.playlist.played_playlist_songs[0]
 
   it 'can tell if song is selected', ->
     scope.selectedSongs =
