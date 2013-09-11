@@ -75,11 +75,11 @@ class Api::PlaylistSongsController < ApiController
   end
 
   def vote_params
-    params.permit(:id).merge(user_id: session[:user_id])
+    params.permit(:id).merge(user_id: params[:user_id])
   end
 
   def skip_song_params
-    params.permit(:id, :playlist_id).merge(user_id: session[:user_id])
+    params.permit(:id, :playlist_id).merge(user_id: params[:user_id])
   end
 
 end
