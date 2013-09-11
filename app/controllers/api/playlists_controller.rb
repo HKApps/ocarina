@@ -7,13 +7,18 @@ class Api::PlaylistsController < ApiController
 
   def index
     @playlists = Playlist.all
-    respond_to do |format|
-      format.json { render :json => @playlists }
-    end
+    respond_with @playlists
   end
 
   def create
     @playlist = current_user.playlists.build(playlist_params)
+    if !@playlist.venue && @playlist.location
+        coords = convert_location_to_coords(@playlist.location)
+        @playlist.venue = {
+          latitude: coords[0],
+          longitude: coords[1],
+        }
+    end
     if @playlist.save
       respond_with @playlist, status: 201
     else
@@ -34,6 +39,37 @@ class Api::PlaylistsController < ApiController
     else
       render json: {error: "record not found"}, status: 403
     end
+  end
+
+  def near_me
+    proxim = []
+    playlists = Playlist.all
+
+    playlists.each do |playlist|
+      next if !playlist.venue
+      h_distance = Haversine.distance(
+        params[:latitude],
+        params[:longitude],
+        playlist.venue["latitude"].to_i,
+        playlist.venue["longitude"].to_i
+      ).to_miles
+
+      proxim << {
+          playlist_id: playlist.id,
+          distance: h_distance
+      }
+    end
+
+    proxim = proxim.sort_by{|k, v| v}
+    respond_with proxim, status: 201
+  end
+
+  def convert_location_to_coords(location)
+    geocoder_object = Geocoder.search(location)
+    next if !geocoder_object
+    latitude = geocoder_object[0].geometry["location"]["lat"].to_f
+    longitude = geocoder_object[0].geometry["location"]["lng"].to_f
+    coords = [latitude, longitude]
   end
 
   def playback_ended

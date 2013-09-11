@@ -1,4 +1,4 @@
-ocarinaServices = angular.module('ocarinaServices', ['ngResource'])
+ocarinaServices = angular.module('ocarinaServices', [])
 
 ocarinaServices.factory 'Pusher', ->
   if Pusher?
