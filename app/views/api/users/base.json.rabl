@@ -2,6 +2,7 @@ attributes :id, :email, :first_name, :last_name, :image, :created_at, :updated_a
 
 node(:dropbox_authenticated)  { |u| u.dropbox_authenticated? }
 node(:facebook_authenticated) { |u| u.facebook_authenticated? }
+node(:defer_dropbox_connect)  { |u| defer_dropbox_connect? }
 node(:facebook_token)         { |u| u.fetch_authentications.where(provider: "facebook").first.access_token }
 
 node(:skip_song_voted_songs) do |u|
