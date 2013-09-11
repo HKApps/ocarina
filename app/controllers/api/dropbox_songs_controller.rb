@@ -16,18 +16,28 @@ class Api::DropboxSongsController < ApiController
   end
 
   def create
-    FileToSongService.new(dropbox_client.all_song_files, current_user).convert_and_save
+    FileToSongService.new(dropbox_client.all_song_files, params[:user_id]).convert_and_save
     redirect_to :root
   end
 
   def update
-    service = UpdateDropboxSongsService.new(session[:user_id])
+    service = UpdateDropboxSongsService.new(params[:user_id])
     if service.update_songs
       @songs = service.convert_to_songs
       service.write_cache(service.dropbox_client.metadata)
     else
       render json: {}, status: 304
     end
+  end
+
+  private
+
+  def dropbox_client
+    @dropbox_client ||= DropboxClient.new(dropbox_auth.access_token, dropbox_auth.access_token_secret)
+  end
+
+  def dropbox_auth
+    @dropbox_auth ||= Authentication.find_by user_id: params[:user_id], provider: 'dropbox'
   end
 
 end
