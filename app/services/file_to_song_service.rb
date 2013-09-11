@@ -1,7 +1,7 @@
 class FileToSongService
-  def initialize(file_list, user)
+  def initialize(file_list, user_id)
     @file_list  = file_list
-    @user       = user
+    @user_id    = user_id
     @start_time = Time.now.utc
   end
 
@@ -10,7 +10,7 @@ class FileToSongService
   end
 
   def find_or_create_song(song)
-    Song.where(user_id: @user.id, provider: "dropbox", path: song['path']).first_or_initialize.tap do |s|
+    Song.where(user_id: @user_id, provider: "dropbox", path: song['path']).first_or_initialize.tap do |s|
       s.name       = song['path'][1..-1].gsub('_',' ').gsub(/.mp3|.mp4|.wav|.ogg|.aac/, '')
       s.properties = song
       s.removed_at = nil
@@ -19,7 +19,7 @@ class FileToSongService
   end
 
   def update_removed_dropbox_songs
-    Song.where("user_id = ? AND updated_at < ?", @user.id, @start_time).map do |song|
+    Song.where("user_id = ? AND updated_at < ?", @user_id, @start_time).map do |song|
       song.removed_from_dropbox!
     end
   end
