@@ -145,7 +145,7 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
     description = "Share. Vote. Discover."
     $http.post "#{graph_url}/#{id}/feed?access_token=#{token}&message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
 
-  Facebook.openMessageDialog = (playlist_id) ->
+  Facebook.sendDialogURL = (playlist_id) ->
     link = "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
     "#{api_url}/dialog/send?app_id=#{app_id}&link=#{link}&redirect_uri=#{link}"
 
