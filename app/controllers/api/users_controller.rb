@@ -5,17 +5,8 @@ class Api::UsersController < ApiController
     @user = User.includes(:songs, :playlists, :guests).where(id: params[:id]).first
   end
 
-  def current_user_json
-    @user = current_user
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      respond_with @user, status: 201
-    else
-      respond_with @user.errors, status: :unauthorized
-    end
+  def authenticate
+    @user = ApiAuthenticationService.user_from_params(params)
   end
 
   private
