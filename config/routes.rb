@@ -6,8 +6,9 @@ Ocarina::Application.routes.draw do
   #mount Sidekiq::Web, at: '/sidekiq'
 
   namespace :api do
-    resources :users, only: [:show, :create]
-    get 'current_user', to: 'users#current_user_json'
+    resources :users, only: [:show] do
+      match 'authenticate', on: :collection, via: [:get, :post]
+    end
 
     resources :saved_songs, only: [:index, :destroy, :create]
 
