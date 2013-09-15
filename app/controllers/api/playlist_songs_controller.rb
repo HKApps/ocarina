@@ -3,7 +3,7 @@ class Api::PlaylistSongsController < ApiController
 
   def create
     playlist_id = params[:id]
-    playlist_songs = AddPlaylistSongToPlaylistService.initialize_from_params(params, params[:user_id], dropbox_client).create
+    playlist_songs = AddPlaylistSongToPlaylistService.initialize_from_params(params, user_id, dropbox_client).create
     if playlist_songs.present?
       push_playlist_songs(playlist_id, playlist_songs)
       render json: playlist_songs, status: 201
@@ -55,7 +55,7 @@ class Api::PlaylistSongsController < ApiController
 
   def push_playlist_songs(playlist_id, playlist_songs)
     Pusher.trigger("playlist-#{playlist_id}", "new-playlist-songs", {
-      user_id: params[:user_id],
+      user_id: user_id,
       playlist_songs: playlist_songs,
       current_user_vote_decision: 0
     })
@@ -63,23 +63,23 @@ class Api::PlaylistSongsController < ApiController
 
   def push_played_song(playlist_id, song_id)
     Pusher.trigger("playlist-#{playlist_id}", "song-played", {
-      user_id: params[:user_id],
+      user_id: user_id,
       song_id: song_id })
   end
 
   def push_vote(action, playlist_id, song_id)
     Pusher.trigger("playlist-#{playlist_id}", "new-vote", {
-      user_id: params[:user_id],
+      user_id: user_id,
       action: action,
       song_id: song_id })
   end
 
   def vote_params
-    params.permit(:id).merge(user_id: params[:user_id])
+    params.permit(:id).merge(user_id: user_id)
   end
 
   def skip_song_params
-    params.permit(:id, :playlist_id).merge(user_id: params[:user_id])
+    params.permit(:id, :playlist_id).merge(user_id: user_id)
   end
 
 end
