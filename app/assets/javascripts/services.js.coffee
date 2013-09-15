@@ -156,36 +156,44 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
         artists.push(artist.name)
       artists
 
+  Facebook.getPartiesFavoriteArtists = (token, ids) ->
+    $http.get("#{graph_url}/fql/?q=SELECT music FROM user WHERE uid IN (#{ids}) &access_token=#{token}").then (res) =>
+      getSortedArtists(res.data.data)
+
   Facebook.getEventsFavoriteArtists = (token, event_id) ->
     $http.get("#{graph_url}/fql/?q=SELECT music FROM user WHERE uid IN (SELECT uid FROM event_member WHERE eid=#{event_id} AND rsvp_status='attending') AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())&access_token=#{token}").then (res) =>
-      # find like count per artists
-      groupedArtists = {}
-      _.each res.data.data, (user) ->
-        artists = user.music.split(", ")
-        _.each artists, (artist) ->
-          unless artist is ""
-            if groupedArtists[artist]
-              groupedArtists[artist]++
-            else
-              groupedArtists[artist] = 1
+      getSortedArtists(res.data.data)
 
-      # categorize artists by like count
-      ranks = {}
-      max_rank = 0
-      for artist of groupedArtists
-        max_rank = groupedArtists[artist] if groupedArtists[artist] > max_rank
-        if ranks[groupedArtists[artist]]
-          ranks[groupedArtists[artist]].push artist
-        else
-          ranks[groupedArtists[artist]] = [artist]
+  getSortedArtists = (data) ->
+    # find like count per artists
+    groupedArtists = {}
+    _.each data, (user) ->
+      artists = user.music.split(", ")
+      _.each artists, (artist) ->
+        unless artist is ""
+          if groupedArtists[artist]
+            groupedArtists[artist]++
+          else
+            groupedArtists[artist] = 1
 
-      # add artists to array in order of rank
-      sortedArtists = []
-      i = max_rank
-      while i > 0
-        sortedArtists = sortedArtists.concat(ranks[i] or [])
-        i--
-      sortedArtists
+    # categorize artists by like count
+    ranks = {}
+    max_rank = 0
+    for artist of groupedArtists
+      max_rank = groupedArtists[artist] if groupedArtists[artist] > max_rank
+      if ranks[groupedArtists[artist]]
+        ranks[groupedArtists[artist]].push artist
+      else
+        ranks[groupedArtists[artist]] = [artist]
+
+    # add artists to array in order of rank
+    sortedArtists = []
+    i = max_rank
+    while i > 0
+      sortedArtists = sortedArtists.concat(ranks[i] or [])
+      i--
+
+    sortedArtists
 
   Facebook
 ]
