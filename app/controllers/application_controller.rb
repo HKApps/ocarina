@@ -3,14 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :set_user_id
   after_filter  :set_csrf_cookie_for_ng
 
   protected
-
-  def set_user_id
-    request.params[:user_id] = session[:user_id] unless request.params[:user_id]
-  end
 
   def set_csrf_cookie_for_ng
       cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
@@ -25,9 +20,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.fetch_by_id params[:user_id]
+    @current_user ||= User.fetch_by_id user_id
   end
   helper_method :current_user
+
+  def user_id
+    params[:user_id] || session[:user_id]
+  end
 
   def dropbox_client
     @dropbox_client ||= begin

@@ -9,7 +9,7 @@ class Api::SavedSongsController < ApiController
   def create
     @saved_song = SavedSong.where(
       playlist_song_id: params[:id],
-      user_id: params[:user_id],
+      user_id: user_id,
       name: params[:song_name]
     ).first_or_initialize
 
