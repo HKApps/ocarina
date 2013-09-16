@@ -140,10 +140,6 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
     $http.get("#{url}/#{id}.json").then (res) =>
       new User(res.data)
 
-  User.getCurrentUser = ->
-    $http.get("/api/current_user.json").then (res) =>
-      new User(res.data)
-
   User
 ]
 
