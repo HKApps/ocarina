@@ -13,13 +13,15 @@
         window.location.hash = '';
       }
 
-  %body{ ng_controller: 'UserCtrl' }
-    = render 'partials/nav'
+  %body.ng-cloak{ ng_controller: 'UserCtrl' }
+    .logged-out{ ocarina_if: "!loggedIn", ng_include:"'/partials/logged_out'" }
+    .logged-in{ ocarina_if: "loggedIn" }
+      = render 'partials/nav'
 
-    .container
-      = yield
+      .container
+        = yield
 
-    = render 'partials/footer'
+      = render 'partials/footer'
 
     = javascript_include_tag "vendor/custom.modernizr"
     = javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
