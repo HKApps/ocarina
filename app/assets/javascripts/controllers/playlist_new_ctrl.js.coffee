@@ -3,7 +3,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
     # TODO server should do this
     $scope.newPlaylist=
       settings:
-        continuous_play: false
+        continuous_play: true
 
     $scope.createPlaylist = () ->
       playlist = new Playlist()
