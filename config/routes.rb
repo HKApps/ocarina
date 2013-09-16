@@ -20,6 +20,8 @@ Ocarina::Application.routes.draw do
         post 'current_song_response', to: "playlists#current_song_response"
       end
 
+      get '/near_me', to: 'playlists#near_me', on: :collection
+
       resources :playlist_songs, only: [:create] do
         member do
           get  'media_url'
