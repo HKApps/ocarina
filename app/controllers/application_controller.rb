@@ -20,9 +20,13 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.fetch_by_id session[:user_id]
+    @current_user ||= User.fetch_by_id user_id
   end
   helper_method :current_user
+
+  def user_id
+    params[:user_id] || session[:user_id]
+  end
 
   def dropbox_client
     @dropbox_client ||= begin
