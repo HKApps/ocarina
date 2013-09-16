@@ -26,6 +26,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
         $scope.setContPlaySong()
 
     $scope.setContPlaySong= ->
+      contPlayPosition = 0 unless $scope.contPlaylist[contPlayPosition]
       artist = $scope.contPlaylist[contPlayPosition]
       SC.get '/tracks',
         q: artist
