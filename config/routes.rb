@@ -8,7 +8,6 @@ Ocarina::Application.routes.draw do
   namespace :api do
     get 'current_user', to: 'users#current_user_json'
     get '/users/:id',   to: 'users#show'
-    get '/playlists/near_me', to: 'playlists#near_me'
 
     resources :saved_songs, only: [:index, :destroy, :create]
 
@@ -20,6 +19,8 @@ Ocarina::Application.routes.draw do
         get 'current_song_request', to: "playlists#current_song_request"
         post 'current_song_response', to: "playlists#current_song_response"
       end
+
+      get '/near_me', to: 'playlists#near_me', on: :collection
 
       resources :playlist_songs, only: [:create] do
         member do

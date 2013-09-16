@@ -12,13 +12,14 @@ class Api::PlaylistsController < ApiController
 
   def create
     @playlist = current_user.playlists.build(playlist_params)
-    if !@playlist.venue && @playlist.location
-        coords = convert_location_to_coords(@playlist.location)
-        @playlist.venue = {
-          latitude: coords[0],
-          longitude: coords[1],
-        }
+
+    if !@playlist.venue['latitude'] && !@playlist.venue['longitude'] && @playlist.location
+      @playlist.venue = {
+        latitude:  playlist_coords[0],
+        longitude: playlist_coords[1]
+      }
     end
+
     if @playlist.save
       respond_with @playlist, status: 201
     else
@@ -42,34 +43,19 @@ class Api::PlaylistsController < ApiController
   end
 
   def near_me
-    proxim = []
-    playlists = Playlist.all
-
-    playlists.each do |playlist|
-      next if !playlist.venue
-      h_distance = Haversine.distance(
-        params[:latitude],
-        params[:longitude],
-        playlist.venue["latitude"].to_i,
-        playlist.venue["longitude"].to_i
-      ).to_miles
-
-      proxim << {
-          playlist_id: playlist.id,
-          distance: h_distance
-      }
-    end
-
-    proxim = proxim.sort_by{|k, v| v}
-    respond_with proxim, status: 201
+    @proxim    = NearbyPlaylistLocator.find(params[:latitude].to_f, params[:longitude].to_f)
+    @playlists = Playlist.where(id: @proxim.map { |prox| prox[:playlist_id] })
   end
 
-  def convert_location_to_coords(location)
-    geocoder_object = Geocoder.search(location)
-    next if !geocoder_object
-    latitude = geocoder_object[0].geometry["location"]["lat"].to_f
-    longitude = geocoder_object[0].geometry["location"]["lng"].to_f
-    coords = [latitude, longitude]
+  private
+
+  def playlist_coords
+    @coords ||= begin
+      return nil unless geocoder_object = Geocoder.search(@playlist.location)
+      latitude  = geocoder_object[0].geometry["location"]["lat"].to_f
+      longitude = geocoder_object[0].geometry["location"]["lng"].to_f
+      [latitude, longitude]
+    end
   end
 
   def playback_ended
@@ -96,8 +82,6 @@ class Api::PlaylistsController < ApiController
   def push_guest(guest, playlist_id)
     Pusher.trigger("playlist-#{playlist_id}", "new-guest", { guest: guest } )
   end
-
-  private
 
   def fetch_playlist
     @playlist = Playlist.fetch params[:id]
