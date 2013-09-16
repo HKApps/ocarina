@@ -54,6 +54,7 @@
           .voters{ ng_repeat: "voter in song.voters" }
             %img.avatar{ ng_src: "{{voter.image}}" }
     .playlist-songs.zero-state{ ng_hide: "playlist.playlist_songs.length" }
-      %h4 Your playlist is empty!
+      %h4 Your playlist is empty.
+      %h4 Don't worry, we got your back!
       %button.btn.btn-success.add-song-zero-state-btn{ ng_click: "openAddSongsModal()" }
         Add Songs
