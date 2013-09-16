@@ -1,3 +1,6 @@
+# API URL
+@apiURL = ""
+
 ocarinaServices = angular.module('ocarinaServices', [])
 
 ocarinaServices.factory 'Pusher', ->
@@ -85,7 +88,7 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
 ]
 
 ocarinaServices.factory 'Playlist', ['$http', ($http) ->
-  url = "/api/playlists"
+  url = apiURL + "/api/playlists"
   Playlist = (data) ->
     angular.extend(this, data)
 
@@ -132,7 +135,7 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
 ]
 
 ocarinaServices.factory 'User', ['$http', ($http) ->
-  url = "/api/users"
+  url = apiURL + "/api/users"
   User = (data) ->
     angular.extend(this, data)
 

@@ -1,15 +1,9 @@
 ocarina.controller 'UserCtrl', ['$scope', '$http', 'User', 'Authentication',
   ($scope, $http, User, Authentication) ->
-    $scope.loggedIn = Authentication.loggedIn
-
-    $scope.logout = ->
-      Authentication.logout()
-
-    $scope.login = ->
-      Authentication.login()
+    $scope.auth = Authentication
 
     if Authentication.getCookie("user_id")
-      $scope.loggedIn = true
+      Authentication.loggedIn = true
       User.get(Authentication.getCookie("user_id")).then (u) =>
         $scope.currentUser = u
 

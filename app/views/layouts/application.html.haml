@@ -8,14 +8,9 @@
     = stylesheet_link_tag "application", media: "all"
     = csrf_meta_tags
 
-    :javascript
-      if (window.location.hash == '#_=_'){
-        window.location.hash = '';
-      }
-
   %body.ng-cloak{ ng_controller: 'UserCtrl' }
-    .logged-out{ ocarina_if: "!loggedIn", ng_include:"'/partials/logged_out'" }
-    .logged-in{ ocarina_if: "loggedIn" }
+    .logged-out{ ocarina_if: "!auth.loggedIn", ng_include:"'/partials/logged_out'" }
+    .logged-in{ ocarina_if: "auth.loggedIn" }
       = render 'partials/nav'
 
       .container
