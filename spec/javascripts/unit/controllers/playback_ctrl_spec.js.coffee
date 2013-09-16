@@ -6,19 +6,28 @@ describe 'PlaybackCtrl', ->
   route = null
   playlist = null
   player = null
+  facebook = null
 
   beforeEach module 'ocarina'
-  beforeEach inject ($controller, $httpBackend, $rootScope, $http, $route, Playlist, Player) ->
+  beforeEach inject ($controller, $httpBackend, $rootScope, $http, $route, Playlist, Player, Facebook) ->
     httpBackend = $httpBackend
     rootScope = $rootScope
     scope = $rootScope.$new()
+    scope.playlist =
+      facebook_id: "54321"
+    scope.currentUser =
+      facebook_token: "token"
     http = $http
     playlist = Playlist
     player = Player
+    facebook = Facebook
     route = $route
     route.current =
       params:
         playlistId: "12345"
+
+    httpBackend.expectGET("https://graph.facebook.com/fql/?q=SELECT music FROM user WHERE uid IN (SELECT uid FROM event_member WHERE eid=54321 AND rsvp_status='attending') AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())&access_token=token").respond(200)
+
     $controller 'PlaybackCtrl',
       $scope: scope
       $rootScope: rootScope
@@ -26,12 +35,10 @@ describe 'PlaybackCtrl', ->
       $route: route
       Playlist: playlist
       Player: player
+      Facebook: facebook
 
   afterEach ->
     httpBackend.verifyNoOutstandingExpectation()
-
-  it "can initialize player", ->
-    # TODO
 
   it "can pause", ->
     expect(player.state).toNotEqual "paused"
