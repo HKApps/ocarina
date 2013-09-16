@@ -31,8 +31,8 @@ class Api::PlaylistsController < ApiController
     @playlist = Playlist.where(id: params[:id]).first
     if @playlist
       if @playlist.password == params[:password]
-        JoinPlaylistWorker.new.async.perform(@playlist.id, current_user.id)
-        push_guest(current_user, params[:id])
+        JoinPlaylistWorker.new.async.perform(@playlist.id, user_id)
+        push_guest(user_id, params[:id])
         render "api/playlists/join", status: 201
       else
         render "api/playlists/join", json: {error: "wrong password", status: 401 }

@@ -5,7 +5,14 @@ class Api::UsersController < ApiController
     @user = User.includes(:songs, :playlists, :guests).where(id: params[:id]).first
   end
 
-  def current_user_json
-    @user = current_user
+  def authenticate
+    @user = ApiAuthenticationService.user_from_params(params)
   end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :image)
+  end
+
 end
