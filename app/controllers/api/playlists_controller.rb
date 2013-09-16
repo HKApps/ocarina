@@ -7,13 +7,19 @@ class Api::PlaylistsController < ApiController
 
   def index
     @playlists = Playlist.all
-    respond_to do |format|
-      format.json { render :json => @playlists }
-    end
+    respond_with @playlists
   end
 
   def create
     @playlist = current_user.playlists.build(playlist_params)
+
+    if !@playlist.venue['latitude'] && !@playlist.venue['longitude'] && @playlist.location
+      @playlist.venue = {
+        latitude:  playlist_coords[0],
+        longitude: playlist_coords[1]
+      }
+    end
+
     if @playlist.save
       respond_with @playlist, status: 201
     else
@@ -33,6 +39,22 @@ class Api::PlaylistsController < ApiController
       end
     else
       render json: {error: "record not found"}, status: 403
+    end
+  end
+
+  def near_me
+    @proxim    = NearbyPlaylistLocator.find(params[:latitude].to_f, params[:longitude].to_f)
+    @playlists = Playlist.where(id: @proxim.map { |prox| prox[:playlist_id] })
+  end
+
+  private
+
+  def playlist_coords
+    @coords ||= begin
+      return nil unless geocoder_object = Geocoder.search(@playlist.location)
+      latitude  = geocoder_object[0].geometry["location"]["lat"].to_f
+      longitude = geocoder_object[0].geometry["location"]["lng"].to_f
+      [latitude, longitude]
     end
   end
 
@@ -60,8 +82,6 @@ class Api::PlaylistsController < ApiController
   def push_guest(guest, playlist_id)
     Pusher.trigger("playlist-#{playlist_id}", "new-guest", { guest: guest } )
   end
-
-  private
 
   def fetch_playlist
     @playlist = Playlist.fetch params[:id]
