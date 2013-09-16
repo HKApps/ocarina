@@ -5,6 +5,7 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
     Playlist.get($scope.playlistId).then (p) =>
       $scope.playlist = p
       $scope.joinPlaylist(p.id) unless p.private
+      # TODO handle situation when we don't have currentUser res yet
       Playlist.getCurrentSong(p.id) unless p.owner_id == $scope.currentUser.id
 
     $scope.joinPlaylist = (id, password) ->
@@ -38,7 +39,7 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
       song.vote_count--
       song.current_user_vote_decision--
 
-    $scope.fbSendDialogURL = Facebook.openMessageDialog($scope.playlistId)
+    $scope.fbSendDialogURL = Facebook.sendDialogURL($scope.playlistId)
 
     ##
     # add songs modal

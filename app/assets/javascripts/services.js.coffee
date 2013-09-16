@@ -145,9 +145,55 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
     description = "Share. Vote. Discover."
     $http.post "#{graph_url}/#{id}/feed?access_token=#{token}&message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
 
-  Facebook.openMessageDialog = (playlist_id) ->
+  Facebook.sendDialogURL = (playlist_id) ->
     link = "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
     "#{api_url}/dialog/send?app_id=#{app_id}&link=#{link}&redirect_uri=#{link}"
+
+  Facebook.getUsersFavoriteArtists = (token, id) ->
+    $http.get("#{graph_url}/#{id}/music?access_token=#{token}").then (res) =>
+      artists = []
+      _.each res.data.data, (artist) ->
+        artists.push(artist.name)
+      artists
+
+  Facebook.getPartiesFavoriteArtists = (token, ids) ->
+    $http.get("#{graph_url}/fql/?q=SELECT music FROM user WHERE uid IN (#{ids}) &access_token=#{token}").then (res) =>
+      getSortedArtists(res.data.data)
+
+  Facebook.getEventsFavoriteArtists = (token, event_id) ->
+    $http.get("#{graph_url}/fql/?q=SELECT music FROM user WHERE uid IN (SELECT uid FROM event_member WHERE eid=#{event_id} AND rsvp_status='attending') AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())&access_token=#{token}").then (res) =>
+      getSortedArtists(res.data.data)
+
+  getSortedArtists = (data) ->
+    # find like count per artists
+    groupedArtists = {}
+    _.each data, (user) ->
+      artists = user.music.split(", ")
+      _.each artists, (artist) ->
+        unless artist is ""
+          if groupedArtists[artist]
+            groupedArtists[artist]++
+          else
+            groupedArtists[artist] = 1
+
+    # categorize artists by like count
+    ranks = {}
+    max_rank = 0
+    for artist of groupedArtists
+      max_rank = groupedArtists[artist] if groupedArtists[artist] > max_rank
+      if ranks[groupedArtists[artist]]
+        ranks[groupedArtists[artist]].push artist
+      else
+        ranks[groupedArtists[artist]] = [artist]
+
+    # add artists to array in order of rank
+    sortedArtists = []
+    i = max_rank
+    while i > 0
+      sortedArtists = sortedArtists.concat(ranks[i] or [])
+      i--
+
+    sortedArtists
 
   Facebook
 ]

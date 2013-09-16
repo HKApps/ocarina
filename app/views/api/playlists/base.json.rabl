@@ -1,11 +1,17 @@
-attributes :id, :name, :owner_id, :private, :created_at, :settings
+attributes :id, :name, :owner_id, :private, :created_at, :settings, :facebook_id
 
 child :host => "host" do
   attributes :id, :first_name, :last_name, :image
+  node :facebook_id do |h|
+    h.authentications.where(provider: "facebook").first.uid
+  end
 end
 
 child :guests_as_users => "guests" do
   attributes :id, :first_name, :last_name, :image
+  node :facebook_id do |g|
+    g.authentications.where(provider: "facebook").first.uid
+  end
 end
 
 child :unplayed_songs => "playlist_songs" do
