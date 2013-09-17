@@ -1,5 +1,5 @@
-ocarina.controller 'GuestFeedbackCtrl', ['$scope', '$http', 'Playlist'
-  ($scope, $http, Playlist) ->
+ocarina.controller 'GuestFeedbackCtrl', ['$scope', 'Playlist'
+  ($scope, Playlist) ->
     $scope.toggleSongSaved = (song) ->
       if $scope.songSaved(song.id)
         song = $scope.songSaved(song.id)
@@ -8,16 +8,11 @@ ocarina.controller 'GuestFeedbackCtrl', ['$scope', '$http', 'Playlist'
         saveSong(song)
 
     saveSong = (song) ->
-      $http.post('/api/saved_songs.json',
-        user_id: $scope.currentUser.id
-        song: song
-      ).then (res) =>
+      SavedSong.create($scope.currentUser.id, song).then (res) =>
         $scope.currentUser.favorites.push res.data
 
     unsaveSong = (song) ->
-      $http.delete("/api/saved_songs/#{song.id}.json",
-        params: { user_id: $scope.currentUser.id }
-      )
+      SavedSong.delete($scope.currentUser.id, song.id)
       $scope.currentUser.favorites = _.without($scope.currentUser.favorites, song)
 
     $scope.songSaved = (id) ->

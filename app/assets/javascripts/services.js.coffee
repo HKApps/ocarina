@@ -57,6 +57,9 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
     FB.logout()
     Authentication.loggedIn = false
 
+  Authentication.deferDropbox = (user_id) ->
+    $http.post "/defer_dropbox_connect", user_id: user_id
+
   FB.init
     appId: "160916744087752"
     channelUrl: "//localhost:4400/channel.html"
@@ -102,16 +105,14 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
       new Playlist(res.data)
 
   Playlist.prototype.create = (user_id) ->
-    $http.post("#{url}.json",
+    $http.post "#{url}.json",
       user_id: user_id
       playlist: this
-    )
 
   Playlist.join = (user_id, playlist_id, password) ->
-    $http.post("#{url}/#{playlist_id}/join",
+    $http.post "#{url}/#{playlist_id}/join",
       user_id: user_id
       password: password
-    )
 
   Playlist.addSongs = (user_id, playlist_id, songs) ->
     $http.post "#{url}/#{playlist_id}/add_songs.json",
@@ -120,40 +121,33 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
       soundcloud: songs["soundcloud"]
 
   Playlist.vote = (user_id, playlist_id, song_id, decision) ->
-    $http.post("#{url}/#{playlist_id}/playlist_songs/#{song_id}/#{decision}",
+    $http.post "#{url}/#{playlist_id}/playlist_songs/#{song_id}/#{decision}",
       user_id: user_id
-    )
 
   Playlist.getMediaURL = (user_id, playlist_id, song_id) ->
-    $http.get("#{url}/#{playlist_id}/playlist_songs/#{song_id}/media_url.json",
+    $http.get "#{url}/#{playlist_id}/playlist_songs/#{song_id}/media_url.json",
       params: { user_id: user_id }
-    )
 
   Playlist.getCurrentSong = (user_id, playlist_id) ->
-    $http.get("#{url}/#{playlist_id}/current_song_request.json",
+    $http.get "#{url}/#{playlist_id}/current_song_request.json",
       params: { user_id: user_id }
-    )
 
   Playlist.respondCurrentSong = (user_id, playlist_id, song) ->
-    $http.post("#{url}/#{playlist_id}/current_song_response.json",
+    $http.post "#{url}/#{playlist_id}/current_song_response.json",
       user_id: user_id
       song: song
-    )
 
   Playlist.songPlayed = (user_id, playlist_id, song_id) ->
-    $http.post("#{url}/#{playlist_id}/playlist_songs/#{song_id}/played.json",
+    $http.post "#{url}/#{playlist_id}/playlist_songs/#{song_id}/played.json",
       user_id: user_id
-    )
 
   Playlist.playbackEnded = (user_id, playlist_id) ->
-    $http.post("#{url}/#{playlist_id}/playback_ended.json",
+    $http.post "#{url}/#{playlist_id}/playback_ended.json",
       user_id: user_id
-    )
 
   Playlist.skipSongVote = (user_id, playlist_id, song_id) ->
-    $http.post("#{url}/#{playlist_id}/playlist_songs/#{song_id}/skip_song_vote.json",
+    $http.post "#{url}/#{playlist_id}/playlist_songs/#{song_id}/skip_song_vote.json",
       user_id: user_id
-    )
 
   Playlist
 ]
@@ -168,6 +162,23 @@ ocarinaServices.factory 'User', ['$http', ($http) ->
       new User(res.data)
 
   User
+]
+
+ocarinaServices.factory 'SavedSong', ['$http', ($http) ->
+  url = apiURL + "/api/saved_songs"
+  SavedSong = (data) ->
+    angular.extend(this, data)
+
+  SavedSong.create = (user_id, song) ->
+    $http.post "#{url}.json",
+        user_id: user_id
+        song: song
+
+  SavedSong.delete = (user_id, song_id)
+    $http.delete "/api/saved_songs/#{song_id}.json",
+      params: { user_id: user_id }
+
+  SavedSong
 ]
 
 ocarinaServices.factory 'Audio', ['$document', '$rootScope',

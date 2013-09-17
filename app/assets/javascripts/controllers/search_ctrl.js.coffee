@@ -4,6 +4,7 @@ ocarina.controller 'SearchCtrl', [ '$rootScope', '$scope', '$http', '$location',
     $scope.playlists = []
 
     $scope.search = (term) ->
+      # TODO move this to service
       $http.get("/api/search?query=#{encodeURIComponent(term)}&format=json").then (res) ->
         $scope.users = res.data.users
         $scope.playlists = res.data.playlists

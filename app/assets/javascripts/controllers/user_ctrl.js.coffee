@@ -1,11 +1,13 @@
-ocarina.controller 'UserCtrl', ['$scope', '$http', 'User', 'Authentication',
-  ($scope, $http, User, Authentication) ->
+ocarina.controller 'UserCtrl', ['$scope', 'User', 'Authentication',
+  ($scope, User, Authentication) ->
     $scope.auth = Authentication
 
     if Authentication.getCookie("user_id")
       $scope.currentUser =
         id: parseInt(Authentication.getCookie("user_id"))
+
       Authentication.loggedIn = true
+
       User.get(Authentication.getCookie("user_id")).then (u) =>
         $scope.currentUser = u
 
@@ -16,6 +18,6 @@ ocarina.controller 'UserCtrl', ['$scope', '$http', 'User', 'Authentication',
           $scope.currentUser.playlists_as_guest.length > 0
 
         $scope.deferDropboxConnect = ->
-          $http.post("/defer_dropbox_connect").then () =>
+          Authentication.deferDropboxConnect.then () =>
             $scope.currentUser.defer_dropbox_connect = true
 ]
