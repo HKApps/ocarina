@@ -44,7 +44,7 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
       c_value
 
   Authentication.deleteCookie = (c_name) ->
-    Authentication.setCookie(c_name, "", -1)
+    Authentication.setCookie(c_name, "", -100)
 
   Authentication.login = ->
     FB.login ((response) ->
@@ -53,7 +53,6 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
       scope: "email,user_events,publish_stream"
 
   Authentication.logout = ->
-    debugger
     Authentication.deleteCookie("user_id")
     FB.logout()
     Authentication.loggedIn = false
@@ -136,7 +135,7 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
     )
 
   Playlist.respondCurrentSong = (user_id, playlist_id, song) ->
-    $http.post("#{url}/#{playlistid}/current_song_response.json",
+    $http.post("#{url}/#{playlist_id}/current_song_response.json",
       user_id: user_id
       song: song
     )

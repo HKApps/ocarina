@@ -79,7 +79,7 @@ class Api::PlaylistSongsController < ApiController
   end
 
   def skip_song_params
-    params.permit(:id, :playlist_id).merge(user_id: user_id)
+    params.permit(:id, :playlist_id, :user_id)
   end
 
 end

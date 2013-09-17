@@ -8,9 +8,9 @@ class Api::SavedSongsController < ApiController
 
   def create
     @saved_song = SavedSong.where(
-      playlist_song_id: params[:id],
+      playlist_song_id: params[:song][:id],
       user_id: user_id,
-      name: params[:song_name]
+      name: params[:song][:song_name]
     ).first_or_initialize
 
     @saved_song.deleted_at = nil
@@ -18,7 +18,7 @@ class Api::SavedSongsController < ApiController
     if @saved_song.save
       render json: @saved_song, status: 201
     else
-      respond_with @saved_song.errors, status: 404
+      render json: @saved_song.errors, status: 404
     end
   end
 

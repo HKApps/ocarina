@@ -11,9 +11,9 @@ class Api::PlaylistsController < ApiController
   end
 
   def create
-    @playlist = user.playlists.build(playlist_params)
+    @playlist = current_user.playlists.build(playlist_params)
 
-    if !@playlist.venue['latitude'] && !@playlist.venue['longitude'] && @playlist.location
+    if (@playlist.venue && !@playlist.venue['latitude'] && !@playlist.venue['longitude']) || @playlist.location
       @playlist.venue = {
         latitude:  playlist_coords[0],
         longitude: playlist_coords[1]
@@ -32,7 +32,7 @@ class Api::PlaylistsController < ApiController
     if @playlist
       if @playlist.password == params[:password]
         JoinPlaylistWorker.new.async.perform(@playlist.id, user_id)
-        push_guest(user_id, params[:id])
+        push_guest(current_user, params[:id])
         render "api/playlists/join", status: 201
       else
         render "api/playlists/join", json: {error: "wrong password", status: 401 }
@@ -45,6 +45,20 @@ class Api::PlaylistsController < ApiController
   def near_me
     @proxim    = NearbyPlaylistLocator.find(params[:latitude].to_f, params[:longitude].to_f)
     @playlists = Playlist.where(id: @proxim.map { |prox| prox[:playlist_id] })
+  end
+
+  def current_song_request
+    Pusher.trigger("playlist-#{params[:id]}", "current-song-request", { playlist_id: params[:id] } )
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
+  def current_song_response
+    Pusher.trigger("playlist-#{params[:id]}", "current-song-response", { song: params[:song] })
+    respond_to do |format|
+      format.json { head :ok }
+    end
   end
 
   private
@@ -60,20 +74,6 @@ class Api::PlaylistsController < ApiController
 
   def playback_ended
     Pusher.trigger("playlist-#{params[:id]}", "playback-ended", { playlist_id: params[:id] } )
-    respond_to do |format|
-      format.json { head :ok }
-    end
-  end
-
-  def current_song_request
-    Pusher.trigger("playlist-#{params[:id]}", "current-song-request", { playlist_id: params[:id] } )
-    respond_to do |format|
-      format.json { head :ok }
-    end
-  end
-
-  def current_song_response
-    Pusher.trigger("playlist-#{params[:id]}", "current-song-response", { song: params[:song] })
     respond_to do |format|
       format.json { head :ok }
     end

@@ -11,8 +11,7 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
       Playlist.getCurrentSong(
         $scope.currentUser.id,
         p.id
-      )
-      # unless p.owner_id == $scope.currentUser.id
+      ) unless p.owner_id == $scope.currentUser.id
 
     $scope.joinPlaylist = (playlist_id, password) ->
       return if $scope.isMember($scope.currentUser.id)
@@ -119,7 +118,7 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
 
       playlistChannel.bind 'current-song-request', (data) ->
         return unless $scope.playlist.owner_id == $scope.currentUser.id
-        Playlist.respondCurrentSong(data.playlist_id, $scope.playlist.currentSong)
+        Playlist.respondCurrentSong($scope.currentUser.id, data.playlist_id, $scope.playlist.currentSong)
 
       playlistChannel.bind 'current-song-response', (data) ->
         return if $scope.playlist.owner_id == $scope.currentUser.id
