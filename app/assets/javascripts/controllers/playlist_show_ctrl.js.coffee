@@ -2,15 +2,25 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
   (Playlist, $scope, $route, Pusher, Facebook) ->
     $scope.playlistId = $route.current.params.playlistId
 
-    Playlist.get($scope.playlistId).then (p) =>
+    Playlist.get(
+      $scope.currentUser.id,
+      $scope.playlistId
+    ).then (p) =>
       $scope.playlist = p
       $scope.joinPlaylist(p.id) unless p.private
-      # TODO handle situation when we don't have currentUser res yet
-      Playlist.getCurrentSong(p.id) unless p.owner_id == $scope.currentUser.id
+      Playlist.getCurrentSong(
+        $scope.currentUser.id,
+        p.id
+      )
+      # unless p.owner_id == $scope.currentUser.id
 
-    $scope.joinPlaylist = (id, password) ->
+    $scope.joinPlaylist = (playlist_id, password) ->
       return if $scope.isMember($scope.currentUser.id)
-      Playlist.join(id, password).then (res) =>
+      Playlist.join(
+        $scope.currentUser.id,
+        playlist_id,
+        password
+      ).then (res) =>
         if res.status == 201
           $scope.currentUser.playlists_as_guest.push(res.data)
           $scope.playlist.guests.push($scope.currentUser)
@@ -19,23 +29,33 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
             type: "danger"
             msg: "Oh snap... wrong password! Try again."
 
-    $scope.isMember = (id) ->
+    $scope.isMember = (user_id) ->
       return unless $scope.playlist
-      return true if id == $scope.playlist.owner_id
-      _.findWhere $scope.playlist.guests, { id: id }
+      return true if user_id == $scope.playlist.owner_id
+      _.findWhere $scope.playlist.guests, { id: user_id }
 
     $scope.showVoters = (index) =>
       $('.voters-container').eq(index).children().toggle()
 
     $scope.upvoteSong = (song) ->
       return if song.current_user_vote_decision == 1
-      Playlist.vote($scope.playlistId, song.id, "upvote")
+      Playlist.vote(
+        $scope.currentUser.id,
+        $scope.playlistId,
+        song.id,
+        "upvote"
+      )
       song.vote_count++
       song.current_user_vote_decision++
 
     $scope.downvoteSong = (song) ->
       return if song.current_user_vote_decision == -1
-      Playlist.vote($scope.playlistId, song.id, "downvote")
+      Playlist.vote(
+        $scope.currentUser.id,
+        $scope.playlistId,
+        song.id,
+        "downvote"
+      )
       song.vote_count--
       song.current_user_vote_decision--
 

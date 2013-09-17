@@ -38,12 +38,18 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
         if error
           $scope.setContPlaySong()
         else
-          Playlist.addSongs($scope.playlistId,
+          Playlist.addSongs(
+            $scope.currentUser.id,
+            $scope.playlistId,
             soundcloud: [tracks[0]]
             dropbox: []
           ).then (res) =>
             nextContPlaySong = res.data[0]
-            Playlist.songPlayed($scope.playlistId, nextContPlaySong.id)
+            Playlist.songPlayed(
+              $scope.currentUser.id,
+              $scope.playlistId,
+              nextContPlaySong.id
+            )
           contPlayPosition++
 
     ##
@@ -82,11 +88,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
         Player.play()
       # if play or skip and empty playlist
       else if !$scope.playlist.playlist_songs.length
-        # TODO make bool so we don't have to use string true
-        if $scope.playlist.settings.continuous_play == "true"
-          playNextSong($scope.playlist, true)
-        else
-          playbackEnded()
+        playNextSong($scope.playlist, true)
       # if play or skip and non-empty playlist
       else
         playNextSong($scope.playlist)
@@ -117,7 +119,11 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
       Player.currentSong = song
       Player.play(song)
       unless _.findWhere(playlist.played_playlist_songs, { media_url: song.media_url })
-        Playlist.songPlayed($scope.playlistId, song.id)
+        Playlist.songPlayed(
+          $scope.currentUser.id,
+          $scope.playlistId,
+          song.id
+        )
         playlist.played_playlist_songs.push(song)
       $scope.playlist.playlist_songs = _.without(playlist.playlist_songs, song)
 

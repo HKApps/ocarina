@@ -53,6 +53,7 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
       scope: "email,user_events,publish_stream"
 
   Authentication.logout = ->
+    debugger
     Authentication.deleteCookie("user_id")
     FB.logout()
     Authentication.loggedIn = false
@@ -76,7 +77,7 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
           email: res.last_name
           image: res.picture.data.url
           access_token: auth.accessToken
-        $.get "/api/users/authenticate.json", authParams, (data) ->
+        $.get "#{apiURL}/api/users/authenticate.json", authParams, (data) ->
           Authentication.setCookie("user_id", data.id, 1)
           window.location.replace "http://localhost:4400?user_id=#{data.id}"
     else if res.status is "not_authorized"
@@ -92,44 +93,68 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
   Playlist = (data) ->
     angular.extend(this, data)
 
-  Playlist.getIndex = (id) ->
+  Playlist.getIndex = (user_id) ->
     $http.get("#{url}.json")
 
-  Playlist.get = (id) ->
-    $http.get("#{url}/#{id}.json").then (res) =>
+  Playlist.get = (user_id, playlist_id) ->
+    $http.get("#{url}/#{playlist_id}.json",
+      params: { user_id: user_id }
+    ).then (res) =>
       new Playlist(res.data)
 
-  Playlist.prototype.create = ->
-    $http.post("#{url}.json", { playlist: this } )
+  Playlist.prototype.create = (user_id) ->
+    $http.post("#{url}.json",
+      user_id: user_id
+      playlist: this
+    )
 
-  Playlist.join = (id, password) ->
-    $http.post("#{url}/#{id}/join", { password: password} )
+  Playlist.join = (user_id, playlist_id, password) ->
+    $http.post("#{url}/#{playlist_id}/join",
+      user_id: user_id
+      password: password
+    )
 
-  Playlist.addSongs = (id, songs) ->
-    $http.post "#{url}/#{id}/add_songs.json",
+  Playlist.addSongs = (user_id, playlist_id, songs) ->
+    $http.post "#{url}/#{playlist_id}/add_songs.json",
+      user_id: user_id
       dropbox: songs["dropbox"]
       soundcloud: songs["soundcloud"]
 
-  Playlist.vote = (id, song_id, decision) ->
-    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/#{decision}")
+  Playlist.vote = (user_id, playlist_id, song_id, decision) ->
+    $http.post("#{url}/#{playlist_id}/playlist_songs/#{song_id}/#{decision}",
+      user_id: user_id
+    )
 
-  Playlist.getMediaURL = (id, song_id) ->
-    $http.get("#{url}/#{id}/playlist_songs/#{song_id}/media_url.json")
+  Playlist.getMediaURL = (user_id, playlist_id, song_id) ->
+    $http.get("#{url}/#{playlist_id}/playlist_songs/#{song_id}/media_url.json",
+      params: { user_id: user_id }
+    )
 
-  Playlist.getCurrentSong = (id) ->
-    $http.get("#{url}/#{id}/current_song_request.json")
+  Playlist.getCurrentSong = (user_id, playlist_id) ->
+    $http.get("#{url}/#{playlist_id}/current_song_request.json",
+      params: { user_id: user_id }
+    )
 
-  Playlist.respondCurrentSong = (id, song) ->
-    $http.post("#{url}/#{id}/current_song_response.json", {song: song} )
+  Playlist.respondCurrentSong = (user_id, playlist_id, song) ->
+    $http.post("#{url}/#{playlistid}/current_song_response.json",
+      user_id: user_id
+      song: song
+    )
 
-  Playlist.songPlayed = (id, song_id) ->
-    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/played.json")
+  Playlist.songPlayed = (user_id, playlist_id, song_id) ->
+    $http.post("#{url}/#{playlist_id}/playlist_songs/#{song_id}/played.json",
+      user_id: user_id
+    )
 
-  Playlist.playbackEnded = (id) ->
-    $http.post("#{url}/#{id}/playback_ended.json")
+  Playlist.playbackEnded = (user_id, playlist_id) ->
+    $http.post("#{url}/#{playlist_id}/playback_ended.json",
+      user_id: user_id
+    )
 
-  Playlist.skipSongVote = (id, song_id) ->
-    $http.post("#{url}/#{id}/playlist_songs/#{song_id}/skip_song_vote.json")
+  Playlist.skipSongVote = (user_id, playlist_id, song_id) ->
+    $http.post("#{url}/#{playlist_id}/playlist_songs/#{song_id}/skip_song_vote.json",
+      user_id: user_id
+    )
 
   Playlist
 ]

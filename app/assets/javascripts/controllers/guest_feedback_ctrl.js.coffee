@@ -19,5 +19,9 @@ ocarina.controller 'GuestFeedbackCtrl', ['$scope', '$http',
       _.findWhere($scope.currentUser.favorites, {playlist_song_id: id})
 
     $scope.skipSongVote = (song) ->
-      Playlist.skipSongVote($scope.playlistId, song.id)
+      Playlist.skipSongVote(
+        $scope.currentUser.id,
+        $scope.playlistId,
+        song.id
+      )
 ]
