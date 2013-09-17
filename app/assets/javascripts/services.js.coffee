@@ -174,7 +174,7 @@ ocarinaServices.factory 'SavedSong', ['$http', ($http) ->
         user_id: user_id
         song: song
 
-  SavedSong.delete = (user_id, song_id)
+  SavedSong.delete = (user_id, song_id) ->
     $http.delete "/api/saved_songs/#{song_id}.json",
       params: { user_id: user_id }
 
@@ -241,31 +241,36 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
     angular.extend(this, data)
 
   Facebook.getEvents = (token) ->
+    # TODO update to use sdk
     $http.get("#{graph_url}/me/events?fields=name,location,venue,privacy&type=attending&access_token=#{token}")
 
   Facebook.postOnEvent = (token, id, message, link, name) ->
+    # TODO update to use sdk
     caption = "www.playedby.me"
     description = "Share. Vote. Discover."
     $http.post "#{graph_url}/#{id}/feed?access_token=#{token}&message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
 
   Facebook.sendDialogURL = (playlist_id) ->
+    # TODO update to use sdk
     link = "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
     "#{api_url}/dialog/send?app_id=#{app_id}&link=#{link}&redirect_uri=#{link}"
 
-  Facebook.getUsersFavoriteArtists = (token, id) ->
-    $http.get("#{graph_url}/#{id}/music?access_token=#{token}").then (res) =>
+  Facebook.getUsersFavoriteArtists = (id, callback) ->
+    FB.api "/#{id}/music", (res) ->
       artists = []
       _.each res.data.data, (artist) ->
         artists.push(artist.name)
-      artists
+      callback artists
 
-  Facebook.getPartiesFavoriteArtists = (token, ids) ->
-    $http.get("#{graph_url}/fql/?q=SELECT music FROM user WHERE uid IN (#{ids}) &access_token=#{token}").then (res) =>
-      getSortedArtists(res.data.data)
+  Facebook.getPartiesFavoriteArtists = (ids, callback) ->
+    query = encodeURIComponent "SELECT music FROM user WHERE uid IN (#{ids})"
+    FB.api "/fql?q=#{query}", (res) ->
+      callback getSortedArtists(res.data)
 
-  Facebook.getEventsFavoriteArtists = (token, event_id) ->
-    $http.get("#{graph_url}/fql/?q=SELECT music FROM user WHERE uid IN (SELECT uid FROM event_member WHERE eid=#{event_id} AND rsvp_status='attending') AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())&access_token=#{token}").then (res) =>
-      getSortedArtists(res.data.data)
+  Facebook.getEventsFavoriteArtists = (event_id, callback) ->
+    query = encodeURIComponent "SELECT music FROM user WHERE uid IN (SELECT uid FROM event_member WHERE eid=#{event_id} AND rsvp_status='attending') AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())"
+    FB.api "/fql?q=#{query}", (res) ->
+      callback getSortedArtists(res.data)
 
   getSortedArtists = (data) ->
     # find like count per artists

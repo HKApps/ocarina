@@ -7,23 +7,18 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
     contPlayPosition = 0
     nextContPlaySong = undefined
 
-    if $scope.playlist.facebook_id
-      Facebook.getEventsFavoriteArtists(
-        $scope.currentUser.facebook_token,
-        $scope.playlist.facebook_id
-      ).then (res) =>
-        $scope.contPlaylist = res
-        $scope.setContPlaySong()
-    else
-      facebook_ids = $scope.playlist.host.facebook_id
-      _.each $scope.playlist.guests, (guest) ->
-        facebook_ids += ", #{guest.facebook_id}"
-      Facebook.getPartiesFavoriteArtists(
-        $scope.currentUser.facebook_token,
-        facebook_ids
-      ).then (res) =>
-        $scope.contPlaylist = res
-        $scope.setContPlaySong()
+    FB.getLoginStatus (response) ->
+      if $scope.playlist.facebook_id
+        Facebook.getEventsFavoriteArtists $scope.playlist.facebook_id, (res) ->
+          $scope.contPlaylist = res
+          $scope.setContPlaySong()
+      else
+        facebook_ids = $scope.playlist.host.facebook_id
+        _.each $scope.playlist.guests, (guest) ->
+          facebook_ids += ", #{guest.facebook_id}"
+        Facebook.getPartiesFavoriteArtists facebook_ids, (res) ->
+          $scope.contPlaylist = res
+          $scope.setContPlaySong()
 
     $scope.setContPlaySong= ->
       contPlayPosition = 0 unless $scope.contPlaylist[contPlayPosition]

@@ -1,5 +1,5 @@
-ocarina.controller 'GuestFeedbackCtrl', ['$scope', 'Playlist'
-  ($scope, Playlist) ->
+ocarina.controller 'GuestFeedbackCtrl', ['$scope', 'Playlist', 'SavedSong'
+  ($scope, Playlist, SavedSong) ->
     $scope.toggleSongSaved = (song) ->
       if $scope.songSaved(song.id)
         song = $scope.songSaved(song.id)
