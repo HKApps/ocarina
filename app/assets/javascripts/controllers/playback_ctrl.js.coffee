@@ -1,6 +1,53 @@
-ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', 'Playlist', 'Player',
-  ($scope, $rootScope, $http, $route, Playlist, Player) ->
+ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist', 'Player', 'Facebook',
+  ($scope, $rootScope, $route, Playlist, Player, Facebook) ->
     $scope.playlistId = $route.current.params.playlistId
+
+    ##
+    # continuous play setup
+    contPlayPosition = 0
+    nextContPlaySong = undefined
+
+    FB.getLoginStatus (response) ->
+      if $scope.playlist.facebook_id
+        Facebook.getEventsFavoriteArtists $scope.playlist.facebook_id, (res) ->
+          $scope.contPlaylist = res
+          $scope.setContPlaySong()
+      else
+        facebook_ids = $scope.playlist.host.facebook_id
+        _.each $scope.playlist.guests, (guest) ->
+          facebook_ids += ", #{guest.facebook_id}"
+        Facebook.getPartiesFavoriteArtists facebook_ids, (res) ->
+          $scope.contPlaylist = res
+          $scope.setContPlaySong()
+
+    $scope.setContPlaySong= ->
+      contPlayPosition = 0 unless $scope.contPlaylist[contPlayPosition]
+      artist = $scope.contPlaylist[contPlayPosition]
+      SC.get '/tracks',
+        q: artist
+        order: "hotness"
+        duration:
+          to: 600000
+        limit: 10
+      , (tracks, error) ->
+        if error
+          $scope.setContPlaySong()
+        else
+          Playlist.addSongs(
+            $scope.currentUser.id,
+            $scope.playlistId,
+            soundcloud: [tracks[0]]
+            dropbox: [],
+            true
+          ).then (res) =>
+            nextContPlaySong = res.data[0]
+            Playlist.songPlayed(
+              $scope.currentUser.id,
+              $scope.playlistId,
+              nextContPlaySong.id,
+              true
+            )
+          contPlayPosition++
 
     ##
     # audo playback
@@ -38,11 +85,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
         Player.play()
       # if play or skip and empty playlist
       else if !$scope.playlist.playlist_songs.length
-        # TODO make bool so we don't have to use string true
-        if $scope.playlist.settings.continuous_play == "true"  && $scope.playlist.played_playlist_songs.length
-          playNextSong($scope.playlist, true)
-        else
-          playbackEnded()
+        playNextSong($scope.playlist, true)
       # if play or skip and non-empty playlist
       else
         playNextSong($scope.playlist)
@@ -63,13 +106,22 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$http', '$route', '
         song = songs[random]
       song
 
-    playNextSong = (playlist, random) ->
-      song = if random then $scope.getRandomPlayedSong(playlist.played_playlist_songs) else $scope.getNextSong(playlist.playlist_songs)
+    playNextSong = (playlist, contPlay) ->
+      if contPlay
+        song = nextContPlaySong
+        $scope.setContPlaySong()
+      else
+        song = $scope.getNextSong(playlist.playlist_songs)
       playlist.currentSong = song
       Player.currentSong = song
       Player.play(song)
+      Playlist.songPlayed(
+        $scope.currentUser.id,
+        $scope.playlistId,
+        song.id
+      )
+      # TODO want this?
       unless _.findWhere(playlist.played_playlist_songs, { media_url: song.media_url })
-        Playlist.songPlayed($scope.playlistId, song.id)
         playlist.played_playlist_songs.push(song)
       $scope.playlist.playlist_songs = _.without(playlist.playlist_songs, song)
 

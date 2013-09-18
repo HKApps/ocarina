@@ -1,13 +1,12 @@
 class PlaylistSongVoterService
   ##
-  # This service does three things:
+  # This service does two things:
   # 1. Create Vote object
   # 2. Update counter in PlaylistSong
-  # 3. Push out updates to clients using pusher
 
   def self.from_params(params, decision)
-    playlist_song_id = params.delete("id")      { raise "Required param: id"}
-    user_id          = params.delete("user_id") { raise "Required param: user_id"}
+    playlist_song_id = params.delete("id")      { raise "Required param: id" }
+    user_id          = params.delete("user_id") { raise "Required param: user_id" }
 
     new(playlist_song_id, user_id, decision)
   end
@@ -28,7 +27,4 @@ class PlaylistSongVoterService
     PlaylistSong.send(@decision.action, :vote_count, @playlist_song_id)
   end
 
-  def publish
-    # TODO(mn) - Publish pusher event to clients
-  end
 end

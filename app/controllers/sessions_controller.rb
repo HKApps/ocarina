@@ -3,7 +3,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    auth = AuthenticationService.new(request.env['omniauth.auth'], current_user)
+    user = User.where(id: cookies["user_id"]).first
+    auth = AuthenticationService.new(request.env['omniauth.auth'], user)
     if auth.authenticated?
       cookies.delete(:defer_dropbox_connect) if auth.provider == 'dropbox'
       session[:user_id] = auth.user.id
