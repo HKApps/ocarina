@@ -1,3 +1,7 @@
+def raise_for(str)
+  raise "Please set the following environment variable: '#{str}'"
+end
+
 Ocarina::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -97,8 +101,4 @@ Ocarina::Application.configure do
         methods: [:get, :post]
     end
   end
-end
-
-def raise_for(str)
-  raise "Please set the following environment variable: '#{str}'"
 end
