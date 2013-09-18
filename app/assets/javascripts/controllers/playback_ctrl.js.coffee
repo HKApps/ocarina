@@ -37,13 +37,15 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
             $scope.currentUser.id,
             $scope.playlistId,
             soundcloud: [tracks[0]]
-            dropbox: []
+            dropbox: [],
+            true
           ).then (res) =>
             nextContPlaySong = res.data[0]
             Playlist.songPlayed(
               $scope.currentUser.id,
               $scope.playlistId,
-              nextContPlaySong.id
+              nextContPlaySong.id,
+              true
             )
           contPlayPosition++
 
@@ -113,12 +115,13 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
       playlist.currentSong = song
       Player.currentSong = song
       Player.play(song)
+      Playlist.songPlayed(
+        $scope.currentUser.id,
+        $scope.playlistId,
+        song.id
+      )
+      # TODO want this?
       unless _.findWhere(playlist.played_playlist_songs, { media_url: song.media_url })
-        Playlist.songPlayed(
-          $scope.currentUser.id,
-          $scope.playlistId,
-          song.id
-        )
         playlist.played_playlist_songs.push(song)
       $scope.playlist.playlist_songs = _.without(playlist.playlist_songs, song)
 

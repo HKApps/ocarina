@@ -114,11 +114,12 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
       user_id: user_id
       password: password
 
-  Playlist.addSongs = (user_id, playlist_id, songs) ->
+  Playlist.addSongs = (user_id, playlist_id, songs, continuous_play = false) ->
     $http.post "#{url}/#{playlist_id}/add_songs.json",
       user_id: user_id
       dropbox: songs["dropbox"]
       soundcloud: songs["soundcloud"]
+      continuous_play: continuous_play
 
   Playlist.vote = (user_id, playlist_id, song_id, decision) ->
     $http.post "#{url}/#{playlist_id}/playlist_songs/#{song_id}/#{decision}",
@@ -137,9 +138,10 @@ ocarinaServices.factory 'Playlist', ['$http', ($http) ->
       user_id: user_id
       song: song
 
-  Playlist.songPlayed = (user_id, playlist_id, song_id) ->
+  Playlist.songPlayed = (user_id, playlist_id, song_id, continuous_play = false) ->
     $http.post "#{url}/#{playlist_id}/playlist_songs/#{song_id}/played.json",
       user_id: user_id
+      continuous_play: continuous_play
 
   Playlist.playbackEnded = (user_id, playlist_id) ->
     $http.post "#{url}/#{playlist_id}/playback_ended.json",
