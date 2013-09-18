@@ -3,7 +3,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
     # TODO server should do this
     $scope.newPlaylist=
       settings:
-        continuous_play: false
+        continuous_play: true
 
     $scope.createPlaylist = () ->
       playlist = new Playlist()
@@ -12,7 +12,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
       playlist.private = $scope.newPlaylist.private
       playlist.password = $scope.newPlaylist.password if playlist.private
       playlist.settings = $scope.newPlaylist.settings
-      playlist.create().then (res) =>
+      playlist.create($scope.currentUser.id).then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
       resetPlaylistForm()
@@ -39,7 +39,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
       playlist.private = false
       # playlist.private = if fbEvent.privacy == "OPEN" then false else true
       playlist.settings = $scope.newPlaylist.settings
-      playlist.create().then (res) =>
+      playlist.create($scope.currentUser.id).then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
         token = $scope.currentUser.facebook_token

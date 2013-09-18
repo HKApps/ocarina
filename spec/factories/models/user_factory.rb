@@ -6,6 +6,10 @@ FactoryGirl.define do
       "user_#{n}@example.com"
     end
 
+    trait :with_fb_auth do
+      association :authentication
+    end
+
     factory :user_with_playlists do
       ignore do
         playlist_count 5

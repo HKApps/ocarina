@@ -8,20 +8,16 @@
     = stylesheet_link_tag "application", media: "all"
     = csrf_meta_tags
 
-    :javascript
-      if (window.location.hash == '#_=_'){
-        window.location.hash = '';
-      }
+  %body.ng-cloak{ ng_controller: 'UserCtrl' }
+    .logged-out{ ocarina_if: "!auth.loggedIn", ng_include:"'/partials/logged_out'" }
+    .logged-in{ ocarina_if: "auth.loggedIn" }
+      = render 'partials/nav'
 
-  %body{ ng_controller: 'UserCtrl' }
-    = render 'partials/nav'
+      .container
+        = yield
 
-    .container
-      = yield
+      = render 'partials/footer'
 
-    = render 'partials/footer'
-
-    = javascript_include_tag "vendor/custom.modernizr"
     = javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
     = javascript_include_tag "http://connect.soundcloud.com/sdk.js"
     = javascript_include_tag "application"
@@ -29,4 +25,3 @@
       SC.initialize({
         client_id: "3d6e76640c62f42c02cb78d2c53d0db9"
       });
-

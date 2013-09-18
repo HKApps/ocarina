@@ -20,13 +20,10 @@ ocarina.controller 'NavCtrl', [ '$rootScope', '$scope', '$location', 'Playlist',
       else
         $scope.toggleSearch()
 
-    $scope.logout = ->
-      window.location.replace("/logout")
-
     $scope.selectedPlaylist = undefined
 
     $scope.updatePlaylists = ->
-      Playlist.getIndex().then (res) =>
+      Playlist.getIndex($scope.currentUser.id).then (res) =>
         $scope.playlists = res.data
 
     $scope.goToPlaylist = (playlist) ->

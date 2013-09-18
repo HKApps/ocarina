@@ -25,7 +25,7 @@
         -# TODO directive to handle nav template
         %li.dropdown{ ocarina_if: "!isMobilized" }
           %a.dropdown-toggle{ href: "" }
-            = "#{current_user.first_name} #{current_user.last_name}"
+            {{currentUser.first_name}}
             %b.caret
           %ul.dropdown-menu
             %li
@@ -33,11 +33,11 @@
             %li{ ocarina_if: "!currentUser.dropbox_authenticated" }
               %a{ href: "", dropbox_auth: "" } Connect Dropbox
             %li
-              %a{ href:  "", ng_click: "logout()" } Logout
+              %a{ href:  "", ng_click: "auth.logout()" } Logout
 
         %li{ ocarina_if: "isMobilized" }
           %a{ href: "/favorites", ng_click: "collapseNav()" } Favorites
         %li{ ocarina_if: "isMobilized && !currentUser.dropbox_authenticated" }
           %a{ href: "", dropbox_auth: "" } Connect Dropbox
         %li{ ocarina_if: "isMobilized" }
-          %a{ href:  "", ng_click: "logout()" } Logout
+          %a{ href:  "", ng_click: "auth.logout()" } Logout

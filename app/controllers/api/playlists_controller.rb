@@ -13,7 +13,7 @@ class Api::PlaylistsController < ApiController
   def create
     @playlist = current_user.playlists.build(playlist_params)
 
-    if !@playlist.venue['latitude'] && !@playlist.venue['longitude'] && @playlist.location
+    if (@playlist.venue && !@playlist.venue['latitude'] && !@playlist.venue['longitude']) || @playlist.location
       @playlist.venue = {
         latitude:  playlist_coords[0],
         longitude: playlist_coords[1]
@@ -31,7 +31,7 @@ class Api::PlaylistsController < ApiController
     @playlist = Playlist.where(id: params[:id]).first
     if @playlist
       if @playlist.password == params[:password]
-        JoinPlaylistWorker.new.async.perform(@playlist.id, current_user.id)
+        JoinPlaylistWorker.new.async.perform(@playlist.id, user_id)
         push_guest(current_user, params[:id])
         render "api/playlists/join", status: 201
       else
@@ -47,6 +47,20 @@ class Api::PlaylistsController < ApiController
     @playlists = Playlist.where(id: @proxim.map { |prox| prox[:playlist_id] })
   end
 
+  def current_song_request
+    Pusher.trigger("playlist-#{params[:id]}", "current-song-request", { playlist_id: params[:id] } )
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
+  def current_song_response
+    Pusher.trigger("playlist-#{params[:id]}", "current-song-response", { song: params[:song] })
+    respond_to do |format|
+      format.json { head :ok }
+    end
+  end
+
   private
 
   def playlist_coords
@@ -60,20 +74,6 @@ class Api::PlaylistsController < ApiController
 
   def playback_ended
     Pusher.trigger("playlist-#{params[:id]}", "playback-ended", { playlist_id: params[:id] } )
-    respond_to do |format|
-      format.json { head :ok }
-    end
-  end
-
-  def current_song_request
-    Pusher.trigger("playlist-#{params[:id]}", "current-song-request", { playlist_id: params[:id] } )
-    respond_to do |format|
-      format.json { head :ok }
-    end
-  end
-
-  def current_song_response
-    Pusher.trigger("playlist-#{params[:id]}", "current-song-response", { song: params[:song] })
     respond_to do |format|
       format.json { head :ok }
     end
