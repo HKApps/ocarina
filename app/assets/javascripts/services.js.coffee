@@ -250,10 +250,10 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
     description = "Share. Vote. Discover."
     FB.api "/#{id}/feed?message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
 
-  Facebook.sendDialogURL = (playlist_id) ->
-    # TODO update to use sdk
-    link = "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
-    "#{api_url}/dialog/send?app_id=#{app_id}&link=#{link}&redirect_uri=#{link}"
+  Facebook.sendDialog = (playlist_id) ->
+    FB.ui
+      method: "send"
+      link: "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
 
   Facebook.getUsersFavoriteArtists = (id, callback) ->
     FB.api "/#{id}/music", (res) ->
