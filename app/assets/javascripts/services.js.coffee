@@ -76,7 +76,7 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
           id: res.id
           first_name: res.first_name
           last_name: res.last_name
-          email: res.last_name
+          email: res.email
           image: res.picture.data.url
           access_token: auth.accessToken
         $.get "#{apiURL}/api/users/authenticate.json", authParams, (data) ->
