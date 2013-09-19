@@ -10,7 +10,7 @@
 
   %body.ng-cloak{ ng_controller: 'UserCtrl' }
     .logged-out{ ocarina_if: "!auth.loggedIn", ng_include:"'/partials/logged_out'" }
-    .logged-in{ ocarina_if: "auth.loggedIn" }
+    .logged-in{ ocarina_if: "auth.loggedIn && currentUser.email" }
       = render 'partials/nav'
 
       .container
