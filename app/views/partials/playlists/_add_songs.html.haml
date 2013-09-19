@@ -1,33 +1,51 @@
-%div{ ng_controller: "AddSongsCtrl", modal:"shouldBeOpen", close: "closeAddSongsModal()", options:"modalOpts" }
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{ ng_click: "closeAddSongsModal()" } &times;
-        %h3 Select Songs to Add
-      .modal-body.add-songs-modal
-        .song-filter
-          %input{ ng_model: "query",
-            :placeholder => "search for songs...",
-            on_debounced_keyup: "searchSc(query)" }
+%div{ ng_controller: "AddSongsCtrl" }
+  -# .modal-dialog
+  -#   .modal-content
+  -#     .modal-header
+  -#       %button.close{ ng_click: "closeAddSongsModal()" } &times;
+  -#       %h3 Select Songs to Add
+  -#     .modal-body.add-songs-modal
+  .song-filter
+    %input{ ng_model: "query",
+      :placeholder => "search for songs...",
+      on_debounced_keyup: "searchSc(query)" }
 
-          .lookup-progress{ ng_show: 'inProgress' }
-            .spinner
+    .lookup-progress{ ng_show: 'inProgress' }
+      .spinner
 
-          .songs-to-add.song-list{ ng_repeat: "song in currentUser.dropbox_songs | filter: query",
-              ng_click: "toggleSongSelected('dropbox', song.id)",
-              ng_class: '{"song-in-playlist": songInPlaylist("dropbox", song.id), "selected": isSongSelected("dropbox", song.id)}' }
-            = image_tag "https://dt8kf6553cww8.cloudfront.net/static/images/favicon-vflonlsct.ico"
-            %span.name.wordwrap {{song.name}}
-            %i.glyphicon.glyphicon-ok
+    .song-list{ ng_repeat: "song in playlist.playlist_songs | orderBy:'vote_count':true | filter: query",
+      ng_click: "showVoters($index)" }
+      .song-info-container
+        .song-name.wordwrap {{ song.song_name | truncate:60:true:true }}
+        .playlist-votes
+          %b.votes {{song.vote_count}} votes
+          .btn.btn-default.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == 1}', ng_click: "upvoteSong(song)" }
+            %i.glyphicon.glyphicon-arrow-up
+          .btn.btn-default.btn-sm{ ng_class: '{"btn-warning": song.current_user_vote_decision == -1}', ng_click: "downvoteSong(song)" }
+            %i.glyphicon.glyphicon-arrow-down
+      .voters-container
+        .voters{ ng_repeat: "voter in song.voters" }
+          %img.avatar{ ng_src: "{{voter.image}}" }
 
-          .songs-to-add.song-list{ ng_repeat: "song in scResults",
-              ng_click: "toggleSongSelected('soundcloud', song)",
-              ng_class: '{"song-in-playlist": songInPlaylist("soundcloud", song), "selected": isSongSelected("soundcloud", song)}' }
-            = image_tag "//soundcloud.com/favicon.ico"
-            %span.name.wordwrap {{song.title}}
-            %i.glyphicon.glyphicon-ok
+    .songs-to-add.song-list{ ng_repeat: "song in currentUser.dropbox_songs | filter: query",
+        ng_click: "toggleSongSelected('dropbox', song.id)",
+        ng_show: "query",
+        ng_class: '{"song-in-playlist": songInPlaylist("dropbox", song.id), "selected": isSongSelected("dropbox", song.id)}' }
+      = image_tag "https://dt8kf6553cww8.cloudfront.net/static/images/favicon-vflonlsct.ico"
+      %span.name.wordwrap {{song.name}}
+      %span.name.wordwrap {{song.title}}
+      .add-song.btn.btn-sm.btn-success Add
+      -# %i.glyphicon.glyphicon-ok
 
-      .modal-footer
-        %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
-        %button.btn{ ng_click: "clearSelectedSongs()" } Clear
-        %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
+    .songs-to-add.song-list{ ng_repeat: "song in scResults",
+        ng_click: "toggleSongSelected('soundcloud', song)",
+        ng_class: '{"song-in-playlist": songInPlaylist("soundcloud", song), "selected": isSongSelected("soundcloud", song)}' }
+      = image_tag "//soundcloud.com/favicon.ico"
+      %span.name.wordwrap {{song.title}}
+      .add-song.btn.btn-sm.btn-success Add
+      -# %i.glyphicon.glyphicon-ok
+
+      -# .modal-footer
+      -#   %button.btn.btn-default{ ng_click: "closeAddSongsModal()" } Cancel
+      -#   %button.btn{ ng_click: "clearSelectedSongs()" } Clear
+  -# %button.btn.btn-primary{ ng_click: "addSelectedSongs()" } Add Songs
