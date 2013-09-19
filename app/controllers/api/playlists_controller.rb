@@ -13,7 +13,7 @@ class Api::PlaylistsController < ApiController
   def create
     @playlist = current_user.playlists.build(playlist_params)
 
-    if (@playlist.venue && !@playlist.venue['latitude'] && !@playlist.venue['longitude']) || @playlist.location
+    if (@playlist.venue && !@playlist.venue['latitude'] && !@playlist.venue['longitude']) && @playlist.location
       @playlist.venue = {
         latitude:  playlist_coords[0],
         longitude: playlist_coords[1]
@@ -95,6 +95,7 @@ class Api::PlaylistsController < ApiController
       :start_time,
       :facebook_id,
       :password,
+      :image,
       venue: [:id, :street, :city, :state, :zip, :country, :latitude, :longitude],
       settings: [:continuous_play]
     )

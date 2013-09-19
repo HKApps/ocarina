@@ -18,8 +18,9 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
       resetPlaylistForm()
 
     $scope.getFbEvents = ->
-      Facebook.getEvents($scope.currentUser.facebook_token).then (res) =>
-        $scope.fbEvents = res.data.data
+      Facebook.getEvents (res) ->
+        $scope.fbEvents = res.data
+        $scope.$apply() unless $scope.$$phase
 
     $scope.hideFbEvents = ->
       $scope.fbEvents = undefined
@@ -35,6 +36,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
       playlist.start_time = fbEvent.start_time
       playlist.venue = fbEvent.venue
       playlist.facebook_id = fbEvent.id
+      playlist.image = fbEvent.picture.data.url
       # TODO change this once we have a way of setting passwords for fb events
       playlist.private = false
       # playlist.private = if fbEvent.privacy == "OPEN" then false else true
@@ -42,13 +44,11 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
       playlist.create($scope.currentUser.id).then (res) =>
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
-        token = $scope.currentUser.facebook_token
         message = "I just created a playlist for this event on PlayedBy.me. Go to the site now or at the party to add songs you want to hear!"
         link = "http://localhost:4400/playlists/#{res.data.id}"
         name = "#{fbEvent.name}'s playlist"
-
         # TODO uncomment this when we can prompt user to post
-        # Facebook.postOnEvent(token, fbEvent.id, message, link, name)
+        # Facebook.postOnEvent(fbEvent.id, message, link, name)
       resetPlaylistForm()
 
     resetPlaylistForm = ->
