@@ -6,6 +6,6 @@
     %a{ ng_href: "/{{guest.id}}" }
       %img.avatar{ ng_src: "{{guest.image}}" }
   %li.add_guest
-    %a.btn{ ng_href: '{{fbSendDialogURL}}' }
+    %a.btn{ ng_click: 'inviteFriends()' }
       .glyphicon.glyphicon-plus
       Add User

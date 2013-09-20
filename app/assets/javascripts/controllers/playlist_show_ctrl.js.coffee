@@ -58,7 +58,8 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
       song.vote_count--
       song.current_user_vote_decision--
 
-    $scope.fbSendDialogURL = Facebook.sendDialogURL($scope.playlistId)
+    $scope.inviteFriends = ->
+      Facebook.sendDialog($scope.playlistId)
 
     ##
     # add songs modal

@@ -6,7 +6,7 @@
     %button.btn.btn-default.btn-sm{ ng_show: "fbEvents",
       ng_click: "hideFbEvents()" } hide my FB events
     .fb-events-container
-      .fb-event-list{ ng_repeat: "event in fbEvents",
+      .fb-event-list{ ng_repeat: 'event in fbEvents | orderBy:"start_time"',
         ng_click: "selectFbEvent(event)",
         ng_class: '{"selected": event == selectedFbEvent}' }
         {{event.name}} {{"- " + event.location}}
