@@ -69,13 +69,6 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
     $scope.modalOpts = { backdropFade:true, dialogFade:true }
 
     ##
-    # loading spinner
-    $scope.$on 'addingSongs', ->
-      $scope.inProgress = true
-    $scope.$on 'addedSongs', ->
-      $scope.inProgress = false
-
-    ##
     # realtime updates
     setupPlaylistListener = (playlistChannel) ->
       playlistChannel.bind 'new-playlist-songs', (data) ->
