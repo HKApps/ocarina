@@ -12,26 +12,16 @@ ocarina.controller 'AddSongsCtrl', ['$scope', 'Playlist',
       else if provider == "soundcloud"
         _.findWhere($scope.playlist.playlist_songs, {path: song.uri}) || _.findWhere($scope.playlist.played_playlist_songs, {path: song.uri})
 
-    $scope.isSongSelected = (provider, song) ->
-      _.any $scope.selectedSongs[provider], (selectedSong) ->
-        selectedSong == song
-
-    $scope.toggleSongSelected = (provider, song) ->
+    $scope.addSong = (provider, song) ->
       return if $scope.songInPlaylist(song)
-      if $scope.isSongSelected(provider, song)
-        $scope.selectedSongs[provider] = _.without($scope.selectedSongs[provider], song)
-      else
-        $scope.selectedSongs[provider].push(song)
-
-    $scope.addSelectedSongs = ->
-      $scope.closeAddSongsModal()
-      $scope.$emit("addingSongs")
+      $scope.selectedSongs[provider].push(song)
+      $scope.inProgress = true
       Playlist.addSongs(
         $scope.currentUser.id,
         $scope.playlistId,
         $scope.selectedSongs
       ).then (res) =>
-        $scope.$emit("addedSongs")
+        $scope.inProgress = false
         _.each res.data, (song) ->
           song.current_user_vote_decision = 0
           $scope.playlist.playlist_songs.push(song)
