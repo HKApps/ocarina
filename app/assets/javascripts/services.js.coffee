@@ -234,27 +234,25 @@ ocarinaServices.factory 'Player', ['Audio', (Audio) ->
 ]
 
 ocarinaServices.factory 'Facebook', ['$http', ($http) ->
-  graph_url = "https://graph.facebook.com"
   api_url   = "http://facebook.com"
   app_id    = '227387824081363'
 
   Facebook = (data) ->
     angular.extend(this, data)
 
-  Facebook.getEvents = (token) ->
-    # TODO update to use sdk
-    $http.get("#{graph_url}/me/events?fields=name,location,venue,privacy&type=attending&access_token=#{token}")
+  Facebook.getEvents = (callback) ->
+    FB.api "/me/events?fields=name,picture,location,venue,privacy,start_time,end_time&type=attending", (res) ->
+      callback res
 
-  Facebook.postOnEvent = (token, id, message, link, name) ->
-    # TODO update to use sdk
+  Facebook.postOnEvent = (id, message, link, name) ->
     caption = "www.playedby.me"
     description = "Share. Vote. Discover."
-    $http.post "#{graph_url}/#{id}/feed?access_token=#{token}&message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
+    FB.api "/#{id}/feed?message=#{message}&link=#{link}&name=#{name}&caption=#{caption}&description=#{description}"
 
-  Facebook.sendDialogURL = (playlist_id) ->
-    # TODO update to use sdk
-    link = "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
-    "#{api_url}/dialog/send?app_id=#{app_id}&link=#{link}&redirect_uri=#{link}"
+  Facebook.sendDialog = (playlist_id) ->
+    FB.ui
+      method: "send"
+      link: "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
 
   Facebook.getUsersFavoriteArtists = (id, callback) ->
     FB.api "/#{id}/music", (res) ->
