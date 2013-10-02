@@ -7,7 +7,17 @@
     %title= content_for?(:title) ? yield(:title) : "Playedby.me"
     = stylesheet_link_tag "application", media: "all"
     = csrf_meta_tags
+
     :javascript
+      var Playedbyme = {
+        env: {
+          apiURL:        "#{Rails.configuration.api_url}",
+          domain:        "#{Rails.configuration.domain}",
+          facebookAppId: "#{Rails.configuration.facebook_app_id}",
+          pusherKey:     "#{Rails.configuration.pusher_key}"
+        }
+      };
+
       (function(d) {
         var id, js, ref;
         js = void 0;
@@ -23,7 +33,6 @@
         return ref.parentNode.insertBefore(js, ref);
       })(document);
 
-
   %body.ng-cloak{ ng_controller: 'UserCtrl' }
     .logged-out{ ocarina_if: "!auth.loggedIn", ng_include:"'/partials/logged_out'" }
     .logged-in{ ocarina_if: "auth.loggedIn && currentUser.email" }
@@ -37,6 +46,7 @@
     = javascript_include_tag "http://js.pusher.com/2.1/pusher.min.js"
     = javascript_include_tag "http://connect.soundcloud.com/sdk.js"
     = javascript_include_tag "application"
+
     :javascript
       SC.initialize({
         client_id: "3d6e76640c62f42c02cb78d2c53d0db9"

@@ -1,11 +1,11 @@
 # API URL
-@apiURL = ""
+@apiURL = Playedbyme.env.apiURL
 
 ocarinaServices = angular.module('ocarinaServices', [])
 
 ocarinaServices.factory 'Pusher', ->
   if Pusher?
-    pusher = new Pusher("e9eb3f912d37215f7804")
+    pusher = new Pusher(Playedbyme.env.pusherKey)
   else
     # if pusher doesn't load
     subscribe: ->
@@ -235,8 +235,8 @@ ocarinaServices.factory 'Player', ['Audio', (Audio) ->
 ]
 
 ocarinaServices.factory 'Facebook', ['$http', ($http) ->
-  api_url   = "http://facebook.com"
-  app_id    = '227387824081363'
+  api_url = "http://facebook.com"
+  app_id  = Playedbyme.env.facebookAppId
 
   Facebook = (data) ->
     angular.extend(this, data)
@@ -253,7 +253,7 @@ ocarinaServices.factory 'Facebook', ['$http', ($http) ->
   Facebook.sendDialog = (playlist_id) ->
     FB.ui
       method: "send"
-      link: "http://played-by-me.herokuapp.com/playlists/#{playlist_id}"
+      link: "http://#{Playedbyme.env.domain}/playlists/#{playlist_id}"
 
   Facebook.getUsersFavoriteArtists = (id, callback) ->
     FB.api "/#{id}/music", (res) ->

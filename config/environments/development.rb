@@ -32,8 +32,16 @@ Ocarina::Application.configure do
   config.smtp_password  = ENV['SMTP_PASSWORD'] || 'jarpadarp'
 
   # API URLs
+  config.api_url        = ENV['API_URL'] || 'http://localhost:4400'
   config.web_url        = ENV['WEB_URL'] || 'http://localhost:4400'
   config.mobile_web_url = ENV['MOBILE_WEB_URL'] || 'http://localhost:8000'
+
+  # API ID/Secret Keys
+  config.facebook_app_id = ENV['FACEBOOK_APP_ID'] || raise_for('FACEBOOK_APP_ID')
+  config.pusher_key      = ENV['PUSHER_KEY'] || raise_for('PUSHER_APP_ID')
+
+  # Other
+  config.domain = ENV['DOMAIN'] || 'localhost:4400'
 
   ##
   # CORS support
