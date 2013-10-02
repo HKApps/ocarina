@@ -45,7 +45,7 @@ ocarina.controller 'PlaylistNewCtrl', ['$rootScope', '$scope', '$location', 'Fac
         $location.path("/playlists/#{res.data.id}")
         $scope.currentUser.playlists.push(res.data)
         message = "I just created a playlist for this event on PlayedBy.me. Go to the site now or at the party to add songs you want to hear!"
-        link = "http://localhost:4400/playlists/#{res.data.id}"
+        link = "http://#{Playedbyme.env.domain}/playlists/#{res.data.id}"
         name = "#{fbEvent.name}'s playlist"
         # TODO uncomment this when we can prompt user to post
         # Facebook.postOnEvent(fbEvent.id, message, link, name)
