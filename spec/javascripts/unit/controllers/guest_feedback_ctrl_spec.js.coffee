@@ -14,6 +14,7 @@ describe 'GuestFeedbackCtrl', ->
       $http: http
 
     scope.currentUser =
+      id: 2
       favorites: [
         { playlist_song_id: 1 }
       ]
@@ -30,7 +31,7 @@ describe 'GuestFeedbackCtrl', ->
     httpBackend.flush()
     expect(scope.songSaved(song.id)).toEqual { id: 2,playlist_song_id: 2 }
 
-    httpBackend.expectDELETE("/api/saved_songs/2.json").respond(200)
+    httpBackend.expectDELETE("/api/saved_songs/2.json?user_id=2").respond(200)
     scope.toggleSongSaved(song)
     httpBackend.flush()
     expect(scope.songSaved(song.id)).toEqual undefined

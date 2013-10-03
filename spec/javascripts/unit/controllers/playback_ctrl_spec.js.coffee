@@ -26,8 +26,6 @@ describe 'PlaybackCtrl', ->
       params:
         playlistId: "12345"
 
-    httpBackend.expectGET("https://graph.facebook.com/fql/?q=SELECT music FROM user WHERE uid IN (SELECT uid FROM event_member WHERE eid=54321 AND rsvp_status='attending') AND uid IN (SELECT uid2 FROM friend WHERE uid1 = me())&access_token=token").respond(200)
-
     $controller 'PlaybackCtrl',
       $scope: scope
       $rootScope: rootScope
