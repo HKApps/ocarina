@@ -13,6 +13,8 @@ describe 'PlaylistShowCtrl', ->
     httpBackend = $httpBackend
     location = $location
     scope = $rootScope.$new()
+    scope.currentUser =
+      id: 2
     playlist = Playlist
     route = $route
     route.current =
@@ -24,7 +26,7 @@ describe 'PlaylistShowCtrl', ->
           true
 
     # requests on load
-    httpBackend.expectGET("/api/playlists/12345.json").respond(
+    httpBackend.expectGET("/api/playlists/12345.json?user_id=2").respond(
       id: "12345"
       guests:
         [{ id: 1 }]
@@ -42,7 +44,7 @@ describe 'PlaylistShowCtrl', ->
 
   it 'adds a user to playlist on load', ->
     httpBackend.expectPOST("/api/playlists/12345/join").respond(201)
-    httpBackend.expectGET("/api/playlists/12345/current_song_request.json").respond(200)
+    httpBackend.expectGET("/api/playlists/12345/current_song_request.json?user_id=2").respond(200)
     httpBackend.expectGET("/partials/playlists/show.html").respond(200)
 
     controller 'PlaylistShowCtrl',
@@ -65,7 +67,7 @@ describe 'PlaylistShowCtrl', ->
     expect(scope.isMember(scope.currentUser.id)).toEqual scope.currentUser
 
   it 'does not add a user if they are the host or a member', ->
-    httpBackend.expectGET("/api/playlists/12345/current_song_request.json").respond(200)
+    httpBackend.expectGET("/api/playlists/12345/current_song_request.json?user_id=1").respond(200)
     httpBackend.expectGET("/partials/playlists/show.html").respond(200)
 
     controller 'PlaylistShowCtrl',
