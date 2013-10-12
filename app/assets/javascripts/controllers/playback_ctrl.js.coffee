@@ -6,8 +6,12 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
     # continuous play setup
     contPlayPosition = 0
     nextContPlaySong = undefined
+    $scope.$emit("addingSongs")
 
-    FB.getLoginStatus (response) ->
+    $scope.$on 'new-guest', ->
+      $scope.setupContPlay()
+
+    $scope.setupContPlay = ->
       if $scope.playlist.facebook_id
         Facebook.getEventsFavoriteArtists $scope.playlist.facebook_id, (res) ->
           $scope.contPlaylist = res
@@ -41,6 +45,7 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
             true
           ).then (res) =>
             nextContPlaySong = res.data[0]
+            $scope.$emit("addedSongs")
             Playlist.songPlayed(
               $scope.currentUser.id,
               $scope.playlistId,
@@ -48,6 +53,9 @@ ocarina.controller 'PlaybackCtrl', ['$scope', '$rootScope', '$route', 'Playlist'
               true
             )
           contPlayPosition++
+
+    FB.getLoginStatus (response) ->
+      $scope.setupContPlay()
 
     ##
     # audo playback

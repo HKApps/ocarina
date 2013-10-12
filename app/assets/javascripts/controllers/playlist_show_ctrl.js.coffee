@@ -109,6 +109,7 @@ ocarina.controller 'PlaylistShowCtrl', ['Playlist', '$scope', '$route', 'Pusher'
       playlistChannel.bind 'new-guest', (data) ->
         return if data.guest.id == $scope.currentUser.id
         $scope.playlist.guests.push data.guest
+        $scope.$broadcast 'new-guest'
         $scope.$apply() unless $scope.$$phase
 
       playlistChannel.bind 'playback-ended', (data) ->
