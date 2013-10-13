@@ -62,8 +62,8 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
 
   window.fbAsyncInit = ->
     FB.init
-      appId: "160916744087752"
-      channelUrl: "//localhost:4400/channel.html"
+      appId: "#{Playedbyme.env.facebookAppId}"
+      channelUrl: "//#{Playedbyme.env.domain}/channel.html"
       status: true # check login status
       cookie: true # enable cookies to allow the server to access the session
       xfbml: true # parse XFBML
@@ -82,7 +82,7 @@ ocarinaServices.factory 'Authentication', ['$http', ($http) ->
             access_token: auth.accessToken
           $.get "#{apiURL}/api/users/authenticate.json", authParams, (data) ->
             Authentication.setCookie("user_id", data.id, 1)
-            window.location.replace "http://localhost:4400?user_id=#{data.id}"
+            window.location.replace "http://#{Playedbyme.env.domain}?user_id=#{data.id}"
       else if res.status is "not_authorized"
         # if user logged in but hasn't authed app
       else
