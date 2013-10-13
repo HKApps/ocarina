@@ -18,21 +18,6 @@
         }
       };
 
-      (function(d) {
-        var id, js, ref;
-        js = void 0;
-        id = "facebook-jssdk";
-        ref = d.getElementsByTagName("script")[0];
-        if (d.getElementById(id)) {
-        return;
-        }
-        js = d.createElement("script");
-        js.id = id;
-        js.async = true;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        return ref.parentNode.insertBefore(js, ref);
-      })(document);
-
   %body.ng-cloak{ ng_controller: 'UserCtrl' }
     .logged-out{ ocarina_if: "!auth.loggedIn", ng_include:"'/partials/logged_out'" }
     .logged-in{ ocarina_if: "auth.loggedIn && currentUser.email" }
