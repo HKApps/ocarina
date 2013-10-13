@@ -102,7 +102,7 @@ Ocarina::Application.configure do
   # CORS support
   config.middleware.insert_before "ActionDispatch::Static", "Rack::Cors" do
     allow do
-      origins Rails.configuration.mobile_web_url, /http:\/\/((yc|techstars).)?playedby.me/
+      origins Rails.configuration.mobile_web_url, "http://techstars.playedby.me", "http://yc.playedby.me"
 
       resource '/api/*',
         headers: :any,
