@@ -18,6 +18,7 @@ getCookie = (c_name) ->
     c_value
 
 window.fbAsyncInit = ->
+  console.log "app initialized"
   FB.init
     appId: "#{Playedbyme.env.facebookAppId}"
     channelUrl: "//#{Playedbyme.env.domain}/channel.html"
