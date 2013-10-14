@@ -40,7 +40,7 @@ window.fbAsyncInit = ->
           access_token: auth.accessToken
         $.get "#{apiURL}/api/users/authenticate.json", authParams, (data) ->
           setCookie("user_id", data.id, 1)
-          window.location.replace "http://#{Playedbyme.env.domain}?user_id=#{data.id}"
+          window.location.replace "#{Playedbyme.env.domain}?user_id=#{data.id}"
     else if res.status is "not_authorized"
       # if user logged in but hasn't authed app
     else
