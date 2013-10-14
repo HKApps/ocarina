@@ -81,22 +81,30 @@ Ocarina::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-  #
+
   # Email Options
   config.smtp_user_name = ENV['SMTP_USER_NAME'] || raise_for('SMTP_USER_NAME')
   config.smtp_password  = ENV['SMTP_PASSWORD'] || raise_for('SMTP_PASSWORD')
 
   # API URLs
+  config.api_url        = ENV['API_URL'] || raise_for('API_URL')
   config.web_url        = ENV['WEB_URL'] || raise_for('WEB_URL')
   config.mobile_web_url = ENV['MOBILE_WEB_URL'] || raise_for('MOBILE_WEB_URL')
+
+  # API ID/Secret Keys
+  config.facebook_app_id = ENV['FACEBOOK_APP_ID'] || raise_for('FACEBOOK_APP_ID')
+  config.pusher_key      = ENV['PUSHER_KEY'] || raise_for('PUSHER_APP_ID')
+
+  # Other
+  config.domain = ENV['DOMAIN'] || raise_for('DOMAIN')
 
   ##
   # CORS support
   config.middleware.insert_before "ActionDispatch::Static", "Rack::Cors" do
     allow do
-      origins Rails.configuration.mobile_web_url
+      origins Rails.configuration.mobile_web_url, "http://techstars.playedby.me", "http://yc.playedby.me"
 
-      resource '/api/*', 
+      resource '/api/*',
         headers: :any,
         methods: [:get, :post]
     end
